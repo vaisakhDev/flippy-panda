@@ -1,0 +1,46 @@
+main {
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.mat-form-field {
+  width: 40%;
+}
+
+.example-form {
+  display:flex;
+  justify-content: space-evenly;
+}
+
+#stackInfoCard {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+#playBtn {
+  font-size: xx-large;
+  cursor: pointer;
+}
+
+#renameStackBtn, #removeStackBtn {
+  transform: scale(0.8);
+}
+
+#addCardCard {
+  margin-bottom: 1rem;
+}
+
+#addCardBtn {
+  font-size: xx-large;
+}
+
+#removeCardBtn {
+  color: #3E4EB8;
+  font-size: 3rem;
+  cursor: pointer;
+}
