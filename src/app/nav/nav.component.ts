@@ -28,9 +28,5 @@ export class NavComponent {
     this.service.updateActiveStack(id)
   }
 
-  closeBanner() {
-    this.persistentData.banner = false
-    this.service.updateLocalStorage()
-  }
-
+  closeBanner = () => this.service.save({ banner: false })
 }
