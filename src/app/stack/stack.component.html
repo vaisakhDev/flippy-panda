@@ -1,5 +1,5 @@
 <main>
-  <mat-card [style.display]="mainState.stacks.length > 0 ? 'block' : 'none'">
+  <mat-card [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
       <mat-card-title *ngIf="this.service.activeStack">{{this.service.activeStack.name}}</mat-card-title>
       <div id="playBtn" mat-mini-fab color="primary" (click)="openPlayOrderDialog()">▶️</div>
@@ -56,7 +56,7 @@
     </table>
   </mat-card>
 
-  <mat-card *ngIf="mainState.stacks.length === 0">
+  <mat-card *ngIf="persistentData.stacks.length === 0">
     <mat-card-title>👈 Create a stack to continue your flash cards journey 🤓🎴🌈</mat-card-title>
   </mat-card>
 </main>

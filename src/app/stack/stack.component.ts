@@ -14,13 +14,13 @@ let renameDialogRef
 export class StackComponent {
   displayedColumns: string[] = ['cardIcon', 'left', 'right', 'remove']
   newName: string
-  mainState
+  persistentData
 
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild('topside', { static: true }) topSideInput: MatInput
 
   constructor(public service: StackService, public dialog: MatDialog) {
-    this.mainState = service.mainState
+    this.persistentData = service.persistentData
   }
 
   openPlayOrderDialog = () => {

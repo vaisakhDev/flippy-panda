@@ -14,9 +14,9 @@ export class NavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public service: StackService) {
-    this.mainState = service.mainState
+    this.persistentData = service.persistentData
   }
-  mainState
+  persistentData
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -29,7 +29,7 @@ export class NavComponent {
   }
 
   closeBanner() {
-    this.mainState.banner = false
+    this.persistentData.banner = false
     this.service.updateLocalStorage()
   }
 

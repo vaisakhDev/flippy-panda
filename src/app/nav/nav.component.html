@@ -2,10 +2,10 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-nav-list>
-      <mat-button-toggle-group *ngIf="mainState.stacks" name="fontStyle" aria-label="Font Style"
-        value="{{mainState.activeStackId}}">
-        <mat-button-toggle *ngFor="let stack of mainState.stacks" (click)="changeActiveStack(stack.id)" mat-list-item
-          value="{{stack.id}}">
+      <mat-button-toggle-group *ngIf="persistentData.stacks" name="fontStyle" aria-label="Font Style"
+        value="{{persistentData.activeStackId}}">
+        <mat-button-toggle *ngFor="let stack of persistentData.stacks" (click)="changeActiveStack(stack.id)"
+          mat-list-item value="{{stack.id}}">
           {{stack.name}}</mat-button-toggle>
       </mat-button-toggle-group>
       <button id="addBtn" mat-mini-fab color="primary" (click)="this.service.addStack();">+</button>
@@ -19,7 +19,7 @@
       </button>
       <span>flippy-panda 🐼</span>
     </mat-toolbar>
-    <mat-card id="bannerCard" *ngIf="mainState.banner">
+    <mat-card id="bannerCard" *ngIf="persistentData.banner">
       <p>This app uses Local Storage to persist data 💾</p>
       <button mat-button (click)="closeBanner()">
         Okay that's fine 😊

@@ -5,7 +5,7 @@ import hri from 'human-readable-ids'
   providedIn: 'root'
 })
 export class StackService {
-  mainState = { // deals with local storage
+  persistentData = { // deals with local storage
     stacks: [
       // {
       //   id: 'a',
@@ -29,31 +29,31 @@ export class StackService {
   constructor() {
     const state = JSON.parse(localStorage.getItem('flippyPanda'))
     if (state) {
-      this.mainState = state
+      this.persistentData = state
       this.updateActiveStack(state.activeStackId)
     }
   }
 
   addStack() {
-    const newId = this.createUniqueId(this.mainState.stacks)
+    const newId = this.createUniqueId(this.persistentData.stacks)
     const newStack = {
       id: newId,
-      name: `stack #${this.mainState.stacks.length + 1}`,
+      name: `stack #${this.persistentData.stacks.length + 1}`,
       cards: []
     }
 
-    this.mainState.stacks.push(newStack)
+    this.persistentData.stacks.push(newStack)
     this.updateActiveStack(newId)
     this.updateLocalStorage()
   }
 
   removeStack() {
-    const leftStacks = this.mainState.stacks.filter(e => {
-      return e.id !== this.mainState.activeStackId
+    const leftStacks = this.persistentData.stacks.filter(e => {
+      return e.id !== this.persistentData.activeStackId
     })
-    this.mainState.stacks = leftStacks
-    if (this.mainState.stacks.length > 0) {
-      this.updateActiveStack(this.mainState.stacks[0].id)
+    this.persistentData.stacks = leftStacks
+    if (this.persistentData.stacks.length > 0) {
+      this.updateActiveStack(this.persistentData.stacks[0].id)
     } else {
       this.updateActiveStack(undefined)
     }
@@ -77,13 +77,13 @@ export class StackService {
   }
 
   updateLocalStorage() {
-    localStorage.setItem('flippyPanda', JSON.stringify(this.mainState))
+    localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
   }
 
   updateActiveStack(id) {
-    this.mainState.activeStackId = id
+    this.persistentData.activeStackId = id
     this.activeStack = id
-      ? this.mainState.stacks.filter(e => e.id === this.mainState.activeStackId)[0]
+      ? this.persistentData.stacks.filter(e => e.id === this.persistentData.activeStackId)[0]
       : this.activeStackBase
   }
 
