@@ -2,7 +2,7 @@
   <mat-card [style.display]="mainState.stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
       <mat-card-title *ngIf="this.service.activeStack">{{this.service.activeStack.name}}</mat-card-title>
-      <div id="playBtn" mat-mini-fab color="primary" (click)="openRunDialog()">▶️</div>
+      <div id="playBtn" mat-mini-fab color="primary" (click)="openPlayOrderDialog()">▶️</div>
       <div>
         <button id="renameStackBtn" mat-flat-button color="primary" (click)="openRenameStackDialog()">Rename
           Stack</button>

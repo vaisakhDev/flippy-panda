@@ -17,6 +17,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 import { NavComponent } from './nav/nav.component'
 import { RunDialogComponent } from './stack/stack.component'
+import { PlayOrderComponent } from './stack/stack.component'
 import { RenameDialogComponent } from './stack/stack.component'
 import { StackComponent } from './stack/stack.component'
 
@@ -25,11 +26,13 @@ import { StackComponent } from './stack/stack.component'
     AppComponent,
     NavComponent,
     RunDialogComponent,
+    PlayOrderComponent,
     RenameDialogComponent,
     StackComponent
   ],
   entryComponents: [
     RunDialogComponent,
+    PlayOrderComponent,
     RenameDialogComponent
   ],
   imports: [

@@ -24,6 +24,7 @@ export class StackService {
     cards: []
   }
   activeStackBase = JSON.parse(JSON.stringify(this.activeStack))
+  choseTopSideToStart = true
 
   constructor() {
     const state = JSON.parse(localStorage.getItem('flippyPanda'))

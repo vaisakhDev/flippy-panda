@@ -23,9 +23,9 @@ export class StackComponent {
     this.mainState = service.mainState
   }
 
-  openRunDialog = () => {
+  openPlayOrderDialog = () => {
     if (this.service.activeStack.cards.length > 0) {
-      this.dialog.open(RunDialogComponent)
+      this.dialog.open(PlayOrderComponent)
     }
   }
 
@@ -75,8 +75,14 @@ export class RunDialogComponent {
     this.actCard = this.data.pop()
     this.actWordLeft = this.actCard.left
     this.actWordRight = this.actCard.right
-    this.leftActive = true
-    this.actWord = this.actWordLeft
+
+    if (this.service.choseTopSideToStart) {
+      this.leftActive = true
+      this.actWord = this.actWordLeft
+    } else {
+      this.leftActive = false
+      this.actWord = this.actWordRight
+    }
   }
 
   shuffleArray = (arr) => {
@@ -97,12 +103,20 @@ export class RunDialogComponent {
     } else {
       this.negatives++
     }
-    this.leftActive = true
+    if (this.service.choseTopSideToStart) {
+      this.leftActive = true
+    } else {
+      this.leftActive = false
+    }
     if (this.data.length) {
       this.actCard = this.data.pop()
       this.actWordLeft = this.actCard.left
       this.actWordRight = this.actCard.right
-      this.actWord = this.actWordLeft
+      if (this.service.choseTopSideToStart) {
+        this.actWord = this.actWordLeft
+      } else {
+        this.actWord = this.actWordRight
+      }
     } else {
       this.finished = true
     }
@@ -121,5 +135,19 @@ export class RenameDialogComponent {
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
     this.service.activeStack.name = newName
     renameDialogRef.close([])
+  }
+}
+
+@Component({
+  templateUrl: './play-order.html',
+})
+export class PlayOrderComponent {
+  constructor(public service: StackService, public dialog: MatDialog) {
+  }
+
+  openRunDialog = (choseTopSide) => {
+    this.dialog.closeAll()
+    this.service.choseTopSideToStart = choseTopSide
+    this.dialog.open(RunDialogComponent)
   }
 }
