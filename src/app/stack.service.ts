@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core'
 import hri from 'human-readable-ids'
+import { PersistentData, Stack, Card } from './interfaces'
+import { CardSide } from './enums'
+
+type Item = Stack | Card
 
 @Injectable({
   providedIn: 'root'
 })
 export class StackService {
-  persistentData = { // deals with local storage
-    stacks: [
-      // {
-      //   id: 'a',
-      //   name: 'stack #1',
-      //   cards: [
-      //     { id: 'abc123', left: '1+1', right: '2' }, ...
-      //   ]
-      // }, ...
-    ],
+  persistentData: PersistentData = {
+    stacks: [],
     activeStackId: undefined,
     banner: true
   }
-  activeStack = {
+  activeStack: Stack = {
     id: undefined,
     name: undefined,
     cards: []
   }
   activeStackBase = JSON.parse(JSON.stringify(this.activeStack))
-  choseTopSideToStart = true
+  chosenCardSide = CardSide.top
 
   constructor() {
     const state = JSON.parse(localStorage.getItem('flippyPanda'))
@@ -34,7 +30,7 @@ export class StackService {
     }
   }
 
-  save(newObj, updateLocalStorage = true) {
+  save(newObj: object, updateLocalStorage: boolean = true) {
     Object.assign(this.persistentData, newObj)
     if (updateLocalStorage) {
       localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
@@ -66,7 +62,7 @@ export class StackService {
     this.updateLocalStorage()
   }
 
-  addCard(leftText, rightText) {
+  addCard(leftText: string, rightText: string) {
     this.activeStack.cards.push({
       id: this.createUniqueId(this.activeStack.cards),
       left: leftText,
@@ -75,7 +71,7 @@ export class StackService {
     this.updateLocalStorage()
   }
 
-  removeCard(id) {
+  removeCard(id: string) {
     const activeStack = this.activeStack
     const leftCards = activeStack.cards.filter(e => e.id !== id)
     activeStack.cards = leftCards
@@ -86,15 +82,15 @@ export class StackService {
     localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
   }
 
-  updateActiveStack(id) {
+  updateActiveStack(id: string) {
     this.save({ activeStackId: id })
     this.activeStack = id
       ? this.persistentData.stacks.filter(e => e.id === this.persistentData.activeStackId)[0]
       : this.activeStackBase
   }
 
-  createUniqueId = (arr) => {
-    let newId
+  createUniqueId = (arr: Item[]): string => {
+    let newId: string
     while (true) {
       newId = hri.hri.random()
       const leftStacks = arr.filter(e => e.id === newId)

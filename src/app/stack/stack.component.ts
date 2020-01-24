@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatTable } from '@angular/material'
 import { StackService } from '../stack.service'
 import { MatInput } from '@angular/material/input'
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { PersistentData, Card } from '../interfaces'
+import { CardSide } from '../enums'
 
-let renameDialogRef
+let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
 
 @Component({
   selector: 'app-stack',
@@ -14,7 +16,7 @@ let renameDialogRef
 export class StackComponent {
   displayedColumns: string[] = ['cardIcon', 'left', 'right', 'remove']
   newName: string
-  persistentData
+  persistentData: PersistentData
 
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild('topside', { static: true }) topSideInput: MatInput
@@ -29,7 +31,7 @@ export class StackComponent {
     }
   }
 
-  addCard(event) {
+  addCard(event: Event) {
     event.preventDefault()
 
     const textareas = document.querySelectorAll('input')
@@ -51,19 +53,19 @@ export class StackComponent {
 
   removeStack = () => this.service.removeStack()
 
-  removeCard = (obj) => this.service.removeCard(obj.id)
+  removeCard = (card: Card) => this.service.removeCard(card.id)
 }
 
 @Component({
   templateUrl: './run-dialog.html',
 })
 export class RunDialogComponent {
-  data
-  actCard
-  actWord
-  actWordLeft
-  actWordRight
-  leftActive
+  data: Card[]
+  actCard: Card
+  actWord: string
+  actWordLeft: string
+  actWordRight: string
+  cardSide = CardSide.top
   finished = false
 
   positives = 0
@@ -76,43 +78,50 @@ export class RunDialogComponent {
     this.actWordLeft = this.actCard.left
     this.actWordRight = this.actCard.right
 
-    if (this.service.choseTopSideToStart) {
-      this.leftActive = true
+    if (this.service.chosenCardSide === CardSide.top) {
+      this.cardSide = CardSide.top
       this.actWord = this.actWordLeft
     } else {
-      this.leftActive = false
+      this.cardSide = CardSide.bottom
       this.actWord = this.actWordRight
     }
   }
 
-  shuffleArray = (arr) => {
+  shuffleArray = (arr: Card[]): Card[] => {
     return arr
       .map(a => [Math.random(), a])
-      .sort((a, b) => a[0] - b[0])
-      .map(a => a[1])
+      .sort((a, b) => +a[0] - +b[0])
+      .map(a => a[1]) as Card[]
   }
 
   flip = () => {
-    this.leftActive = !this.leftActive
-    this.actWord = this.leftActive ? this.actWordLeft : this.actWordRight
+    switch (this.cardSide) {
+      case CardSide.top:
+        this.cardSide = CardSide.bottom
+        this.actWord = this.actWordRight
+        break
+      case CardSide.bottom:
+        this.cardSide = CardSide.top
+        this.actWord = this.actWordLeft
+    }
   }
 
-  nextCard = (trueAnswer) => {
+  nextCard = (trueAnswer: boolean) => {
     if (trueAnswer) {
       this.positives++
     } else {
       this.negatives++
     }
-    if (this.service.choseTopSideToStart) {
-      this.leftActive = true
+    if (this.service.chosenCardSide === CardSide.top) {
+      this.cardSide = CardSide.top
     } else {
-      this.leftActive = false
+      this.cardSide = CardSide.bottom
     }
     if (this.data.length) {
       this.actCard = this.data.pop()
       this.actWordLeft = this.actCard.left
       this.actWordRight = this.actCard.right
-      if (this.service.choseTopSideToStart) {
+      if (this.service.chosenCardSide === CardSide.top) {
         this.actWord = this.actWordLeft
       } else {
         this.actWord = this.actWordRight
@@ -127,10 +136,9 @@ export class RunDialogComponent {
   templateUrl: 'rename-dialog.html',
 })
 export class RenameDialogComponent {
-
   constructor(public service: StackService) { }
 
-  renameStack(event) {
+  renameStack(event: Event) {
     event.preventDefault()
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
     this.service.activeStack.name = newName
@@ -142,12 +150,14 @@ export class RenameDialogComponent {
   templateUrl: './play-order.html',
 })
 export class PlayOrderComponent {
+  cardSide: typeof CardSide = CardSide
+
   constructor(public service: StackService, public dialog: MatDialog) {
   }
 
-  openRunDialog = (choseTopSide) => {
+  openRunDialog = (choseTopSide: CardSide) => {
     this.dialog.closeAll()
-    this.service.choseTopSideToStart = choseTopSide
+    this.service.chosenCardSide = choseTopSide
     this.dialog.open(RunDialogComponent)
   }
 }
