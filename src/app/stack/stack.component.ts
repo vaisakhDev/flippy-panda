@@ -3,6 +3,7 @@ import { MatTable } from '@angular/material'
 import { StackService } from '../stack.service'
 import { MatInput } from '@angular/material/input'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+
 import { PersistentData, Card } from '../interfaces'
 import { CardSide } from '../enums'
 

@@ -13,11 +13,16 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>flippy-panda 🐼</span>
+      <div>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>flippy-panda 🐼</span>
+      </div>
+      <a href="https://github.com/TGotwig/flippy-panda" target="_blank">
+        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+      </a>
     </mat-toolbar>
     <mat-card id="bannerCard" *ngIf="persistentData.banner">
       <p>This app uses Local Storage to persist data 💾</p>
