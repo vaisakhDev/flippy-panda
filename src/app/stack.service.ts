@@ -26,14 +26,7 @@ export class StackService {
     const state = JSON.parse(localStorage.getItem('flippyPanda'))
     if (state) {
       this.persistentData = state
-      this.updateActiveStack(state.activeStackId)
-    }
-  }
-
-  save(newObj: object, updateLocalStorage: boolean = true) {
-    Object.assign(this.persistentData, newObj)
-    if (updateLocalStorage) {
-      localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
+      this.SetActiveStackId(state.activeStackId)
     }
   }
 
@@ -45,45 +38,56 @@ export class StackService {
       cards: []
     }
 
-    this.save({ stacks: [...this.persistentData.stacks, newStack] })
-    this.updateActiveStack(newId)
+    this.updatePersistentData({ stacks: [...this.persistentData.stacks, newStack] })
+    this.SetActiveStackId(newId)
   }
 
   removeStack() {
     const leftStacks = this.persistentData.stacks.filter(e => {
       return e.id !== this.persistentData.activeStackId
     })
-    this.save({ stacks: [...leftStacks] }, false)
+    this.updatePersistentData({ stacks: [...leftStacks] }, false)
     if (this.persistentData.stacks.length > 0) {
-      this.updateActiveStack(this.persistentData.stacks[0].id)
+      this.SetActiveStackId(this.persistentData.stacks[0].id)
     } else {
-      this.updateActiveStack(undefined)
+      this.SetActiveStackId(undefined)
     }
-    this.updateLocalStorage()
   }
 
   addCard(leftText: string, rightText: string) {
-    this.activeStack.cards.push({
-      id: this.createUniqueId(this.activeStack.cards),
-      left: leftText,
-      right: rightText
+    this.updateActiveStack({
+      cards: [...this.activeStack.cards, {
+        id: this.createUniqueId(this.activeStack.cards),
+        left: leftText,
+        right: rightText
+      }]
     })
-    this.updateLocalStorage()
   }
 
   removeCard(id: string) {
     const activeStack = this.activeStack
     const leftCards = activeStack.cards.filter(e => e.id !== id)
-    activeStack.cards = leftCards
-    this.updateLocalStorage()
+    this.updateActiveStack({ cards: [...leftCards] })
   }
 
-  updateLocalStorage() {
-    localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
+  updatePersistentData(update: object, updateLocalStorage = true) {
+    Object.assign(this.persistentData, update)
+    if (updateLocalStorage) {
+      this.updateLocalStorage()
+    }
   }
 
-  updateActiveStack(id: string) {
-    this.save({ activeStackId: id })
+  updateActiveStack(update: object, updateLocalStorage = true) {
+    Object.assign(this.activeStack, update)
+    if (updateLocalStorage) {
+      this.updateLocalStorage()
+    }
+  }
+
+  updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
+
+  SetActiveStackId(id: string) {
+    this.updatePersistentData({ activeStackId: id })
     this.activeStack = id
       ? this.persistentData.stacks.filter(e => e.id === this.persistentData.activeStackId)[0]
       : this.activeStackBase

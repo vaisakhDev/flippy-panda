@@ -26,8 +26,8 @@ export class NavComponent {
     )
 
   changeActiveStack(id: string) {
-    this.service.updateActiveStack(id)
+    this.service.SetActiveStackId(id)
   }
 
-  closeBanner = () => this.service.save({ banner: false })
+  closeBanner = () => this.service.updatePersistentData({ banner: false })
 }

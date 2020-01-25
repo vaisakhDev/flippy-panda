@@ -44,12 +44,7 @@ export class StackComponent {
     this.topSideInput.focus()
   }
 
-  openRenameStackDialog = () => {
-    renameDialogRef = this.dialog.open(RenameDialogComponent)
-    renameDialogRef.afterClosed().subscribe(() => {
-      this.service.updateLocalStorage()
-    })
-  }
+  openRenameStackDialog = () => renameDialogRef = this.dialog.open(RenameDialogComponent)
 
   removeStack = () => this.service.removeStack()
 
@@ -141,7 +136,7 @@ export class RenameDialogComponent {
   renameStack(event: Event) {
     event.preventDefault()
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
-    this.service.activeStack.name = newName
+    this.service.updateActiveStack({ name: newName })
     renameDialogRef.close([])
   }
 }
