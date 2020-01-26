@@ -38,7 +38,10 @@ export class StackService {
       cards: []
     }
 
-    this.updatePersistentData({ stacks: [...this.persistentData.stacks, newStack] })
+    const newStacks = [...this.persistentData.stacks, newStack]
+      .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
+
+    this.updatePersistentData({ stacks: newStacks })
     this.SetActiveStackId(newId)
   }
 

@@ -4,7 +4,7 @@ import { StackService } from '../stack.service'
 import { MatInput } from '@angular/material/input'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 
-import { PersistentData, Card } from '../interfaces'
+import { PersistentData, Card, Stack } from '../interfaces'
 import { CardSide } from '../enums'
 
 let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
@@ -137,7 +137,12 @@ export class RenameDialogComponent {
   renameStack(event: Event) {
     event.preventDefault()
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
+
     this.service.updateActiveStack({ name: newName })
+    const newStacks = this.service.persistentData.stacks
+      .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
+    this.service.updatePersistentData({ stacks: newStacks })
+
     renameDialogRef.close([])
   }
 }
