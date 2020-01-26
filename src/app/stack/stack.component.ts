@@ -3,7 +3,7 @@ import { MatTable } from '@angular/material'
 import { StackService } from '../stack.service'
 import { MatInput } from '@angular/material/input'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
-
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { PersistentData, Card, Stack } from '../interfaces'
 import { CardSide } from '../enums'
 
@@ -22,8 +22,12 @@ export class StackComponent {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild('topside', { static: true }) topSideInput: MatInput
 
-  constructor(public service: StackService, public dialog: MatDialog) {
+  constructor(public service: StackService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.persistentData = service.persistentData
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2000, })
   }
 
   openPlayOrderDialog = () => {
@@ -43,6 +47,7 @@ export class StackComponent {
     this.table.renderRows()
     textareas.forEach(e => e.value = '')
     this.topSideInput.focus()
+    this.openSnackBar(`${leftText} & ${rightText}`, 'Added 📥')
   }
 
   openRenameStackDialog = () => renameDialogRef = this.dialog.open(RenameDialogComponent)

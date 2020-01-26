@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { NavComponent } from './nav/nav.component'
 import { RunDialogComponent } from './stack/stack.component'
@@ -48,7 +49,8 @@ import { StackComponent } from './stack/stack.component'
     MatInputModule,
     MatDialogModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
