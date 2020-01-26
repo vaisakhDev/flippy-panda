@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { PersistentData, Card, Stack } from '../interfaces'
 import { CardSide } from '../enums'
+import gsap from 'gsap'
 
 let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
 
@@ -58,7 +59,7 @@ export class StackComponent {
 }
 
 @Component({
-  templateUrl: './run-dialog.html',
+  templateUrl: './run-dialog.html'
 })
 export class RunDialogComponent {
   data: Card[]
@@ -96,6 +97,7 @@ export class RunDialogComponent {
   }
 
   flip = () => {
+    gsap.from('#question', { rotationY: -180 })
     switch (this.cardSide) {
       case CardSide.top:
         this.cardSide = CardSide.bottom
@@ -153,7 +155,7 @@ export class RenameDialogComponent {
 }
 
 @Component({
-  templateUrl: './play-order.html',
+  templateUrl: './play-order.html'
 })
 export class PlayOrderComponent {
   cardSide: typeof CardSide = CardSide
