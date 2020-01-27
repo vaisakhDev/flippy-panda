@@ -48,7 +48,7 @@ export class StackComponent {
     this.table.renderRows()
     textareas.forEach(e => e.value = '')
     this.topSideInput.focus()
-    this.openSnackBar(`${leftText} & ${rightText}`, 'Added 📥')
+    this.openSnackBar(`🎴Card("${leftText}", "${rightText}")`, 'Added 📥')
   }
 
   openRenameStackDialog = () => renameDialogRef = this.dialog.open(RenameDialogComponent)
