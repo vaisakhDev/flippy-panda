@@ -28,7 +28,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
     color: black;
   }
 
-  main {
+  main, .mat-drawer-content {
     background-color: mat-color($accent, 500)
   }
 
