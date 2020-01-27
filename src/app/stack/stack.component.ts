@@ -59,7 +59,8 @@ export class StackComponent {
 }
 
 @Component({
-  templateUrl: './run-dialog.html'
+  templateUrl: './run-dialog.html',
+  styles: ['#question { text-align: center }']
 })
 export class RunDialogComponent {
   data: Card[]

@@ -36,9 +36,14 @@
 
 #bannerCard {
   text-align: center;
-  background-color: #CDDC39;
+  border-radius: 0;
 }
 
-a {
-  color: white;
+:host .mat-button-toggle-group{
+  border-radius: 0 !important;
+  border: 0;
+}
+
+.sidenav {
+  border: 0;
 }

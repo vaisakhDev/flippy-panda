@@ -1,13 +1,12 @@
 <mat-card id="question" *ngIf="!finished">{{actWord}}</mat-card>
 
 <div *ngIf="finished">
-  <p>You are done 😇</p>
-  <p>Positives: {{positives}}</p>
-  <p>Negatives: {{negatives}}</p>
+  <p>Positives: {{positives}} 😊</p>
+  <p>Negatives: {{negatives}} 😖</p>
 </div>
 
 <mat-dialog-actions align="end" *ngIf="!finished">
-  <button mat-button (click)="nextCard(false)">Didn't know 😖</button>
-  <button mat-button cdkFocusInitial (click)="flip()">Flip 🎴</button>
-  <button mat-button (click)="nextCard(true)">Knew it 😊</button>
+  <button mat-button mat-raised-button color="accent" (click)="nextCard(false)">Didn't know 😖</button>
+  <button mat-button mat-raised-button color="accent" cdkFocusInitial (click)="flip()">Flip 🎴</button>
+  <button mat-button mat-raised-button color="accent" (click)="nextCard(true)">Knew it 😊</button>
 </mat-dialog-actions>

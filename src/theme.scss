@@ -1,0 +1,64 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$app-primary: mat-palette($mat-yellow);
+$app-accent:  mat-palette($mat-orange);
+
+$app-theme: mat-light-theme($app-primary, $app-accent);
+
+@mixin mix-app-theme($app-theme) {
+  $primary: map-get($app-theme, primary);
+  $accent: map-get($app-theme, accent);
+
+  .mat-button-toggle {
+    background-color: mat-color($primary, 300);
+    color: mat-color($primary, default-contrast);
+  }
+  .mat-button-toggle-checked {
+    background-color: mat-color($primary, A200);
+  }
+
+  .mat-card, .mat-cell, .mat-header-cell, .mat-dialog-container {
+    background: mat-color($primary, 400);
+    color: black;
+  }
+  
+  .mat-toolbar.mat-primary, a {
+    background: mat-color($primary);
+    color: black;
+  }
+
+  main {
+    background-color: mat-color($accent, 500)
+  }
+
+  .mat-drawer-inner-container {
+    background-color: mat-color($accent, 400);
+  }
+
+  #question {
+    background-color: mat-color($primary, A200);
+  }
+
+  .mat-focused .mat-form-field-label {
+      color: mat-color($primary, 900) !important;
+  }
+  .mat-form-field-ripple {
+      background-color: mat-color($primary, 900) !important;
+  }
+
+  .mat-snack-bar-container {
+    background: mat-color($primary);
+    color: black;
+  }
+
+  .mat-button {
+    color: mat-color($primary, 900);
+  }
+
+  #bannerCard {
+    background-color: mat-color($primary, 200);
+  }
+}
+
+@include mix-app-theme($app-theme);

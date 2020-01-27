@@ -1,10 +1,10 @@
 <main>
-  <mat-card [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
+  <div [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
       <mat-card-title *ngIf="this.service.activeStack">{{this.service.activeStack.name}}</mat-card-title>
-      <div id="playBtn" mat-mini-fab color="primary" (click)="openPlayOrderDialog()">▶️</div>
+      <i id="playBtn" class="fa fa-play-circle fa-2x" aria-hidden="true" (click)="openPlayOrderDialog()"></i>
       <div>
-        <button id="renameStackBtn" mat-flat-button color="primary" (click)="openRenameStackDialog()">Rename
+        <button id="renameStackBtn" mat-flat-button color="accent" (click)="openRenameStackDialog()">Rename
           Stack</button>
         <button id="removeStackBtn" mat-flat-button color="warn" (click)="removeStack()">Remove Stack</button>
       </div>
@@ -21,7 +21,7 @@
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Bottom-Side" />
         </mat-form-field>
-        <button id="addCardBtn" mat-mini-fab color="primary">+</button>
+        <button id="addCardBtn" mat-mini-fab color="accent">+</button>
       </form>
     </mat-card>
 
@@ -46,7 +46,7 @@
 
       <ng-container matColumnDef="remove" stickyEnd>
         <th mat-header-cell *matHeaderCellDef></th>
-        <td id="removeCardBtn" mat-cell *matCellDef="let obj" (click)="removeCard(obj)">
+        <td class="removeCardBtn" mat-cell *matCellDef="let obj" (click)="removeCard(obj)">
           -
         </td>
       </ng-container>
@@ -54,7 +54,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  </mat-card>
+  </div>
 
   <mat-card *ngIf="persistentData.stacks.length === 0">
     <mat-card-title>👈 Create a stack to continue your flash cards journey 🤓🎴🌈</mat-card-title>

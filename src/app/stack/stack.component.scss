@@ -1,4 +1,5 @@
 main {
+  height: 100%;
   padding: 1rem;
 }
 
@@ -39,8 +40,7 @@ table {
   font-size: xx-large;
 }
 
-#removeCardBtn {
-  color: #3E4EB8;
+.removeCardBtn {
   font-size: 3rem;
   cursor: pointer;
 }
