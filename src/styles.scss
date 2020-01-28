@@ -5,3 +5,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
+
+@font-face {
+  font-family: "Saiyan-Sans";
+  src: url("./assets/webfonts/Saiyan-Sans.ttf");
+}
