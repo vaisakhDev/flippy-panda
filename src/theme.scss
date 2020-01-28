@@ -11,7 +11,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   $accent: map-get($app-theme, accent);
 
   .mat-button-toggle {
-    background-color: mat-color($primary, 300);
+    background-color: transparent;
     color: mat-color($primary, default-contrast);
   }
   .mat-button-toggle-checked {
@@ -29,7 +29,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   }
 
   main, .mat-drawer-content {
-    background-color: mat-color($accent, 500)
+    background-color: mat-color($accent)
   }
 
   .mat-drawer-inner-container {
