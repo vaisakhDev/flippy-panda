@@ -1,10 +1,13 @@
 {
   "name": "flippy-panda",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:os": "npm run build:osx ; npm run build:linux",
+    "build:osx": "npx nativefier -n flippy-panda -p osx -i src/favicon.ico --app-version 0.1.0 -f https://tgotwig.github.io/flippy-panda/ bin",
+    "build:linux": "npx nativefier -n flippy-panda -p linux -i src/favicon.ico --app-version 0.1.0 https://tgotwig.github.io/flippy-panda/ bin",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
