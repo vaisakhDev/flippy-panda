@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { MatTable } from '@angular/material'
 import { StackService } from '../stack.service'
 import { MatInput } from '@angular/material/input'
@@ -6,7 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { PersistentData, Card, Stack } from '../interfaces'
 import { CardSide } from '../enums'
-import gsap from 'gsap'
+import { RunDialogComponent } from '../run-dialog/run-dialog.component'
 
 let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
 
@@ -56,87 +56,6 @@ export class StackComponent {
   removeStack = () => this.service.removeStack()
 
   removeCard = (card: Card) => this.service.removeCard(card.id)
-}
-
-@Component({
-  templateUrl: './run-dialog.html',
-  styleUrls: [
-    './run-dialog.scss'
-  ],
-  styles: ['#question { text-align: center }']
-})
-export class RunDialogComponent {
-  data: Card[]
-  actCard: Card
-  actWord: string
-  actWordLeft: string
-  actWordRight: string
-  cardSide = CardSide.top
-  finished = false
-
-  positives = 0
-  negatives = 0
-
-  constructor(public service: StackService) {
-    this.data = JSON.parse(JSON.stringify(this.service.activeStack.cards))
-    this.data = this.shuffleArray(this.data)
-    this.actCard = this.data.pop()
-    this.actWordLeft = this.actCard.left
-    this.actWordRight = this.actCard.right
-
-    if (this.service.chosenCardSide === CardSide.top) {
-      this.cardSide = CardSide.top
-      this.actWord = this.actWordLeft
-    } else {
-      this.cardSide = CardSide.bottom
-      this.actWord = this.actWordRight
-    }
-  }
-
-  shuffleArray = (arr: Card[]): Card[] => {
-    return arr
-      .map(a => [Math.random(), a])
-      .sort((a, b) => +a[0] - +b[0])
-      .map(a => a[1]) as Card[]
-  }
-
-  flip = () => {
-    gsap.from('#question', { rotationY: -180 })
-    switch (this.cardSide) {
-      case CardSide.top:
-        this.cardSide = CardSide.bottom
-        this.actWord = this.actWordRight
-        break
-      case CardSide.bottom:
-        this.cardSide = CardSide.top
-        this.actWord = this.actWordLeft
-    }
-  }
-
-  nextCard = (trueAnswer: boolean) => {
-    if (trueAnswer) {
-      this.positives++
-    } else {
-      this.negatives++
-    }
-    if (this.service.chosenCardSide === CardSide.top) {
-      this.cardSide = CardSide.top
-    } else {
-      this.cardSide = CardSide.bottom
-    }
-    if (this.data.length) {
-      this.actCard = this.data.pop()
-      this.actWordLeft = this.actCard.left
-      this.actWordRight = this.actCard.right
-      if (this.service.chosenCardSide === CardSide.top) {
-        this.actWord = this.actWordLeft
-      } else {
-        this.actWord = this.actWordRight
-      }
-    } else {
-      this.finished = true
-    }
-  }
 }
 
 @Component({
