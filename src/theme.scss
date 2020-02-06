@@ -59,6 +59,10 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   #bannerCard {
     background-color: mat-color($primary, 200);
   }
+
+  .fa-times {
+    color: #F7412D;
+  }
 }
 
 @include mix-app-theme($app-theme);

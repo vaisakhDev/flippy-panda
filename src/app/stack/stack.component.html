@@ -46,9 +46,8 @@
 
       <ng-container matColumnDef="remove" stickyEnd>
         <th mat-header-cell *matHeaderCellDef></th>
-        <td class="removeCardBtn" mat-cell *matCellDef="let obj" (click)="removeCard(obj)">
-          -
-        </td>
+        <td class="removeCardBtn" mat-cell *matCellDef="let obj" (click)="removeCard(obj)"><i class="fa fa-times"
+            aria-hidden="true"></i></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
