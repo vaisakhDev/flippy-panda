@@ -8,7 +8,7 @@ import { PersistentData } from '../interfaces'
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
   persistentData: PersistentData
@@ -22,7 +22,7 @@ export class NavComponent {
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
-      shareReplay()
+      shareReplay(),
     )
 
   changeActiveStack(id: string) {

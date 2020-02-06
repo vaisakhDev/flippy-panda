@@ -13,7 +13,7 @@ let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
 @Component({
   selector: 'app-stack',
   templateUrl: './stack.component.html',
-  styleUrls: ['./stack.component.scss']
+  styleUrls: ['./stack.component.scss'],
 })
 export class StackComponent {
   displayedColumns: string[] = ['cardIcon', 'left', 'right', 'remove']
@@ -28,7 +28,7 @@ export class StackComponent {
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2000, })
+    this.snackBar.open(message, action, { duration: 2000 })
   }
 
   openPlayOrderDialog = () => {
@@ -78,7 +78,7 @@ export class RenameDialogComponent {
 }
 
 @Component({
-  templateUrl: './play-order.html'
+  templateUrl: './play-order.html',
 })
 export class PlayOrderComponent {
   cardSide: typeof CardSide = CardSide

@@ -6,18 +6,18 @@ import { CardSide } from './enums'
 type Item = Stack | Card
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StackService {
   persistentData: PersistentData = {
     stacks: [],
     activeStackId: undefined,
-    banner: true
+    banner: true,
   }
   activeStack: Stack = {
     id: undefined,
     name: undefined,
-    cards: []
+    cards: [],
   }
   activeStackBase = JSON.parse(JSON.stringify(this.activeStack))
   chosenCardSide = CardSide.top
@@ -35,7 +35,7 @@ export class StackService {
     const newStack = {
       id: newId,
       name: `stack #${this.persistentData.stacks.length + 1}`,
-      cards: []
+      cards: [],
     }
 
     const newStacks = [...this.persistentData.stacks, newStack]
@@ -62,8 +62,8 @@ export class StackService {
       cards: [...this.activeStack.cards, {
         id: this.createUniqueId(this.activeStack.cards),
         left: leftText,
-        right: rightText
-      }]
+        right: rightText,
+      }],
     })
   }
 

@@ -1,3 +1,3 @@
 export enum CardSide {
-  top, bottom
+  top, bottom,
 }

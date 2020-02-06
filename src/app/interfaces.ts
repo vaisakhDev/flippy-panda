@@ -1,15 +1,15 @@
 export interface PersistentData {
   stacks: Stack[],
   activeStackId: string,
-  banner: boolean
+  banner: boolean,
 }
 export interface Stack {
   id: string,
   name: string,
-  cards: Card[]
+  cards: Card[],
 }
 export interface Card {
   id: string,
   left: string,
-  right: string
+  right: string,
 }

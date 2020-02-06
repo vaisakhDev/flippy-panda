@@ -29,12 +29,12 @@ import { StackComponent } from './stack/stack.component'
     RunDialogComponent,
     PlayOrderComponent,
     RenameDialogComponent,
-    StackComponent
+    StackComponent,
   ],
   entryComponents: [
     RunDialogComponent,
     PlayOrderComponent,
-    RenameDialogComponent
+    RenameDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +50,9 @@ import { StackComponent } from './stack/stack.component'
     MatDialogModule,
     MatCardModule,
     MatButtonToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
