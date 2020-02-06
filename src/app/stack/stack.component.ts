@@ -60,6 +60,9 @@ export class StackComponent {
 
 @Component({
   templateUrl: './run-dialog.html',
+  styleUrls: [
+    './run-dialog.scss'
+  ],
   styles: ['#question { text-align: center }']
 })
 export class RunDialogComponent {
