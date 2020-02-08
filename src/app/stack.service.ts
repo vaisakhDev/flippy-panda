@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import hri from 'human-readable-ids'
-import { PersistentData, Stack, Card } from './interfaces'
+import { PersistentData, Stack, Card, User } from './interfaces'
 import { CardSide } from './enums'
 
 type Item = Stack | Card

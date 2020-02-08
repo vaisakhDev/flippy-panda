@@ -79,6 +79,9 @@ export class RenameDialogComponent {
 
 @Component({
   templateUrl: './play-order.html',
+  styles: [`
+    div { display: flex; justify-content: space-evenly; }
+  `],
 })
 export class PlayOrderComponent {
   cardSide: typeof CardSide = CardSide

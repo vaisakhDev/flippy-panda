@@ -1,0 +1,13 @@
+<div *ngIf="firebase.user$ | async; then loggedIn else login">
+</div>
+
+<ng-template #login>
+  <firebase-ui (signInSuccessWithAuthResult)="firebase.signIn($event.authResult)"></firebase-ui>
+</ng-template>
+
+<ng-template #loggedIn>
+  <div *ngIf="firebase.user$ | async as user">
+    <h3>Logged in with: {{user.email}}</h3>
+    <button mat-raised-button (click)="firebase.signOut()">Logout <i class="fa fa-sign-out"></i></button>
+  </div>
+</ng-template>

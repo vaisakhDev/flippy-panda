@@ -11,7 +11,7 @@
 }
 
 .mat-toolbar.mat-primary {
-  padding-top: 1rem;
+  padding-right: 0;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -49,8 +49,33 @@
   border: 0;
 }
 
-#a-fa-github {
-  margin-bottom: 0.8rem;
+#topLeftWrapper {
+  margin-top: 1rem;
+}
+
+#topRightWrapper {
+  height: 100%;
+  display: flex;
+}
+
+#githubWrapper {
+  display: flex;
+  align-items: center;
+}
+
+#signInBtn {
+  width: 120px;
+  height: 100%;
+}
+
+#signOutBtn {
+  height: 100%;
+}
+
+img {
+  width: 50px;
+  height: auto;
+  margin-left: 0.5rem;
 }
 
 .logo {

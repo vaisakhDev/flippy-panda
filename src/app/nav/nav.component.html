@@ -13,7 +13,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <div>
+      <div id="topLeftWrapper">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -22,9 +22,14 @@
         <span id="logo2" class="logo">o</span>
         <span id="logo3" class="logo">panda</span>
       </div>
-      <a id="a-fa-github" href="https://github.com/TGotwig/flippy-panda" target="_blank">
-        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-      </a>
+      <div id="topRightWrapper">
+        <div id="githubWrapper">
+          <a href="https://github.com/TGotwig/flippy-panda" target="_blank">
+            <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div *ngIf="firebase.user$ | async; then loggedIn else login"></div>
+      </div>
     </mat-toolbar>
     <mat-card id="bannerCard" *ngIf="persistentData.banner">
       <p>This app uses Local Storage to persist data 💾</p>
@@ -35,3 +40,16 @@
     <app-stack></app-stack>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<ng-template #login>
+  <button id="signInBtn" mat-button (click)="openPlayOrderDialog()">Login <i class="fa fa-sign-in"></i></button>
+</ng-template>
+
+<ng-template #loggedIn>
+  <div *ngIf="firebase.user$ | async as user">
+    <button id="signOutBtn" mat-button (click)="openPlayOrderDialog()">{{user.displayName}}
+      <!-- TODO: Fix sometimes missing avatar -->
+      <img [src]="user.photoURL" alt="🖼" mat-card-avatar>
+    </button>
+  </div>
+</ng-template>
