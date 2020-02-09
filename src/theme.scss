@@ -28,8 +28,12 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
     color: black;
   }
 
-  main, .mat-drawer-content {
+  #overlay, .mat-drawer-content {
     background-color: mat-color($accent)
+  }
+
+  .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: mat-color($primary);
   }
 
   .mat-drawer-inner-container {

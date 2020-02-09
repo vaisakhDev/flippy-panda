@@ -8,7 +8,6 @@ import { StackService } from './stack.service'
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService {
-
   user$: Observable<User>
 
   constructor(

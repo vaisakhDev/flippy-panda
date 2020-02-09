@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { NavComponent } from './nav/nav.component'
 import { RunDialogComponent } from './run-dialog/run-dialog.component'
@@ -79,6 +80,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatCardModule,
     MatButtonToggleModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
