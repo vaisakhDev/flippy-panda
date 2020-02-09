@@ -71,6 +71,16 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   #question {
     background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));
   }
+
+  #logo1 {
+    color: #FFFF00;
+  }
+  #logo2 {
+    color: #FF9900;
+  }
+  #logo3 {
+    color: #F7412D;
+  }
 }
 
 @include mix-app-theme($app-theme);
