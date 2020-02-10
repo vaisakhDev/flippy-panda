@@ -2,7 +2,7 @@
   <div [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
       <mat-card-title *ngIf="dataService.activeStack">{{dataService.activeStack.name}}</mat-card-title>
-      <i id="playBtn" class="fa fa-play-circle fa-2x" aria-hidden="true" (click)="openPlayOrderDialog()"></i>
+      <i id="playBtn" class="fa fa-play-circle fa-2x" aria-hidden="true" (click)="openPlayDialog()"></i>
       <div>
         <button id="renameStackBtn" mat-flat-button color="accent" (click)="openRenameStackDialog()">Rename
           Stack</button>

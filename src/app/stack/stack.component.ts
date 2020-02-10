@@ -5,8 +5,7 @@ import { MatInput } from '@angular/material/input'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { PersistentData, Card, Stack } from '../interfaces'
-import { CardSide } from '../enums'
-import { RunDialogComponent } from '../run-dialog/run-dialog.component'
+import { PlayDialogComponent } from '../play-dialog/play-dialog.component'
 
 let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
 
@@ -31,9 +30,9 @@ export class StackComponent {
     this.snackBar.open(message, action, { duration: 2000 })
   }
 
-  openPlayOrderDialog = () => {
+  openPlayDialog = () => {
     if (this.dataService.activeStack.cards.length > 0) {
-      this.dialog.open(PlayOrderComponent)
+      this.dialog.open(PlayDialogComponent)
     }
   }
 
@@ -74,24 +73,5 @@ export class RenameDialogComponent {
     this.dataService.updatePersistentData({ stacks: newStacks })
 
     renameDialogRef.close([])
-  }
-}
-
-@Component({
-  templateUrl: './play-order.html',
-  styles: [`
-    div { display: flex; justify-content: space-evenly; }
-  `],
-})
-export class PlayOrderComponent {
-  cardSide: typeof CardSide = CardSide
-
-  constructor(public dataService: DataService, public dialog: MatDialog) {
-  }
-
-  openRunDialog = (choseTopSide: CardSide) => {
-    this.dialog.closeAll()
-    this.dataService.chosenCardSide = choseTopSide
-    this.dialog.open(RunDialogComponent)
   }
 }

@@ -1,0 +1,27 @@
+<div *ngIf="cardSide then play else columnSelection"></div>
+
+<ng-template #columnSelection>
+  <p>In which order do you want to start with? 😃</p>
+  <div id="cardSideBtns">
+    <button mat-raised-button color="accent" (click)="chooseSide(cardSides.top)">Top</button>
+    <button mat-raised-button color="accent" (click)="chooseSide(cardSides.bottom)">Bottom</button>
+  </div>
+</ng-template>
+
+<ng-template #play>
+  <div>
+    <mat-card id="question" *ngIf="!finished">
+      {{actWord}}</mat-card>
+
+    <div *ngIf="finished">
+      <p>Positives: {{positives}} 😊</p>
+      <p>Negatives: {{negatives}} 😖</p>
+    </div>
+
+    <mat-dialog-actions align="end" *ngIf="!finished">
+      <button mat-button mat-raised-button color="accent" (click)="nextCard(false)">Didn't know 😖</button>
+      <button mat-button mat-raised-button color="accent" cdkFocusInitial (click)="flip()">Flip 🎴</button>
+      <button mat-button mat-raised-button color="accent" (click)="nextCard(true)">Knew it 😊</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

@@ -18,8 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { NavComponent } from './nav/nav.component'
-import { RunDialogComponent } from './run-dialog/run-dialog.component'
-import { PlayOrderComponent } from './stack/stack.component'
+import { PlayDialogComponent } from './play-dialog/play-dialog.component'
 import { RenameDialogComponent } from './stack/stack.component'
 import { StackComponent } from './stack/stack.component'
 
@@ -54,15 +53,13 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   declarations: [
     AppComponent,
     NavComponent,
-    RunDialogComponent,
-    PlayOrderComponent,
+    PlayDialogComponent,
     RenameDialogComponent,
     StackComponent,
     LoginComponent,
   ],
   entryComponents: [
-    RunDialogComponent,
-    PlayOrderComponent,
+    PlayDialogComponent,
     RenameDialogComponent,
   ],
   imports: [

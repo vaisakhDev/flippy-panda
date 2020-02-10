@@ -5,16 +5,18 @@ import { DataService } from '../data.service'
 import gsap from 'gsap'
 
 @Component({
-  templateUrl: './run-dialog.component.html',
-  styleUrls: ['./run-dialog.component.scss'],
+  templateUrl: './play-dialog.component.html',
+  styleUrls: ['./play-dialog.component.scss'],
 })
-export class RunDialogComponent {
+export class PlayDialogComponent {
   data: Card[]
   actCard: Card
   actWord: string
   actWordLeft: string
   actWordRight: string
-  cardSide = CardSide.top
+  cardSide: CardSide
+  chosenCardSide: CardSide
+  cardSides = CardSide
   finished = false
 
   positives = 0
@@ -26,14 +28,17 @@ export class RunDialogComponent {
     this.actCard = this.data.pop()
     this.actWordLeft = this.actCard.left
     this.actWordRight = this.actCard.right
+  }
 
-    if (this.dataService.chosenCardSide === CardSide.top) {
+  chooseSide(cardSide: CardSide) {
+    if (cardSide === CardSide.top) {
       this.cardSide = CardSide.top
       this.actWord = this.actWordLeft
     } else {
       this.cardSide = CardSide.bottom
       this.actWord = this.actWordRight
     }
+    this.chosenCardSide = this.cardSide
   }
 
   shuffleArray = (arr: Card[]): Card[] => {
@@ -62,7 +67,7 @@ export class RunDialogComponent {
     } else {
       this.negatives++
     }
-    if (this.dataService.chosenCardSide === CardSide.top) {
+    if (this.chosenCardSide === CardSide.top) {
       this.cardSide = CardSide.top
     } else {
       this.cardSide = CardSide.bottom
@@ -71,7 +76,7 @@ export class RunDialogComponent {
       this.actCard = this.data.pop()
       this.actWordLeft = this.actCard.left
       this.actWordRight = this.actCard.right
-      if (this.dataService.chosenCardSide === CardSide.top) {
+      if (this.chosenCardSide === CardSide.top) {
         this.actWord = this.actWordLeft
       } else {
         this.actWord = this.actWordRight
