@@ -8,7 +8,7 @@ import { FirebaseService } from '../firebase.service'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public firebase: FirebaseService) { }
+  constructor(public fbService: FirebaseService) { }
 
   ngOnInit(): void {
   }

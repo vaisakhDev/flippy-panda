@@ -20,7 +20,7 @@ export class NavComponent implements AfterViewInit {
     private breakpointObserver: BreakpointObserver,
     public service: StackService,
     public dialog: MatDialog,
-    public firebase: FirebaseService) {
+    public fbService: FirebaseService) {
     this.persistentData = service.persistentData
   }
   persistentData: PersistentData
@@ -32,7 +32,7 @@ export class NavComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // overlay animation
-    const subscriber = this.firebase.user$.subscribe((user) => {
+    const subscriber = this.fbService.user$.subscribe((user) => {
       gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
         document.getElementById('overlay').remove()
       })
