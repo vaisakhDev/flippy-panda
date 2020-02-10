@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core'
 import { MatTable } from '@angular/material'
-import { StackService } from '../stack.service'
+import { DataService } from '../data.service'
 import { MatInput } from '@angular/material/input'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -23,8 +23,8 @@ export class StackComponent {
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   @ViewChild('topside', { static: true }) topSideInput: MatInput
 
-  constructor(public service: StackService, public dialog: MatDialog, private snackBar: MatSnackBar) {
-    this.persistentData = service.persistentData
+  constructor(public dataService: DataService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.persistentData = dataService.persistentData
   }
 
   openSnackBar(message: string, action: string) {
@@ -32,7 +32,7 @@ export class StackComponent {
   }
 
   openPlayOrderDialog = () => {
-    if (this.service.activeStack.cards.length > 0) {
+    if (this.dataService.activeStack.cards.length > 0) {
       this.dialog.open(PlayOrderComponent)
     }
   }
@@ -44,7 +44,7 @@ export class StackComponent {
     const leftText: string = textareas[0].value
     const rightText: string = textareas[1].value
 
-    this.service.addCard(leftText, rightText)
+    this.dataService.addCard(leftText, rightText)
     this.table.renderRows()
     textareas.forEach(e => e.value = '')
     this.topSideInput.focus()
@@ -53,25 +53,25 @@ export class StackComponent {
 
   openRenameStackDialog = () => renameDialogRef = this.dialog.open(RenameDialogComponent)
 
-  removeStack = () => this.service.removeStack()
+  removeStack = () => this.dataService.removeStack()
 
-  removeCard = (card: Card) => this.service.removeCard(card.id)
+  removeCard = (card: Card) => this.dataService.removeCard(card.id)
 }
 
 @Component({
   templateUrl: 'rename-dialog.html',
 })
 export class RenameDialogComponent {
-  constructor(public service: StackService) { }
+  constructor(public dataService: DataService) { }
 
   renameStack(event: Event) {
     event.preventDefault()
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
 
-    this.service.updateActiveStack({ name: newName })
-    const newStacks = this.service.persistentData.stacks
+    this.dataService.updateActiveStack({ name: newName })
+    const newStacks = this.dataService.persistentData.stacks
       .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
-    this.service.updatePersistentData({ stacks: newStacks })
+    this.dataService.updatePersistentData({ stacks: newStacks })
 
     renameDialogRef.close([])
   }
@@ -86,12 +86,12 @@ export class RenameDialogComponent {
 export class PlayOrderComponent {
   cardSide: typeof CardSide = CardSide
 
-  constructor(public service: StackService, public dialog: MatDialog) {
+  constructor(public dataService: DataService, public dialog: MatDialog) {
   }
 
   openRunDialog = (choseTopSide: CardSide) => {
     this.dialog.closeAll()
-    this.service.chosenCardSide = choseTopSide
+    this.dataService.chosenCardSide = choseTopSide
     this.dialog.open(RunDialogComponent)
   }
 }

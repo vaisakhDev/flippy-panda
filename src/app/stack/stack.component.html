@@ -1,7 +1,7 @@
 <main>
   <div [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
-      <mat-card-title *ngIf="this.service.activeStack">{{this.service.activeStack.name}}</mat-card-title>
+      <mat-card-title *ngIf="dataService.activeStack">{{dataService.activeStack.name}}</mat-card-title>
       <i id="playBtn" class="fa fa-play-circle fa-2x" aria-hidden="true" (click)="openPlayOrderDialog()"></i>
       <div>
         <button id="renameStackBtn" mat-flat-button color="accent" (click)="openRenameStackDialog()">Rename
@@ -25,10 +25,10 @@
       </form>
     </mat-card>
 
-    <table mat-table [dataSource]="this.service.activeStack.cards" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataService.activeStack.cards" class="mat-elevation-z8">
 
       <ng-container matColumnDef="cardIcon" stickyEnd>
-        <th mat-header-cell *matHeaderCellDef>∑ = {{this.service.activeStack.cards.length}}</th>
+        <th mat-header-cell *matHeaderCellDef>∑ = {{dataService.activeStack.cards.length}}</th>
         <td mat-cell *matCellDef="let element">
           <mat-icon>🎴</mat-icon>
         </td>

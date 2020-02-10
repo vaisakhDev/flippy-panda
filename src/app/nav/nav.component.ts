@@ -2,7 +2,7 @@ import { Component, AfterViewInit } from '@angular/core'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { Observable } from 'rxjs'
 import { map, shareReplay } from 'rxjs/operators'
-import { StackService } from '../stack.service'
+import { DataService } from '../data.service'
 import { FirebaseService } from '../firebase.service'
 import { PersistentData } from '../interfaces'
 import { MatDialog } from '@angular/material/dialog'
@@ -18,10 +18,10 @@ export class NavComponent implements AfterViewInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public service: StackService,
+    public dataService: DataService,
     public dialog: MatDialog,
     public fbService: FirebaseService) {
-    this.persistentData = service.persistentData
+    this.persistentData = dataService.persistentData
   }
   persistentData: PersistentData
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -44,6 +44,6 @@ export class NavComponent implements AfterViewInit {
     this.dialog.open(LoginComponent)
   }
 
-  changeActiveStack = (id: string) => this.service.SetActiveStackId(id)
-  closeBanner = () => this.service.updatePersistentData({ banner: false })
+  changeActiveStack = (id: string) => this.dataService.SetActiveStackId(id)
+  closeBanner = () => this.dataService.updatePersistentData({ banner: false })
 }

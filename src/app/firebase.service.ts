@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
-import { StackService } from './stack.service'
+import { DataService } from './data.service'
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService {
@@ -13,7 +13,7 @@ export class FirebaseService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    public stackService: StackService,
+    public dataService: DataService,
   ) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(

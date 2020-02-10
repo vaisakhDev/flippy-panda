@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Card } from '../interfaces'
 import { CardSide } from '../enums'
-import { StackService } from '../stack.service'
+import { DataService } from '../data.service'
 import gsap from 'gsap'
 
 @Component({
@@ -20,14 +20,14 @@ export class RunDialogComponent {
   positives = 0
   negatives = 0
 
-  constructor(public service: StackService) {
-    this.data = JSON.parse(JSON.stringify(this.service.activeStack.cards))
+  constructor(public dataService: DataService) {
+    this.data = JSON.parse(JSON.stringify(this.dataService.activeStack.cards))
     this.data = this.shuffleArray(this.data)
     this.actCard = this.data.pop()
     this.actWordLeft = this.actCard.left
     this.actWordRight = this.actCard.right
 
-    if (this.service.chosenCardSide === CardSide.top) {
+    if (this.dataService.chosenCardSide === CardSide.top) {
       this.cardSide = CardSide.top
       this.actWord = this.actWordLeft
     } else {
@@ -62,7 +62,7 @@ export class RunDialogComponent {
     } else {
       this.negatives++
     }
-    if (this.service.chosenCardSide === CardSide.top) {
+    if (this.dataService.chosenCardSide === CardSide.top) {
       this.cardSide = CardSide.top
     } else {
       this.cardSide = CardSide.bottom
@@ -71,7 +71,7 @@ export class RunDialogComponent {
       this.actCard = this.data.pop()
       this.actWordLeft = this.actCard.left
       this.actWordRight = this.actCard.right
-      if (this.service.chosenCardSide === CardSide.top) {
+      if (this.dataService.chosenCardSide === CardSide.top) {
         this.actWord = this.actWordLeft
       } else {
         this.actWord = this.actWordRight

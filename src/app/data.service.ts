@@ -8,7 +8,7 @@ type Item = Stack | Card
 @Injectable({
   providedIn: 'root',
 })
-export class StackService {
+export class DataService {
   persistentData: PersistentData = {
     stacks: [],
     activeStackId: undefined,
