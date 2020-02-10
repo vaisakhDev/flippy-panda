@@ -2,12 +2,11 @@ import { Component, ViewChild } from '@angular/core'
 import { MatTable } from '@angular/material'
 import { DataService } from '../data.service'
 import { MatInput } from '@angular/material/input'
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { PersistentData, Card, Stack } from '../interfaces'
+import { PersistentData, Card } from '../interfaces'
 import { PlayDialogComponent } from '../play-dialog/play-dialog.component'
-
-let renameDialogRef: MatDialogRef<RenameDialogComponent, any>
+import { RenameStackDialogComponent } from '../rename-stack-dialog/rename-stack-dialog.component'
 
 @Component({
   selector: 'app-stack',
@@ -50,28 +49,9 @@ export class StackComponent {
     this.openSnackBar(`🎴Card("${leftText}", "${rightText}")`, 'Added 📥')
   }
 
-  openRenameStackDialog = () => renameDialogRef = this.dialog.open(RenameDialogComponent)
+  openRenameStackDialog = () => this.dialog.open(RenameStackDialogComponent, { id: 'rename-stack-dialog' })
 
   removeStack = () => this.dataService.removeStack()
 
   removeCard = (card: Card) => this.dataService.removeCard(card.id)
-}
-
-@Component({
-  templateUrl: 'rename-dialog.html',
-})
-export class RenameDialogComponent {
-  constructor(public dataService: DataService) { }
-
-  renameStack(event: Event) {
-    event.preventDefault()
-    const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
-
-    this.dataService.updateActiveStack({ name: newName })
-    const newStacks = this.dataService.persistentData.stacks
-      .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
-    this.dataService.updatePersistentData({ stacks: newStacks })
-
-    renameDialogRef.close([])
-  }
 }

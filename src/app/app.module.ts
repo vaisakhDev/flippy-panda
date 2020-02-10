@@ -19,8 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
-import { RenameDialogComponent } from './stack/stack.component'
 import { StackComponent } from './stack/stack.component'
+import { RenameStackDialogComponent } from './rename-stack-dialog/rename-stack-dialog.component'
 
 import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
@@ -54,13 +54,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     NavComponent,
     PlayDialogComponent,
-    RenameDialogComponent,
     StackComponent,
     LoginComponent,
+    RenameStackDialogComponent,
   ],
   entryComponents: [
     PlayDialogComponent,
-    RenameDialogComponent,
   ],
   imports: [
     BrowserModule,
