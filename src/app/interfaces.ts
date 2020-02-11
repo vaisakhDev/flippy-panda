@@ -1,21 +1,21 @@
 export interface PersistentData {
-  stacks: Stack[],
-  activeStackId: string,
-  banner: boolean,
+  readonly stacks: Stack[],
+  readonly activeStackId: string,
+  readonly banner: boolean,
 }
 export interface Stack {
-  id: string,
-  name: string,
-  cards: Card[],
+  readonly id: string,
+  readonly name: string,
+  readonly cards: Card[],
 }
 export interface Card {
-  id: string,
-  left: string,
-  right: string,
+  readonly id: string,
+  readonly left: string,
+  readonly right: string,
 }
 export interface User {
-  uid: string
-  email: string
-  photoURL?: string,
-  displayName?: string,
+  readonly uid: string
+  readonly email: string
+  readonly photoURL?: string,
+  readonly displayName?: string,
 }
