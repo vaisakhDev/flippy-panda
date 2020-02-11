@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { User } from './interfaces' // optional
+import { User } from './interfaces'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { Observable, of } from 'rxjs'
@@ -8,15 +8,13 @@ import { DataService } from './data.service'
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService {
-  user$: Observable<User>
-
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     public dataService: DataService,
   ) {
     // Get the auth state, then fetch the Firestore user document or return null
-    this.user$ = this.afAuth.authState.pipe(
+    this.dataService.user$ = this.afAuth.authState.pipe(
       switchMap((user: User) => {
         // Logged in
         if (user) {

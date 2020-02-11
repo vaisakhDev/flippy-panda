@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import hri from 'human-readable-ids'
 import { PersistentData, Stack, Card } from './interfaces'
 import { CardSide } from './enums'
+import { Observable, of } from 'rxjs'
+import { User } from './interfaces'
 
 type Item = Stack | Card
 
@@ -21,6 +23,7 @@ export class DataService {
   }
   activeStackBase = JSON.parse(JSON.stringify(this.activeStack))
   chosenCardSide = CardSide.top
+  user$: Observable<User>
 
   constructor() {
     const state = JSON.parse(localStorage.getItem('flippyPanda'))
