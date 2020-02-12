@@ -16,6 +16,5 @@ export interface Card {
 export interface User {
   readonly uid: string
   readonly email: string
-  readonly photoURL?: string,
   readonly displayName?: string,
 }

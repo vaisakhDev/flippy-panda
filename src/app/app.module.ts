@@ -30,6 +30,8 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics'
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular'
 import { LoginComponent } from './login/login.component'
 
+import { GravatarModule } from 'ngx-gravatar'
+
 const config = {
   apiKey: 'AIzaSyC9kKBqV1hj8eWyvDPHvMwvQqBT7LTESxY',
   authDomain: 'flippy-panda.firebaseapp.com',
@@ -83,6 +85,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireStorageModule,
     AngularFireAnalyticsModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    GravatarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

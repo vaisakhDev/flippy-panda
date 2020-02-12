@@ -34,14 +34,13 @@ export class FirebaseService {
     }
   }
 
-  private updateUserDataByGoogle({ uid, email, displayName, photoURL }: User) {
+  private updateUserDataByGoogle({ uid, email, displayName }: User) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`)
 
     const data: User = {
       uid,
       email,
       displayName,
-      photoURL,
     }
 
     return userRef.set(data, { merge: true })

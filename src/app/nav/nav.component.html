@@ -52,8 +52,7 @@
 <ng-template #loggedIn>
   <div *ngIf="dataService.user$ | async as user">
     <button id="signOutBtn" mat-button (click)="openPlayOrderDialog()">{{user.displayName}}
-      <!-- TODO: Fix sometimes missing avatar -->
-      <img [src]="user.photoURL" alt="🖼" mat-card-avatar>
+      <img ngxGravatar fallback='robohash' [email]="user.email" size="50" alt="🖼" mat-card-avatar>
     </button>
   </div>
 </ng-template>
