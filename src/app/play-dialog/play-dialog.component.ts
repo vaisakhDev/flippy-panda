@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { Card } from '../interfaces'
 import { CardSide } from '../enums'
-import { DataService } from '../data.service'
+import { DataService } from '../#services/data.service'
 import gsap from 'gsap'
 
 @Component({

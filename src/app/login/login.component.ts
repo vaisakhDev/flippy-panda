@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { FirebaseService } from '../firebase.service'
-import { DataService } from '../data.service'
+import { FirebaseService } from '../#services/firebase.service'
+import { DataService } from '../#services/data.service'
 
 @Component({
   selector: 'app-login',

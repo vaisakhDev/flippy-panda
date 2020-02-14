@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
-import { User } from './interfaces'
+import { User } from '../interfaces'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
-import { Observable, of } from 'rxjs'
+import { of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { DataService } from './data.service'
 
