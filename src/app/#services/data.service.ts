@@ -33,19 +33,24 @@ export class DataService {
     }
   }
 
-  addStack() {
-    const newId = this.createUniqueId(this.persistentData.stacks)
+  addStack(stacks: Stack[] = this.persistentData.stacks): {
+    stack: Stack,
+    stacks: Stack[],
+  } {
+    const newId = this.createUniqueId(stacks)
     const newStack = {
       id: newId,
-      name: `stack #${this.persistentData.stacks.length + 1}`,
+      name: `stack #${stacks.length + 1}`,
       cards: [],
     }
 
-    const newStacks = [...this.persistentData.stacks, newStack]
+    const newStacks = [...stacks, newStack]
       .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
 
     this.updatePersistentData({ stacks: newStacks })
     this.SetActiveStackId(newId)
+
+    return { stack: newStack, stacks: newStacks }
   }
 
   removeStack() {
