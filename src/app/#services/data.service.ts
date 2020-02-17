@@ -53,16 +53,15 @@ export class DataService {
     return { stack: newStack, stacks: newStacks }
   }
 
-  removeStack() {
-    const leftStacks = this.persistentData.stacks.filter(e => {
-      return e.id !== this.persistentData.activeStackId
-    })
+  removeStack(stacks: Stack[] = this.persistentData.stacks, id: string = this.persistentData.activeStackId): Stack[] {
+    const leftStacks = stacks.filter(e => e.id !== id)
     this.updatePersistentData({ stacks: [...leftStacks] }, false)
-    if (this.persistentData.stacks.length > 0) {
-      this.SetActiveStackId(this.persistentData.stacks[0].id)
+    if (stacks.length > 0) {
+      this.SetActiveStackId(stacks[0].id)
     } else {
       this.SetActiveStackId(undefined)
     }
+    return leftStacks
   }
 
   addCard(leftText: string, rightText: string) {
