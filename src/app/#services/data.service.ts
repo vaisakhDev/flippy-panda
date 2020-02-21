@@ -34,8 +34,8 @@ export class DataService {
   }
 
   addStack(stacks: Stack[] = this.persistentData.stacks): {
-    stack: Stack,
-    stacks: Stack[],
+    newStack: Stack,
+    newStacks: Stack[],
   } {
     const newId = this.createUniqueId(stacks)
     const newStack = {
@@ -50,7 +50,7 @@ export class DataService {
     this.updatePersistentData({ stacks: newStacks })
     this.SetActiveStackId(newId)
 
-    return { stack: newStack, stacks: newStacks }
+    return { newStack, newStacks }
   }
 
   removeStack(stacks: Stack[] = this.persistentData.stacks, id: string = this.persistentData.activeStackId): Stack[] {
