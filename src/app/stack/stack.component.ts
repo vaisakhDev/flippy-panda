@@ -30,7 +30,7 @@ export class StackComponent {
   }
 
   openPlayDialog = () => {
-    if (this.dataService.activeStack.cards.length > 0) {
+    if (this.dataService.getActiveStack().cards.length > 0) {
       this.dialog.open(PlayDialogComponent)
     }
   }

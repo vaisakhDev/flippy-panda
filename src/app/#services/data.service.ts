@@ -16,12 +16,6 @@ export class DataService {
     activeStackId: undefined,
     banner: true,
   }
-  activeStack: Stack = {
-    id: undefined,
-    name: undefined,
-    cards: [],
-  }
-  activeStackBase = JSON.parse(JSON.stringify(this.activeStack))
   chosenCardSide = CardSide.top
   user$: Observable<User>
 
@@ -29,7 +23,6 @@ export class DataService {
     const lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
     if (lStorage) {
       this.persistentData = lStorage
-      this.SetActiveStackId(lStorage.activeStackId)
     }
   }
 
@@ -47,27 +40,39 @@ export class DataService {
     const newStacks = [...stacks, newStack]
       .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
 
-    this.updatePersistentData({ stacks: newStacks })
-    this.SetActiveStackId(newId)
+    this.updatePersistentData({ stacks: newStacks, activeStackId: newId })
 
     return { newStack, newStacks }
   }
 
   removeStack(stacks: Stack[] = this.persistentData.stacks, id: string = this.persistentData.activeStackId): Stack[] {
     const leftStacks = stacks.filter(e => e.id !== id)
-    this.updatePersistentData({ stacks: [...leftStacks] }, false)
-    if (stacks.length > 0) {
-      this.SetActiveStackId(stacks[0].id)
+    const removedStackIndex = stacks.map((stack, index) => ({ ...stack, index }))
+      .filter(stack => stack.id === id)[0].index
+
+    if (stacks.length === 1) {
+      this.updatePersistentData({
+        stacks: [...leftStacks],
+        activeStackId: undefined,
+      })
+    } else if (stacks.length > 1 && removedStackIndex === 0) {
+      this.updatePersistentData({
+        stacks: [...leftStacks],
+        activeStackId: stacks[removedStackIndex + 1].id,
+      })
     } else {
-      this.SetActiveStackId(undefined)
+      this.updatePersistentData({
+        stacks: [...leftStacks],
+        activeStackId: stacks[removedStackIndex - 1].id,
+      })
     }
     return leftStacks
   }
 
   addCard(leftText: string, rightText: string) {
     this.updateActiveStack({
-      cards: [...this.activeStack.cards, {
-        id: this.createUniqueId(this.activeStack.cards),
+      cards: [...this.getActiveStack().cards, {
+        id: this.createUniqueId(this.getActiveStack().cards),
         left: leftText,
         right: rightText,
       }],
@@ -75,20 +80,18 @@ export class DataService {
   }
 
   removeCard(id: string) {
-    const activeStack = this.activeStack
+    const activeStack = this.getActiveStack()
     const leftCards = activeStack.cards.filter(e => e.id !== id)
     this.updateActiveStack({ cards: [...leftCards] })
   }
 
-  updatePersistentData(update: object, updateLocalStorage = true) {
+  updatePersistentData(update: object) {
     Object.assign(this.persistentData, update)
-    if (updateLocalStorage) {
-      this.updateLocalStorage()
-    }
+    this.updateLocalStorage()
   }
 
   updateActiveStack(update: object, updateLocalStorage = true) {
-    Object.assign(this.activeStack, update)
+    Object.assign(this.getActiveStack(), update)
     if (updateLocalStorage) {
       this.updateLocalStorage()
     }
@@ -96,19 +99,24 @@ export class DataService {
 
   updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
 
-  SetActiveStackId(id: string) {
-    this.updatePersistentData({ activeStackId: id })
-    this.activeStack = id
-      ? this.persistentData.stacks.filter(e => e.id === this.persistentData.activeStackId)[0]
-      : this.activeStackBase
-  }
-
   createUniqueId = (arr: Item[]): string => {
     let newId: string
     while (true) {
       newId = hri.hri.random()
       const leftStacks = arr.filter(e => e.id === newId)
       if (leftStacks.length === 0) { return newId }
+    }
+  }
+
+  getActiveStack(id: string = this.persistentData.activeStackId, persistentData: PersistentData = this.persistentData): Stack {
+    if (persistentData.stacks.length > 0) {
+      return persistentData.stacks.filter(stack => stack.id === id)[0]
+    } else {
+      return {
+        id: undefined,
+        name: undefined,
+        cards: [],
+      }
     }
   }
 }

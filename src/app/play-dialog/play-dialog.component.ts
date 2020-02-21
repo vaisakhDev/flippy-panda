@@ -23,7 +23,7 @@ export class PlayDialogComponent {
   negatives = 0
 
   constructor(public dataService: DataService) {
-    this.data = JSON.parse(JSON.stringify(this.dataService.activeStack.cards))
+    this.data = JSON.parse(JSON.stringify(this.dataService.getActiveStack().cards))
     this.data = this.shuffleArray(this.data)
     this.actCard = this.data.pop()
     this.actWordLeft = this.actCard.left

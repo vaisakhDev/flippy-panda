@@ -44,6 +44,7 @@ export class NavComponent implements AfterViewInit {
     this.dialog.open(LoginComponent)
   }
 
-  changeActiveStack = (id: string) => this.dataService.SetActiveStackId(id)
+  changeActiveStack = (id: string) => this.dataService.updatePersistentData({ ...this.dataService.persistentData, activeStackId: id })
+
   closeBanner = () => this.dataService.updatePersistentData({ banner: false })
 }
