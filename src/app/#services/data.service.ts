@@ -26,10 +26,10 @@ export class DataService {
   user$: Observable<User>
 
   constructor() {
-    const state = JSON.parse(localStorage.getItem('flippyPanda'))
-    if (state) {
-      this.persistentData = state
-      this.SetActiveStackId(state.activeStackId)
+    const lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
+    if (lStorage) {
+      this.persistentData = lStorage
+      this.SetActiveStackId(lStorage.activeStackId)
     }
   }
 
