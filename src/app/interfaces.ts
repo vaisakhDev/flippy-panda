@@ -14,7 +14,6 @@ export interface Card {
   readonly right: string,
 }
 export interface User {
-  readonly uid: string
   readonly email: string
   readonly displayName?: string,
 }

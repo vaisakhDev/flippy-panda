@@ -18,7 +18,7 @@ export class FirebaseService {
       switchMap((user: User) => {
         // Logged in
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+          return this.afs.doc<User>(`users/${user.email}`).valueChanges()
         } else {
           // Logged out
           return of(null)
@@ -34,16 +34,18 @@ export class FirebaseService {
     }
   }
 
-  private updateUserDataByGoogle({ uid, email, displayName }: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`)
-
-    const data: User = {
-      uid,
-      email,
-      displayName,
-    }
-
-    return userRef.set(data, { merge: true })
+  private updateUserDataByGoogle({ email, displayName }: User) {
+    return this.afs.doc(`users/${email}`).get().toPromise().then(user => {
+      if (!user.exists) {
+        return this.afs.doc(`users/${email}`)
+          .set({
+            email,
+            displayName,
+          }, { merge: true })
+      } else {
+        return user.data()
+      }
+    })
   }
 
   async signOut() {
