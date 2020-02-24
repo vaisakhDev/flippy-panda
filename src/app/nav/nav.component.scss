@@ -59,8 +59,7 @@
 }
 
 #githubWrapper {
-  display: flex;
-  align-items: center;
+  display: none;
 }
 
 #signInBtn {
@@ -78,10 +77,7 @@ img {
 }
 
 .logo {
-  font-family: "Saiyan-Sans";
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  font-size: 4rem;
-  cursor: default;
+  display: none;
 }
 
 #overlay {
@@ -95,4 +91,25 @@ img {
   position: fixed;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
+}
+
+#signOutBtn {
+  font-size: 0;
+}
+
+@media screen and (min-width: 460px) {
+  .logo {
+    display: inline;
+    font-family: "Saiyan-Sans";
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 4rem;
+    cursor: default;
+  }
+  #githubWrapper {
+    display: flex;
+    align-items: center;
+  }
+  #signOutBtn {
+    font-size: 1rem;
+  }
 }
