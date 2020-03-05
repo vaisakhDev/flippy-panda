@@ -18,7 +18,7 @@ export class FirebaseService {
       switchMap((user: User) => {
         // Logged in
         if (user) {
-          return this.afs.doc<User>(`users/${user.email}`).valueChanges()
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
         } else {
           // Logged out
           return of(null)
@@ -34,11 +34,12 @@ export class FirebaseService {
     }
   }
 
-  private updateUserDataByGoogle({ email, displayName }: User) {
-    return this.afs.doc(`users/${email}`).get().toPromise().then(user => {
+  private updateUserDataByGoogle({ uid, email, displayName }: User) {
+    return this.afs.doc(`users/${uid}`).get().toPromise().then(user => {
       if (!user.exists) {
-        return this.afs.doc(`users/${email}`)
+        return this.afs.doc(`users/${uid}`)
           .set({
+            uid,
             email,
             displayName,
           }, { merge: true })
