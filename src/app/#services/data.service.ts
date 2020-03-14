@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import hri from 'human-readable-ids'
+import { Guid } from 'guid-typescript'
 import { PersistentData, Stack, Card } from '../interfaces'
 import { CardSide } from '../enums'
 import { Observable } from 'rxjs'
@@ -30,7 +30,7 @@ export class DataService {
     newStack: Stack,
     newStacks: Stack[],
   } {
-    const newId = this.createUniqueId(stacks)
+    const newId = this.createUniqueId()
     const newStack = {
       id: newId,
       name: `stack #${stacks.length + 1}`,
@@ -72,7 +72,7 @@ export class DataService {
   addCard(leftText: string, rightText: string) {
     this.updateActiveStack({
       cards: [...this.getActiveStack().cards, {
-        id: this.createUniqueId(this.getActiveStack().cards),
+        id: this.createUniqueId(),
         left: leftText,
         right: rightText,
       }],
@@ -99,15 +99,6 @@ export class DataService {
 
   updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
 
-  createUniqueId = (arr: Item[]): string => {
-    let newId: string
-    while (true) {
-      newId = hri.hri.random()
-      const leftStacks = arr.filter(e => e.id === newId)
-      if (leftStacks.length === 0) { return newId }
-    }
-  }
-
   getActiveStack(id: string = this.persistentData.activeStackId, persistentData: PersistentData = this.persistentData): Stack {
     if (persistentData.stacks.length > 0) {
       return persistentData.stacks.filter(stack => stack.id === id)[0]
@@ -119,4 +110,6 @@ export class DataService {
       }
     }
   }
+
+  createUniqueId = (): string => Guid.create().toString()
 }
