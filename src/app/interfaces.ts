@@ -1,7 +1,13 @@
 export interface PersistentData {
-  readonly stacks: Stack[],
+  readonly realms: Realm[],
+  readonly activeRealmId: string,
   readonly activeStackId: string,
   readonly banner: boolean,
+}
+export interface Realm {
+  readonly id: string,
+  readonly name: string,
+  readonly stacks: Stack[],
 }
 export interface Stack {
   readonly id: string,

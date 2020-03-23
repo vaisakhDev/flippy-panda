@@ -7,7 +7,11 @@ import { FirebaseService } from '../#services/firebase.service'
 import { PersistentData } from '../interfaces'
 import { MatDialog } from '@angular/material/dialog'
 import { LoginComponent } from '../login/login.component'
-import gsap from 'gsap'
+
+// interface Food {
+//   value: string
+//   viewValue: string
+// }
 
 @Component({
   selector: 'app-nav',
@@ -15,6 +19,10 @@ import gsap from 'gsap'
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements AfterViewInit {
+  // foods: Food[] = [
+  //   { value: 'steak-0', viewValue: 'Shadow Realm' },
+  //   { value: 'pizza-1', viewValue: 'Light Realm' },
+  // ]
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -32,12 +40,12 @@ export class NavComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // overlay animation
-    const subscriber = this.dataService.user$.subscribe(() => {
-      gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
-        document.getElementById('overlay').remove()
-      })
-      subscriber.unsubscribe()
-    })
+    // const subscriber = this.dataService.user$.subscribe(() => {
+    //   gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
+    //     document.getElementById('overlay').remove()
+    //   })
+    //   subscriber.unsubscribe()
+    // })
   }
 
   openPlayOrderDialog = () => {

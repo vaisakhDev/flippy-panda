@@ -3,7 +3,7 @@ import { Guid } from 'guid-typescript'
 import { PersistentData, Stack, Card } from '../interfaces'
 import { CardSide } from '../enums'
 import { Observable } from 'rxjs'
-import { User } from '../interfaces'
+import { User, Realm } from '../interfaces'
 
 type Item = Stack | Card
 
@@ -12,7 +12,8 @@ type Item = Stack | Card
 })
 export class DataService {
   persistentData: PersistentData = {
-    stacks: [],
+    realms: [],
+    activeRealmId: undefined,
     activeStackId: undefined,
     banner: true,
   }
@@ -20,16 +21,47 @@ export class DataService {
   user$: Observable<User>
 
   constructor() {
-    const lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
+    let lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
     if (lStorage) {
+      // migrates to newer format
+      if (lStorage.stacks) {
+        const realmId = Guid.create().toString()
+        lStorage = {
+          realms: [
+            {
+              id: realmId,
+              name: 'Realm #1',
+              stacks: lStorage.stacks,
+            },
+          ],
+          activeRealmId: realmId,
+          activeStackId: lStorage.activeStackId,
+          banner: lStorage.banner,
+        }
+      }
       this.persistentData = lStorage
+    } else {
+      const realmId = Guid.create().toString()
+      this.persistentData = {
+        ...lStorage,
+        realms: [
+          {
+            id: realmId,
+            name: 'Realm #1',
+            stacks: [],
+          },
+        ],
+        activeRealmId: realmId,
+        banner: true,
+      }
     }
   }
 
-  addStack(stacks: Stack[] = this.persistentData.stacks): {
+  addStack(realm: Realm = this.getActiveRealm()): {
     newStack: Stack,
     newStacks: Stack[],
   } {
+    const stacks: Stack[] = realm.stacks
     const newId = this.createUniqueId()
     const newStack = {
       id: newId,
@@ -40,29 +72,51 @@ export class DataService {
     const newStacks = [...stacks, newStack]
       .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
 
-    this.updatePersistentData({ stacks: newStacks, activeStackId: newId })
+    const otherRealms = this.persistentData.realms.filter(actRealm => actRealm !== realm)
+
+    this.updatePersistentData({
+      realms: [
+        ...otherRealms,
+        {
+          ...realm,
+          stacks: newStacks,
+        },
+      ],
+      activeStackId: newId,
+    })
 
     return { newStack, newStacks }
   }
 
-  removeStack(stacks: Stack[] = this.persistentData.stacks, id: string = this.persistentData.activeStackId): Stack[] {
-    const leftStacks = stacks.filter(e => e.id !== id)
+  removeStack(realm: Realm = this.getActiveRealm(), stackId: string = this.persistentData.activeStackId): Stack[] {
+    const stacks: Stack[] = realm.stacks
+    const leftStacks = stacks.filter(e => e.id !== stackId)
     const removedStackIndex = stacks.map((stack, index) => ({ ...stack, index }))
-      .filter(stack => stack.id === id)[0].index
+      .filter(stack => stack.id === stackId)[0].index
+
+    const otherRealms = this.persistentData.realms.filter(actRealm => actRealm !== realm)
+
+    const updatedRealms = [
+      ...otherRealms,
+      {
+        ...realm,
+        stacks: leftStacks,
+      },
+    ]
 
     if (stacks.length === 1) {
       this.updatePersistentData({
-        stacks: [...leftStacks],
+        realms: updatedRealms,
         activeStackId: undefined,
       })
     } else if (stacks.length > 1 && removedStackIndex === 0) {
       this.updatePersistentData({
-        stacks: [...leftStacks],
+        realms: updatedRealms,
         activeStackId: stacks[removedStackIndex + 1].id,
       })
     } else {
       this.updatePersistentData({
-        stacks: [...leftStacks],
+        realms: updatedRealms,
         activeStackId: stacks[removedStackIndex - 1].id,
       })
     }
@@ -86,7 +140,7 @@ export class DataService {
   }
 
   updatePersistentData(update: object) {
-    Object.assign(this.persistentData, update)
+    this.persistentData = Object.assign(this.persistentData, update)
     this.updateLocalStorage()
   }
 
@@ -99,9 +153,23 @@ export class DataService {
 
   updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
 
+  getActiveRealm(id: string = this.persistentData.activeRealmId, persistentData: PersistentData = this.persistentData): Realm {
+    if (persistentData.realms.length > 0) {
+      return persistentData.realms.filter(realm => realm.id === id)[0]
+    } else {
+      return {
+        id: undefined,
+        name: undefined,
+        stacks: [],
+      }
+    }
+  }
+
   getActiveStack(id: string = this.persistentData.activeStackId, persistentData: PersistentData = this.persistentData): Stack {
-    if (persistentData.stacks.length > 0) {
-      return persistentData.stacks.filter(stack => stack.id === id)[0]
+    const activeRealm: Realm = this.getActiveRealm()
+
+    if (activeRealm.stacks.length > 0) {
+      return activeRealm.stacks.filter(stack => stack.id === id)[0]
     } else {
       return {
         id: undefined,

@@ -1,16 +1,27 @@
-<div id="overlay">
+<!-- <div id="overlay">
   <mat-spinner diameter="200"></mat-spinner>
-</div>
+</div> -->
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-nav-list>
-      <mat-button-toggle-group *ngIf="persistentData.stacks" name="fontStyle" aria-label="Font Style"
+      <mat-button-toggle-group *ngIf="dataService.getActiveRealm().stacks" name="fontStyle" aria-label="Font Style"
         value="{{persistentData.activeStackId}}">
-        <mat-button-toggle *ngFor="let stack of persistentData.stacks" (click)="changeActiveStack(stack.id)"
-          mat-list-item value="{{stack.id}}">
-          {{stack.name}}</mat-button-toggle>
+
+        <mat-form-field>
+          <mat-select [value]="dataService.persistentData.activeRealmId">
+            <mat-option *ngFor="let realm of dataService.persistentData.realms" [value]="realm.id">
+              {{realm.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-button-toggle *ngFor="let stack of dataService.getActiveRealm().stacks"
+          (click)="changeActiveStack(stack.id)" mat-list-item value="{{stack.id}}">
+          {{stack.name}}
+        </mat-button-toggle>
+
       </mat-button-toggle-group>
       <button id="addBtn" mat-mini-fab color="accent" (click)="dataService.addStack();">+</button>
     </mat-nav-list>
@@ -41,7 +52,10 @@
         Okay that's fine 😊
       </button>
     </mat-card>
+
+    <!-- main area -->
     <app-stack></app-stack>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 

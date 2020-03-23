@@ -1,5 +1,5 @@
 <main>
-  <div [style.display]="persistentData.stacks.length > 0 ? 'block' : 'none'">
+  <div [style.display]="this.dataService.getActiveRealm().stacks.length > 0 ? 'block' : 'none'">
     <mat-card id="stackInfoCard">
       <mat-card-title *ngIf="dataService.getActiveStack()">{{dataService.getActiveStack().name}}</mat-card-title>
       <i id="playBtn" class="fa fa-play-circle fa-2x" aria-hidden="true" (click)="openPlayDialog()"></i>
@@ -54,7 +54,7 @@
     </table>
   </div>
 
-  <mat-card *ngIf="persistentData.stacks.length === 0">
+  <mat-card *ngIf="this.dataService.getActiveRealm().stacks.length === 0">
     <mat-card-title>👈 Create a stack to continue your flash cards journey 🤓🎴🌈</mat-card-title>
   </mat-card>
 </main>
