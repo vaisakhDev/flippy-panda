@@ -7,6 +7,7 @@ import { FirebaseService } from '../#services/firebase.service'
 import { PersistentData } from '../interfaces'
 import { MatDialog } from '@angular/material/dialog'
 import { LoginComponent } from '../login/login.component'
+import gsap from 'gsap'
 
 @Component({
   selector: 'app-nav',
@@ -31,12 +32,12 @@ export class NavComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // overlay animation
-    // const subscriber = this.dataService.user$.subscribe(() => {
-    //   gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
-    //     document.getElementById('overlay').remove()
-    //   })
-    //   subscriber.unsubscribe()
-    // })
+    const subscriber = this.dataService.user$.subscribe(() => {
+      gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
+        document.getElementById('overlay').remove()
+      })
+      subscriber.unsubscribe()
+    })
   }
 
   openPlayOrderDialog = () => {
