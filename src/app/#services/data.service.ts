@@ -25,7 +25,7 @@ export class DataService {
     if (lStorage) {
       // migrates to newer format
       if (lStorage.decks) {
-        const realmId = Guid.create().toString()
+        const realmId = this.createUniqueId()
         lStorage = {
           realms: [
             {
@@ -55,7 +55,7 @@ export class DataService {
       }
       this.persistentData = lStorage
     } else {
-      const realmId = Guid.create().toString()
+      const realmId = this.createUniqueId()
       this.persistentData = {
         ...lStorage,
         realms: [
@@ -67,6 +67,25 @@ export class DataService {
         ],
         activeRealmId: realmId,
         banner: true,
+      }
+    }
+  }
+
+  updatePersistentData(update: object) {
+    this.persistentData = Object.assign(this.persistentData, update)
+    this.updateLocalStorage()
+  }
+
+  updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
+
+  getActiveRealm(id: string = this.persistentData.activeRealmId, persistentData: PersistentData = this.persistentData): Realm {
+    if (persistentData.realms.length > 0) {
+      return persistentData.realms.filter(realm => realm.id === id)[0]
+    } else {
+      return {
+        id: undefined,
+        name: undefined,
+        decks: [],
       }
     }
   }
@@ -100,6 +119,27 @@ export class DataService {
     })
 
     return { newDeck, newDecks }
+  }
+
+  getActiveDeck(id: string = this.persistentData.activeDeckId, persistentData: PersistentData = this.persistentData): Deck {
+    const activeRealm: Realm = this.getActiveRealm()
+
+    if (activeRealm.decks.length > 0) {
+      return activeRealm.decks.filter(deck => deck.id === id)[0]
+    } else {
+      return {
+        id: undefined,
+        name: undefined,
+        cards: [],
+      }
+    }
+  }
+
+  updateActiveDeck(update: object, updateLocalStorage = true) {
+    Object.assign(this.getActiveDeck(), update)
+    if (updateLocalStorage) {
+      this.updateLocalStorage()
+    }
   }
 
   removeDeck(realm: Realm = this.getActiveRealm(), deckId: string = this.persistentData.activeDeckId): Deck[] {
@@ -151,46 +191,6 @@ export class DataService {
     const activeDeck = this.getActiveDeck()
     const leftCards = activeDeck.cards.filter(e => e.id !== id)
     this.updateActiveDeck({ cards: [...leftCards] })
-  }
-
-  updatePersistentData(update: object) {
-    this.persistentData = Object.assign(this.persistentData, update)
-    this.updateLocalStorage()
-  }
-
-  updateActiveDeck(update: object, updateLocalStorage = true) {
-    Object.assign(this.getActiveDeck(), update)
-    if (updateLocalStorage) {
-      this.updateLocalStorage()
-    }
-  }
-
-  updateLocalStorage = () => localStorage.setItem('flippyPanda', JSON.stringify(this.persistentData))
-
-  getActiveRealm(id: string = this.persistentData.activeRealmId, persistentData: PersistentData = this.persistentData): Realm {
-    if (persistentData.realms.length > 0) {
-      return persistentData.realms.filter(realm => realm.id === id)[0]
-    } else {
-      return {
-        id: undefined,
-        name: undefined,
-        decks: [],
-      }
-    }
-  }
-
-  getActiveDeck(id: string = this.persistentData.activeDeckId, persistentData: PersistentData = this.persistentData): Deck {
-    const activeRealm: Realm = this.getActiveRealm()
-
-    if (activeRealm.decks.length > 0) {
-      return activeRealm.decks.filter(deck => deck.id === id)[0]
-    } else {
-      return {
-        id: undefined,
-        name: undefined,
-        cards: [],
-      }
-    }
   }
 
   createUniqueId = (): string => Guid.create().toString()
