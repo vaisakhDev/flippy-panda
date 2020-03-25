@@ -8,21 +8,12 @@ import { PersistentData } from '../interfaces'
 import { MatDialog } from '@angular/material/dialog'
 import { LoginComponent } from '../login/login.component'
 
-// interface Food {
-//   value: string
-//   viewValue: string
-// }
-
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements AfterViewInit {
-  // foods: Food[] = [
-  //   { value: 'steak-0', viewValue: 'Shadow Realm' },
-  //   { value: 'pizza-1', viewValue: 'Light Realm' },
-  // ]
 
   constructor(
     private breakpointObserver: BreakpointObserver,
