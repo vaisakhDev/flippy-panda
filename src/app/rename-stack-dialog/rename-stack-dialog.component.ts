@@ -18,9 +18,22 @@ export class RenameStackDialogComponent {
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
 
     this.dataService.updateActiveStack({ name: newName })
+
+    // sort stacks
+    const realm = this.dataService.getActiveRealm()
+    const otherRealms = this.dataService.persistentData.realms.filter(actRealm => actRealm !== realm)
     const newStacks = this.dataService.getActiveRealm().stacks
       .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
-    this.dataService.updatePersistentData({ stacks: newStacks })
+    this.dataService.updatePersistentData({
+      ...this.dataService.persistentData,
+      realms: [
+        ...otherRealms,
+        {
+          ...realm,
+          stacks: newStacks,
+        },
+      ],
+    })
 
     this.dialog.getDialogById('rename-stack-dialog').close([])
   }
