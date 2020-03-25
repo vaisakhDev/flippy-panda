@@ -4,20 +4,8 @@ import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatButtonModule } from '@angular/material/button'
-import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatIconModule } from '@angular/material/icon'
-import { MatListModule } from '@angular/material/list'
-import { MatTableModule } from '@angular/material/table'
-import { MatInputModule } from '@angular/material/input'
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatCardModule } from '@angular/material/card'
-import { MatButtonToggleModule } from '@angular/material/button-toggle'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatSelectModule } from '@angular/material/select'
-import { MatFormFieldModule } from '@angular/material/form-field'
+
+import material from './app.material'
 
 import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
@@ -69,20 +57,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatInputModule,
-    MatDialogModule,
-    MatCardModule,
-    MatButtonToggleModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatFormFieldModule,
+    ...material,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
