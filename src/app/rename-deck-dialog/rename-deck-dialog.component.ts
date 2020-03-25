@@ -1,40 +1,40 @@
 import { Component } from '@angular/core'
 import { DataService } from '../#services/data.service'
-import { Stack } from '../interfaces'
+import { Deck } from '../interfaces'
 import { MatDialog } from '@angular/material/dialog'
 
 
 @Component({
-  selector: 'app-rename-stack-dialog',
-  templateUrl: './rename-stack-dialog.component.html',
-  styleUrls: ['./rename-stack-dialog.component.scss'],
+  selector: 'app-rename-deck-dialog',
+  templateUrl: './rename-deck-dialog.component.html',
+  styleUrls: ['./rename-deck-dialog.component.scss'],
 })
-export class RenameStackDialogComponent {
+export class RenameDeckDialogComponent {
 
   constructor(public dataService: DataService, public dialog: MatDialog) { }
 
-  renameStack(event: Event) {
+  renameDeck(event: Event) {
     event.preventDefault()
     const newName = (document.getElementById('newNameInput') as HTMLInputElement).value
 
-    this.dataService.updateActiveStack({ name: newName })
+    this.dataService.updateActiveDeck({ name: newName })
 
-    // sort stacks
+    // sort decks
     const realm = this.dataService.getActiveRealm()
     const otherRealms = this.dataService.persistentData.realms.filter(actRealm => actRealm !== realm)
-    const newStacks = this.dataService.getActiveRealm().stacks
-      .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
+    const newDecks = this.dataService.getActiveRealm().decks
+      .sort((a: Deck, b: Deck) => a.name > b.name ? 1 : -1)
     this.dataService.updatePersistentData({
       ...this.dataService.persistentData,
       realms: [
         ...otherRealms,
         {
           ...realm,
-          stacks: newStacks,
+          decks: newDecks,
         },
       ],
     })
 
-    this.dialog.getDialogById('rename-stack-dialog').close([])
+    this.dialog.getDialogById('rename-deck-dialog').close([])
   }
 }

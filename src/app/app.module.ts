@@ -21,8 +21,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 
 import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
-import { StackComponent } from './stack/stack.component'
-import { RenameStackDialogComponent } from './rename-stack-dialog/rename-stack-dialog.component'
+import { DeckComponent } from './deck/deck.component'
+import { RenameDeckDialogComponent } from './rename-deck-dialog/rename-deck-dialog.component'
 
 import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
@@ -58,9 +58,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     NavComponent,
     PlayDialogComponent,
-    StackComponent,
+    DeckComponent,
     LoginComponent,
-    RenameStackDialogComponent,
+    RenameDeckDialogComponent,
   ],
   entryComponents: [
     PlayDialogComponent,

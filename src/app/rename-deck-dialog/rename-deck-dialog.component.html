@@ -1,7 +1,7 @@
 <mat-dialog-actions align="end">
-  <form (submit)="renameStack($event)">
+  <form (submit)="renameDeck($event)">
     <mat-form-field class="example-full-width">
-      <input id='newNameInput' matInput placeholder="New name ✍️" value="{{dataService.getActiveStack().name}}"
+      <input id='newNameInput' matInput placeholder="New name ✍️" value="{{dataService.getActiveDeck().name}}"
         cdkFocusInitial />
     </mat-form-field>
   </form>

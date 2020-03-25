@@ -6,14 +6,14 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { PersistentData, Card } from '../interfaces'
 import { PlayDialogComponent } from '../play-dialog/play-dialog.component'
-import { RenameStackDialogComponent } from '../rename-stack-dialog/rename-stack-dialog.component'
+import { RenameDeckDialogComponent } from '../rename-deck-dialog/rename-deck-dialog.component'
 
 @Component({
-  selector: 'app-stack',
-  templateUrl: './stack.component.html',
-  styleUrls: ['./stack.component.scss'],
+  selector: 'app-deck',
+  templateUrl: './deck.component.html',
+  styleUrls: ['./deck.component.scss'],
 })
-export class StackComponent {
+export class DeckComponent {
   displayedColumns: string[] = ['cardIcon', 'left', 'right', 'remove']
   newName: string
   persistentData: PersistentData
@@ -30,7 +30,7 @@ export class StackComponent {
   }
 
   openPlayDialog = () => {
-    if (this.dataService.getActiveStack().cards.length > 0) {
+    if (this.dataService.getActiveDeck().cards.length > 0) {
       this.dialog.open(PlayDialogComponent)
     }
   }
@@ -49,9 +49,9 @@ export class StackComponent {
     this.openSnackBar(`🎴Card("${leftText}", "${rightText}")`, 'Added 📥')
   }
 
-  openRenameStackDialog = () => this.dialog.open(RenameStackDialogComponent, { id: 'rename-stack-dialog' })
+  openRenameDeckDialog = () => this.dialog.open(RenameDeckDialogComponent, { id: 'rename-deck-dialog' })
 
-  removeStack = () => this.dataService.removeStack()
+  removeDeck = () => this.dataService.removeDeck()
 
   removeCard = (card: Card) => this.dataService.removeCard(card.id)
 }

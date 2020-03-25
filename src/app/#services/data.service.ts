@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Guid } from 'guid-typescript'
-import { PersistentData, Stack, Card } from '../interfaces'
+import { PersistentData, Deck, Card } from '../interfaces'
 import { CardSide } from '../enums'
 import { Observable } from 'rxjs'
 import { User, Realm } from '../interfaces'
 
-type Item = Stack | Card
+type Item = Deck | Card
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class DataService {
   persistentData: PersistentData = {
     realms: [],
     activeRealmId: undefined,
-    activeStackId: undefined,
+    activeDeckId: undefined,
     banner: true,
   }
   chosenCardSide = CardSide.top
@@ -24,7 +24,7 @@ export class DataService {
     let lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
     if (lStorage) {
       // migrates to newer format
-      if (lStorage.stacks) {
+      if (lStorage.decks) {
         const realmId = Guid.create().toString()
         lStorage = {
           realms: [
@@ -39,6 +39,20 @@ export class DataService {
           banner: lStorage.banner,
         }
       }
+      if (lStorage.activeStackId) {
+        lStorage = {
+          realms: [
+            {
+              id: lStorage.realms[0].id,
+              name: lStorage.realms[0].name,
+              decks: lStorage.realms[0].stacks,
+            },
+          ],
+          activeRealmId: lStorage.activeRealmId,
+          activeDeckId: lStorage.activeStackId,
+          banner: lStorage.banner,
+        }
+      }
       this.persistentData = lStorage
     } else {
       const realmId = Guid.create().toString()
@@ -48,7 +62,7 @@ export class DataService {
           {
             id: realmId,
             name: 'Realm #1',
-            stacks: [],
+            decks: [],
           },
         ],
         activeRealmId: realmId,
@@ -57,20 +71,20 @@ export class DataService {
     }
   }
 
-  addStack(realm: Realm = this.getActiveRealm()): {
-    newStack: Stack,
-    newStacks: Stack[],
+  addDeck(realm: Realm = this.getActiveRealm()): {
+    newDeck: Deck,
+    newDecks: Deck[],
   } {
-    const stacks: Stack[] = realm.stacks
+    const decks: Deck[] = realm.decks
     const newId = this.createUniqueId()
-    const newStack = {
+    const newDeck = {
       id: newId,
-      name: `stack #${stacks.length + 1}`,
+      name: `deck #${decks.length + 1}`,
       cards: [],
     }
 
-    const newStacks = [...stacks, newStack]
-      .sort((a: Stack, b: Stack) => a.name > b.name ? 1 : -1)
+    const newDecks = [...decks, newDeck]
+      .sort((a: Deck, b: Deck) => a.name > b.name ? 1 : -1)
 
     const otherRealms = this.persistentData.realms.filter(actRealm => actRealm !== realm)
 
@@ -79,20 +93,20 @@ export class DataService {
         ...otherRealms,
         {
           ...realm,
-          stacks: newStacks,
+          decks: newDecks,
         },
       ],
-      activeStackId: newId,
+      activeDeckId: newId,
     })
 
-    return { newStack, newStacks }
+    return { newDeck, newDecks }
   }
 
-  removeStack(realm: Realm = this.getActiveRealm(), stackId: string = this.persistentData.activeStackId): Stack[] {
-    const stacks: Stack[] = realm.stacks
-    const leftStacks = stacks.filter(e => e.id !== stackId)
-    const removedStackIndex = stacks.map((stack, index) => ({ ...stack, index }))
-      .filter(stack => stack.id === stackId)[0].index
+  removeDeck(realm: Realm = this.getActiveRealm(), deckId: string = this.persistentData.activeDeckId): Deck[] {
+    const decks: Deck[] = realm.decks
+    const leftDecks = decks.filter(e => e.id !== deckId)
+    const removedDeckIndex = decks.map((deck, index) => ({ ...deck, index }))
+      .filter(deck => deck.id === deckId)[0].index
 
     const otherRealms = this.persistentData.realms.filter(actRealm => actRealm !== realm)
 
@@ -100,32 +114,32 @@ export class DataService {
       ...otherRealms,
       {
         ...realm,
-        stacks: leftStacks,
+        decks: leftDecks,
       },
     ]
 
-    if (stacks.length === 1) {
+    if (decks.length === 1) {
       this.updatePersistentData({
         realms: updatedRealms,
-        activeStackId: undefined,
+        activeDeckId: undefined,
       })
-    } else if (stacks.length > 1 && removedStackIndex === 0) {
+    } else if (decks.length > 1 && removedDeckIndex === 0) {
       this.updatePersistentData({
         realms: updatedRealms,
-        activeStackId: stacks[removedStackIndex + 1].id,
+        activeDeckId: decks[removedDeckIndex + 1].id,
       })
     } else {
       this.updatePersistentData({
         realms: updatedRealms,
-        activeStackId: stacks[removedStackIndex - 1].id,
+        activeDeckId: decks[removedDeckIndex - 1].id,
       })
     }
-    return leftStacks
+    return leftDecks
   }
 
   addCard(leftText: string, rightText: string) {
-    this.updateActiveStack({
-      cards: [...this.getActiveStack().cards, {
+    this.updateActiveDeck({
+      cards: [...this.getActiveDeck().cards, {
         id: this.createUniqueId(),
         left: leftText,
         right: rightText,
@@ -134,9 +148,9 @@ export class DataService {
   }
 
   removeCard(id: string) {
-    const activeStack = this.getActiveStack()
-    const leftCards = activeStack.cards.filter(e => e.id !== id)
-    this.updateActiveStack({ cards: [...leftCards] })
+    const activeDeck = this.getActiveDeck()
+    const leftCards = activeDeck.cards.filter(e => e.id !== id)
+    this.updateActiveDeck({ cards: [...leftCards] })
   }
 
   updatePersistentData(update: object) {
@@ -144,8 +158,8 @@ export class DataService {
     this.updateLocalStorage()
   }
 
-  updateActiveStack(update: object, updateLocalStorage = true) {
-    Object.assign(this.getActiveStack(), update)
+  updateActiveDeck(update: object, updateLocalStorage = true) {
+    Object.assign(this.getActiveDeck(), update)
     if (updateLocalStorage) {
       this.updateLocalStorage()
     }
@@ -160,16 +174,16 @@ export class DataService {
       return {
         id: undefined,
         name: undefined,
-        stacks: [],
+        decks: [],
       }
     }
   }
 
-  getActiveStack(id: string = this.persistentData.activeStackId, persistentData: PersistentData = this.persistentData): Stack {
+  getActiveDeck(id: string = this.persistentData.activeDeckId, persistentData: PersistentData = this.persistentData): Deck {
     const activeRealm: Realm = this.getActiveRealm()
 
-    if (activeRealm.stacks.length > 0) {
-      return activeRealm.stacks.filter(stack => stack.id === id)[0]
+    if (activeRealm.decks.length > 0) {
+      return activeRealm.decks.filter(deck => deck.id === id)[0]
     } else {
       return {
         id: undefined,

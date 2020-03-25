@@ -6,8 +6,8 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-nav-list>
-      <mat-button-toggle-group *ngIf="dataService.getActiveRealm().stacks" name="fontStyle" aria-label="Font Style"
-        value="{{persistentData.activeStackId}}">
+      <mat-button-toggle-group *ngIf="dataService.getActiveRealm().decks" name="fontStyle" aria-label="Font Style"
+        value="{{persistentData.activeDeckId}}">
 
         <mat-form-field>
           <mat-select [value]="dataService.persistentData.activeRealmId">
@@ -17,13 +17,13 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-button-toggle *ngFor="let stack of dataService.getActiveRealm().stacks"
-          (click)="changeActiveStack(stack.id)" mat-list-item value="{{stack.id}}">
-          {{stack.name}}
+        <mat-button-toggle *ngFor="let deck of dataService.getActiveRealm().decks" (click)="changeActiveDeck(deck.id)"
+          mat-list-item value="{{deck.id}}">
+          {{deck.name}}
         </mat-button-toggle>
 
       </mat-button-toggle-group>
-      <button id="addBtn" mat-mini-fab color="accent" (click)="dataService.addStack();">+</button>
+      <button id="addBtn" mat-mini-fab color="accent" (click)="dataService.addDeck();">+</button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -54,7 +54,7 @@
     </mat-card>
 
     <!-- main area -->
-    <app-stack></app-stack>
+    <app-deck></app-deck>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

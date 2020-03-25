@@ -1,15 +1,15 @@
 export interface PersistentData {
   readonly realms: Realm[],
   readonly activeRealmId: string,
-  readonly activeStackId: string,
+  readonly activeDeckId: string,
   readonly banner: boolean,
 }
 export interface Realm {
   readonly id: string,
   readonly name: string,
-  readonly stacks: Stack[],
+  readonly decks: Deck[],
 }
-export interface Stack {
+export interface Deck {
   readonly id: string,
   readonly name: string,
   readonly cards: Card[],
