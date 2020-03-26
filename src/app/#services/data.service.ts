@@ -21,38 +21,8 @@ export class DataService {
   user$: Observable<User>
 
   constructor() {
-    let lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
+    const lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
     if (lStorage) {
-      // migrates to newer format
-      if (lStorage.decks) {
-        const realmId = this.createUniqueId()
-        lStorage = {
-          realms: [
-            {
-              id: realmId,
-              name: 'Realm #1',
-              stacks: lStorage.stacks,
-            },
-          ],
-          activeRealmId: realmId,
-          activeStackId: lStorage.activeStackId,
-          banner: lStorage.banner,
-        }
-      }
-      if (lStorage.activeStackId) {
-        lStorage = {
-          realms: [
-            {
-              id: lStorage.realms[0].id,
-              name: lStorage.realms[0].name,
-              decks: lStorage.realms[0].stacks,
-            },
-          ],
-          activeRealmId: lStorage.activeRealmId,
-          activeDeckId: lStorage.activeStackId,
-          banner: lStorage.banner,
-        }
-      }
       this.persistentData = lStorage
     } else {
       const realmId = this.createUniqueId()
