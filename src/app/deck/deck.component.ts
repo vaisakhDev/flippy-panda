@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { MatTable } from '@angular/material'
+import { MatTable } from '@angular/material/table';
 import { DataService } from '../#services/data.service'
 import { MatInput } from '@angular/material/input'
 import { MatDialog } from '@angular/material/dialog'
