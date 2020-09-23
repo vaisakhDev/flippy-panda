@@ -1,13 +1,14 @@
-import { Component, AfterViewInit } from "@angular/core";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { Observable } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
-import { DataService } from "../#services/data.service";
-// import { FirebaseService } from "../#services/firebase.service";
-import { PersistentData } from "../interfaces";
-import { MatDialog } from "@angular/material/dialog";
-import { LoginComponent } from "../login/login.component";
-import gsap from "gsap";
+import { Component, AfterViewInit } from "@angular/core"
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout"
+import { Observable } from "rxjs"
+import { map, shareReplay } from "rxjs/operators"
+import { DataService } from "../#services/data.service"
+// import { FirebaseService } from "../#services/firebase.service"
+import { PersistentData } from "../interfaces"
+import { MatDialog } from "@angular/material/dialog"
+import { LoginComponent } from "../login/login.component"
+import { faCat } from "@fortawesome/free-solid-svg-icons"
+import gsap from "gsap"
 
 @Component({
   selector: "app-nav",
@@ -20,15 +21,16 @@ export class NavComponent implements AfterViewInit {
     public dataService: DataService,
     public dialog: MatDialog // public fbService: FirebaseService
   ) {
-    this.persistentData = dataService.persistentData;
+    this.persistentData = dataService.persistentData
   }
-  persistentData: PersistentData;
+  persistentData: PersistentData
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
       shareReplay()
-    );
+    )
+  faCat = faCat
 
   ngAfterViewInit() {
     // overlay animation
@@ -41,14 +43,14 @@ export class NavComponent implements AfterViewInit {
   }
 
   openPlayOrderDialog = () => {
-    this.dialog.open(LoginComponent);
-  };
+    this.dialog.open(LoginComponent)
+  }
 
   changeActiveDeck = (id: string) =>
     this.dataService.updatePersistentData({
       ...this.dataService.persistentData,
       activeDeckId: id,
-    });
+    })
 
-  closeBanner = () => this.dataService.updatePersistentData({ banner: false });
+  closeBanner = () => this.dataService.updatePersistentData({ banner: false })
 }

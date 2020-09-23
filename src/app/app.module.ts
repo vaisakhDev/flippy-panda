@@ -21,6 +21,7 @@ import { RenameDeckDialogComponent } from "./rename-deck-dialog/rename-deck-dial
 // import { LoginComponent } from './login/login.component'
 
 import { GravatarModule } from "ngx-gravatar";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const config = {
   apiKey: "AIzaSyC9kKBqV1hj8eWyvDPHvMwvQqBT7LTESxY",
@@ -61,6 +62,7 @@ const config = {
     // AngularFireAnalyticsModule,
     // FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     GravatarModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
