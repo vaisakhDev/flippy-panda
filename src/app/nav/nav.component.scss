@@ -40,7 +40,7 @@
   border-radius: 0;
 }
 
-:host .mat-button-toggle-group{
+:host .mat-button-toggle-group {
   border-radius: 0 !important;
   border: 0;
 }
@@ -60,6 +60,7 @@
 
 #githubWrapper {
   display: none;
+  margin-right: 1rem;
 }
 
 #signInBtn {
@@ -98,7 +99,7 @@ img {
 }
 
 .fa-github:hover {
-  color: #68217A;
+  color: #68217a;
 }
 
 @media screen and (min-width: 460px) {

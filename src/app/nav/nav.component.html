@@ -1,36 +1,63 @@
-<div id="overlay">
+<!-- <div id="overlay">
   <mat-spinner diameter="200"></mat-spinner>
-</div>
+</div> -->
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-nav-list>
-      <mat-button-toggle-group *ngIf="dataService.getActiveRealm().decks" name="fontStyle" aria-label="Font Style"
-        value="{{persistentData.activeDeckId}}">
-
+      <mat-button-toggle-group
+        *ngIf="dataService.getActiveRealm().decks"
+        name="fontStyle"
+        aria-label="Font Style"
+        value="{{ persistentData.activeDeckId }}"
+      >
         <mat-form-field>
           <mat-select [value]="dataService.persistentData.activeRealmId">
-            <mat-option *ngFor="let realm of dataService.persistentData.realms" [value]="realm.id">
-              {{realm.name}}
+            <mat-option
+              *ngFor="let realm of dataService.persistentData.realms"
+              [value]="realm.id"
+            >
+              {{ realm.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-button-toggle *ngFor="let deck of dataService.getActiveRealm().decks" (click)="changeActiveDeck(deck.id)"
-          mat-list-item value="{{deck.id}}">
-          {{deck.name}}
+        <mat-button-toggle
+          *ngFor="let deck of dataService.getActiveRealm().decks"
+          (click)="changeActiveDeck(deck.id)"
+          mat-list-item
+          value="{{ deck.id }}"
+        >
+          {{ deck.name }}
         </mat-button-toggle>
-
       </mat-button-toggle-group>
-      <button id="addBtn" mat-mini-fab color="accent" (click)="dataService.addDeck();">+</button>
+      <button
+        id="addBtn"
+        mat-mini-fab
+        color="accent"
+        (click)="dataService.addDeck()"
+      >
+        +
+      </button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <div id="topLeftWrapper">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async"
+        >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span id="logo1" class="logo">flippy</span>
@@ -43,23 +70,21 @@
             <i class="fa fa-github fa-2x" aria-hidden="true"></i>
           </a>
         </div>
-        <div *ngIf="dataService.user$ | async; then loggedIn else login"></div>
+        <!-- todo: uncomment this later on -->
+        <!-- <div *ngIf="dataService.user$ | async; then loggedIn else login"></div> -->
       </div>
     </mat-toolbar>
     <mat-card id="bannerCard" *ngIf="persistentData.banner">
       <p>This app uses Local Storage to persist data 💾</p>
-      <button mat-button (click)="closeBanner()">
-        Okay that's fine 😊
-      </button>
+      <button mat-button (click)="closeBanner()">Okay that's fine 😊</button>
     </mat-card>
 
     <!-- main area -->
     <app-deck></app-deck>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<ng-template #login>
+<!-- <ng-template #login>
   <button id="signInBtn" mat-button (click)="openPlayOrderDialog()">Login <i class="fa fa-sign-in"></i></button>
 </ng-template>
 
@@ -69,4 +94,4 @@
       <img ngxGravatar fallback='robohash' [email]="user.email" size="50" alt="🖼" mat-card-avatar>
     </button>
   </div>
-</ng-template>
+</ng-template> -->
