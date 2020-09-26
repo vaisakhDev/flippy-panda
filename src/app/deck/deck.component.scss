@@ -13,7 +13,7 @@ table {
 }
 
 .example-form {
-  display:flex;
+  display: flex;
   justify-content: space-evenly;
 }
 
@@ -25,10 +25,12 @@ table {
 
 #playBtn {
   font-size: xx-large;
+  color: tomato;
   cursor: pointer;
 }
 
-#renameDeckBtn, #removeDeckBtn {
+#renameDeckBtn,
+#removeDeckBtn {
   transform: scale(0.8);
 }
 

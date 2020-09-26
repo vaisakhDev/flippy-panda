@@ -14,38 +14,64 @@
     <mat-nav-list>
       <mat-button-toggle-group
         *ngIf="dataService.getActiveRealm().decks"
-        name="fontStyle"
-        aria-label="Font Style"
-        value="{{ persistentData.activeDeckId }}"
+        value="{{ dataService.getActiveRealm().activeDeckId }}"
       >
         <mat-form-field>
-          <mat-select [value]="dataService.persistentData.activeRealmId">
+          <mat-select [value]="dataService.data.activeRealmId">
             <mat-option
-              *ngFor="let realm of dataService.persistentData.realms"
+              *ngFor="let realm of dataService.data.realms"
               [value]="realm.id"
+              (click)="dataService.changeRealm(realm.id)"
             >
               {{ realm.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
+        <div
+          style="
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+          "
+        >
+          <fa-icon
+            class="realmBtn"
+            [icon]="faPlus"
+            (click)="dataService.addRealm()"
+          ></fa-icon>
+          <!-- todo: implement click-event -->
+          <!-- <fa-icon
+            class="realmBtn"
+            [icon]="faEdit"
+            (click)="dataService.renameRealm()"
+          ></fa-icon> -->
+          <fa-icon
+            class="realmBtn"
+            [icon]="faTimes"
+            (click)="dataService.removeRealm()"
+          ></fa-icon>
+        </div>
+
+        <button
+          id="addBtn"
+          mat-flat-button
+          color="accent"
+          (click)="dataService.addDeck()"
+          *ngIf="dataService.data.realms.length > 0"
+        >
+          🗃 Add a new Deck 👇
+        </button>
+
         <mat-button-toggle
           *ngFor="let deck of dataService.getActiveRealm().decks"
-          (click)="changeActiveDeck(deck.id)"
+          (click)="dataService.changeActiveDeck(deck.id)"
           mat-list-item
           value="{{ deck.id }}"
         >
           {{ deck.name }}
         </mat-button-toggle>
       </mat-button-toggle-group>
-      <button
-        id="addBtn"
-        mat-mini-fab
-        color="accent"
-        (click)="dataService.addDeck()"
-      >
-        +
-      </button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -67,14 +93,16 @@
       <div id="topRightWrapper">
         <div id="githubWrapper">
           <a href="https://github.com/TGotwig/flippy-panda" target="_blank">
-            <fa-icon [icon]="faCat"></fa-icon>
+            <span id="faCat">
+              <fa-icon [icon]="faCat"></fa-icon>
+            </span>
           </a>
         </div>
         <!-- todo: uncomment this later on -->
         <!-- <div *ngIf="dataService.user$ | async; then loggedIn else login"></div> -->
       </div>
     </mat-toolbar>
-    <mat-card id="bannerCard" *ngIf="persistentData.banner">
+    <mat-card id="bannerCard" *ngIf="data.banner">
       <p>This app uses Local Storage to persist data 💾</p>
       <button mat-button (click)="closeBanner()">Okay that's fine 😊</button>
     </mat-card>

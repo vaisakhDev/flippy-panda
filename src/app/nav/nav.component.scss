@@ -28,11 +28,12 @@
 }
 
 #addBtn {
-  font-size: xx-large;
+  color: black;
+  font-size: medium;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 #bannerCard {
@@ -98,7 +99,20 @@ img {
   font-size: 0;
 }
 
-.ng-fa-icon:hover {
+.ng-fa-icon {
+  cursor: pointer;
+}
+
+.realmBtn {
+  font-size: x-large;
+  opacity: 0.6;
+}
+
+.realmBtn:hover {
+  opacity: 1;
+}
+
+#faCat:hover {
   color: #68217a;
 }
 

@@ -2,7 +2,7 @@
 @include mat-core();
 
 $app-primary: mat-palette($mat-yellow);
-$app-accent:  mat-palette($mat-orange);
+$app-accent: mat-palette($mat-orange);
 
 $app-theme: mat-light-theme($app-primary, $app-accent);
 
@@ -18,21 +18,27 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
     background-color: mat-color($primary, A200);
   }
 
-  .mat-card, .mat-cell, .mat-header-cell, .mat-dialog-container {
+  .mat-card,
+  .mat-cell,
+  .mat-header-cell,
+  .mat-dialog-container {
     background: mat-color($primary, 400);
     color: black;
   }
-  
-  .mat-toolbar.mat-primary, a {
+
+  .mat-toolbar.mat-primary,
+  a {
     background: mat-color($primary);
     color: black;
   }
 
-  #overlay, .mat-drawer-content {
-    background-color: mat-color($accent)
+  #overlay,
+  .mat-drawer-content {
+    background-color: mat-color($accent);
   }
 
-  .mat-progress-spinner circle, .mat-spinner circle {
+  .mat-progress-spinner circle,
+  .mat-spinner circle {
     stroke: mat-color($primary);
   }
 
@@ -45,10 +51,10 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   }
 
   .mat-focused .mat-form-field-label {
-      color: mat-color($primary, 900) !important;
+    color: mat-color($primary, 900) !important;
   }
   .mat-form-field-ripple {
-      background-color: mat-color($primary, 900) !important;
+    background-color: mat-color($primary, 900) !important;
   }
 
   .mat-snack-bar-container {
@@ -65,21 +71,30 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   }
 
   .fa-times {
-    color: #F7412D;
+    color: #f7412d;
+  }
+
+  .fa-plus {
+    color: #ffff00;
   }
 
   #question {
-    background: linear-gradient(0deg, rgb(249, 66, 6),rgb(250, 134, 22),rgb(251, 202, 37));
+    background: linear-gradient(
+      0deg,
+      rgb(249, 66, 6),
+      rgb(250, 134, 22),
+      rgb(251, 202, 37)
+    );
   }
 
   #logo1 {
-    color: #FFFF00;
+    color: #ffff00;
   }
   #logo2 {
-    color: #FF9900;
+    color: #ff9900;
   }
   #logo3 {
-    color: #F7412D;
+    color: #f7412d;
   }
 }
 

@@ -51,6 +51,7 @@
 
     <table
       mat-table
+      *ngIf="dataService.getActiveDeck()"
       [dataSource]="dataService.getActiveDeck().cards"
       class="mat-elevation-z8"
     >
