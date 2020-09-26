@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core'
 import { User } from '../interfaces'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/firestore'
 import { of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
 import { DataService } from './data.service'
@@ -11,7 +14,7 @@ export class FirebaseService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    public dataService: DataService,
+    public dataService: DataService
   ) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.dataService.user$ = this.afAuth.authState.pipe(
@@ -23,30 +26,37 @@ export class FirebaseService {
           // Logged out
           return of(null)
         }
-      }),
+      })
     )
   }
 
   signIn(authResult) {
     switch (authResult.additionalUserInfo.providerId) {
       case 'google.com':
-        this.updateUserDataByGoogle(authResult.user); break
+        this.updateUserDataByGoogle(authResult.user)
+        break
     }
   }
 
   private updateUserDataByGoogle({ uid, email, displayName }: User) {
-    return this.afs.doc(`users/${uid}`).get().toPromise().then(user => {
-      if (!user.exists) {
-        return this.afs.doc(`users/${uid}`)
-          .set({
-            uid,
-            email,
-            displayName,
-          }, { merge: true })
-      } else {
-        return user.data()
-      }
-    })
+    return this.afs
+      .doc(`users/${uid}`)
+      .get()
+      .toPromise()
+      .then((user) => {
+        if (!user.exists) {
+          return this.afs.doc(`users/${uid}`).set(
+            {
+              uid,
+              email,
+              displayName,
+            },
+            { merge: true }
+          )
+        } else {
+          return user.data()
+        }
+      })
   }
 
   async signOut() {

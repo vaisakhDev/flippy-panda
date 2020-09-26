@@ -23,7 +23,9 @@ export class PlayDialogComponent {
   negatives = 0
 
   constructor(public dataService: DataService) {
-    this.data = JSON.parse(JSON.stringify(this.dataService.getActiveDeck().cards))
+    this.data = JSON.parse(
+      JSON.stringify(this.dataService.getActiveDeck().cards)
+    )
     this.data = this.shuffleArray(this.data)
     this.actCard = this.data.pop()
     this.actWordLeft = this.actCard.left
@@ -43,9 +45,9 @@ export class PlayDialogComponent {
 
   shuffleArray = (arr: Card[]): Card[] => {
     return arr
-      .map(a => [Math.random(), a])
+      .map((a) => [Math.random(), a])
       .sort((a, b) => +a[0] - +b[0])
-      .map(a => a[1]) as Card[]
+      .map((a) => a[1]) as Card[]
   }
 
   flip = () => {
