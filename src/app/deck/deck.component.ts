@@ -50,7 +50,7 @@ export class DeckComponent {
     const rightText: string = textareas[1].value
 
     this.dataService.addCard(leftText, rightText)
-    this.table.renderRows()
+    if (this.table) this.table.renderRows()
     textareas.forEach((e) => (e.value = ''))
     this.topSideInput.focus()
     this.openSnackBar(`🎴Card("${leftText}", "${rightText}")`, 'Added 📥')
