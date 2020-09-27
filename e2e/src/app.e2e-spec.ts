@@ -15,6 +15,13 @@ describe('workspace-project App', () => {
     )
   })
 
+  it('🪐 should add a Realm', () => {
+    page.navigateTo()
+    page.getAddRealmBtn().click()
+    page.getRealmSelectionInitiatorBtn().click()
+    expect(page.getRealmFromPicklistBtns().count()).toBe(1)
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)

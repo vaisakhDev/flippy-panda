@@ -17,8 +17,12 @@
         value="{{ dataService.getActiveRealm().activeDeckId }}"
       >
         <mat-form-field>
-          <mat-select [value]="dataService.data.activeRealmId">
+          <mat-select
+            id="realmSelectionInitiatorBtn"
+            [value]="dataService.data.activeRealmId"
+          >
             <mat-option
+              class="realmFromPicklistBtn"
               *ngFor="let realm of dataService.data.realms"
               [value]="realm.id"
               (click)="dataService.changeRealm(realm.id)"
@@ -36,6 +40,7 @@
           "
         >
           <fa-icon
+            id="addRealmBtn"
             class="realmBtn"
             [icon]="faPlus"
             (click)="dataService.addRealm()"
