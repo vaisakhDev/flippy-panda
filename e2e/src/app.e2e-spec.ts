@@ -16,8 +16,10 @@ describe('workspace-project App', () => {
   })
 
   it('🪐 should add a Realm', () => {
-    page.navigateTo()
     page.getAddRealmBtn().click()
+    page.getRealmSelectionInitiatorBtn().click()
+    expect(page.getRealmFromPicklistBtns().count()).toBe(1)
+    page.navigateTo()
     page.getRealmSelectionInitiatorBtn().click()
     expect(page.getRealmFromPicklistBtns().count()).toBe(1)
   })
@@ -26,12 +28,21 @@ describe('workspace-project App', () => {
     page.navigateTo()
     page.getAddDeckBtn().click()
     expect(page.getDeckFromPicklistBtns().count()).toBe(1)
+    page.navigateTo()
+    expect(page.getDeckFromPicklistBtns().count()).toBe(1)
   })
 
   it('🎴 should add a Card', () => {
     page.getLeftInputFromDeckPage().sendKeys('text on the top-side (left)')
     page.getRightInputFromDeckPage().sendKeys('text on the bottom-side (right)')
     page.getAddCardBtn().click()
+    expect(page.getMatRows().count()).toBe(1)
+    expect(page.getTextFromMatCells()).toEqual([
+      '🎴',
+      'text on the top-side (left)',
+      'text on the bottom-side (right)',
+      '',
+    ])
     page.navigateTo()
     expect(page.getMatRows().count()).toBe(1)
     expect(page.getTextFromMatCells()).toEqual([
