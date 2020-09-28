@@ -28,6 +28,20 @@ describe('workspace-project App', () => {
     expect(page.getDeckFromPicklistBtns().count()).toBe(1)
   })
 
+  it('🎴 should add a Card', () => {
+    page.getLeftInputFromDeckPage().sendKeys('text on the top-side (left)')
+    page.getRightInputFromDeckPage().sendKeys('text on the bottom-side (right)')
+    page.getAddCardBtn().click()
+    page.navigateTo()
+    expect(page.getMatRows().count()).toBe(1)
+    expect(page.getTextFromMatCells()).toEqual([
+      '🎴',
+      'text on the top-side (left)',
+      'text on the bottom-side (right)',
+      '',
+    ])
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)

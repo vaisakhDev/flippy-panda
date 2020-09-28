@@ -9,6 +9,14 @@ export class AppPage {
     return element(by.css('#welcomeMsg')).getText() as Promise<string>
   }
 
+  getMatRows() {
+    return element.all(by.css('.mat-row'))
+  }
+
+  getTextFromMatCells() {
+    return element.all(by.css('.mat-cell')).getText() as Promise<string>
+  }
+
   // ----------
   // buttons
   // ----------
@@ -31,5 +39,21 @@ export class AppPage {
 
   getDeckFromPicklistBtns() {
     return element.all(by.css('.deckFromPicklistBtn'))
+  }
+
+  getAddCardBtn() {
+    return element(by.css('#addCardBtn'))
+  }
+
+  // ----------
+  // inputs
+  // ----------
+
+  getLeftInputFromDeckPage() {
+    return element(by.css('#mat-input-0'))
+  }
+
+  getRightInputFromDeckPage() {
+    return element(by.css('#mat-input-1'))
   }
 }
