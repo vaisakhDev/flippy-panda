@@ -9,6 +9,10 @@ export class AppPage {
     return element(by.css('#welcomeMsg')).getText() as Promise<string>
   }
 
+  getLocalStorageInfoText() {
+    return element(by.css('#bannerCard')).getText() as Promise<string>
+  }
+
   getMatRows() {
     return element.all(by.css('.mat-row'))
   }

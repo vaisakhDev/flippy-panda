@@ -15,6 +15,12 @@ describe('workspace-project App', () => {
     )
   })
 
+  it('💾 should show LocalStorage info', () => {
+    expect(page.getLocalStorageInfoText()).toEqual(
+      `This app uses Local Storage to persist data 💾\nOkay that's fine 😊`
+    )
+  })
+
   it('🪐 should add a Realm', () => {
     page.getAddRealmBtn().click()
     page.getRealmSelectionInitiatorBtn().click()
