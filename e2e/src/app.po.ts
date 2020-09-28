@@ -24,4 +24,12 @@ export class AppPage {
   getRealmFromPicklistBtns() {
     return element.all(by.css('.realmFromPicklistBtn'))
   }
+
+  getAddDeckBtn() {
+    return element(by.css('#addDeckBtn'))
+  }
+
+  getDeckFromPicklistBtns() {
+    return element.all(by.css('.deckFromPicklistBtn'))
+  }
 }

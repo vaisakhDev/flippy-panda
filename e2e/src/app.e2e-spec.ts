@@ -22,6 +22,12 @@ describe('workspace-project App', () => {
     expect(page.getRealmFromPicklistBtns().count()).toBe(1)
   })
 
+  it('🗃  should add a Deck', () => {
+    page.navigateTo()
+    page.getAddDeckBtn().click()
+    expect(page.getDeckFromPicklistBtns().count()).toBe(1)
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)

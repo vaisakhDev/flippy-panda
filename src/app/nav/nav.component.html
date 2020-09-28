@@ -59,7 +59,7 @@
         </div>
 
         <button
-          id="addBtn"
+          id="addDeckBtn"
           mat-flat-button
           color="accent"
           (click)="dataService.addDeck()"
@@ -69,6 +69,7 @@
         </button>
 
         <mat-button-toggle
+          class="deckFromPicklistBtn"
           *ngFor="let deck of dataService.getActiveRealm().decks"
           (click)="dataService.changeActiveDeck(deck.id)"
           mat-list-item
