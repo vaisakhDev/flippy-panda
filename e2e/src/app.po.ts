@@ -57,6 +57,10 @@ export class AppPage {
     return element(by.css('#addCardBtn'))
   }
 
+  getRemoveCardBtn() {
+    return element.all(by.css('.removeCardBtn'))
+  }
+
   // ----------
   // inputs
   // ----------

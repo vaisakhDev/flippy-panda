@@ -84,6 +84,13 @@ describe('workspace-project App', () => {
     ])
   })
 
+  it('🎴 should remove a Card', () => {
+    page.getRemoveCardBtn().get(1).click()
+    expect(page.getMatRows().count()).toBe(1)
+    page.navigateTo()
+    expect(page.getMatRows().count()).toBe(1)
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)
