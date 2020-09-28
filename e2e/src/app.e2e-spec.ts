@@ -42,8 +42,10 @@ describe('workspace-project App', () => {
     page.navigateTo()
     page.getAddDeckBtn().click()
     expect(page.getDeckFromPicklistBtns().count()).toBe(1)
+    expect(page.getDeckNames()).toEqual(['🗃 deck #1'])
     page.navigateTo()
     expect(page.getDeckFromPicklistBtns().count()).toBe(1)
+    expect(page.getDeckNames()).toEqual(['🗃 deck #1'])
   })
 
   it('🎴 should add a Card', () => {

@@ -25,6 +25,12 @@ export class AppPage {
     return element.all(by.css('.mat-cell')).getText() as Promise<string>
   }
 
+  getDeckNames() {
+    return element
+      .all(by.css('.mat-button-toggle-label-content'))
+      .getText() as Promise<string>
+  }
+
   // ----------
   // buttons
   // ----------
