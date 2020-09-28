@@ -47,22 +47,39 @@ describe('workspace-project App', () => {
   })
 
   it('🎴 should add a Card', () => {
-    page.getLeftInputFromDeckPage().sendKeys('text on the top-side (left)')
-    page.getRightInputFromDeckPage().sendKeys('text on the bottom-side (right)')
+    page.getLeftInputFromDeckPage().sendKeys('text on the left')
+    page.getRightInputFromDeckPage().sendKeys('text on the right')
     page.getAddCardBtn().click()
     expect(page.getMatRows().count()).toBe(1)
     expect(page.getTextFromMatCells()).toEqual([
       '🎴',
-      'text on the top-side (left)',
-      'text on the bottom-side (right)',
+      'text on the left',
+      'text on the right',
       '',
     ])
     page.navigateTo()
     expect(page.getMatRows().count()).toBe(1)
     expect(page.getTextFromMatCells()).toEqual([
       '🎴',
-      'text on the top-side (left)',
-      'text on the bottom-side (right)',
+      'text on the left',
+      'text on the right',
+      '',
+    ])
+  })
+
+  it('🎴 should add a second Card', () => {
+    page.getLeftInputFromDeckPage().sendKeys('second text on the left')
+    page.getRightInputFromDeckPage().sendKeys('second text on the right')
+    page.getAddCardBtn().click()
+    expect(page.getMatRows().count()).toBe(2)
+    expect(page.getTextFromMatCells()).toEqual([
+      '🎴',
+      'text on the left',
+      'text on the right',
+      '',
+      '🎴',
+      'second text on the left',
+      'second text on the right',
       '',
     ])
   })
