@@ -110,7 +110,9 @@
     </mat-toolbar>
     <mat-card id="bannerCard" *ngIf="data.banner">
       <p>This app uses Local Storage to persist data 💾</p>
-      <button mat-button (click)="closeBanner()">Okay that's fine 😊</button>
+      <button id="closeLocalStorageInfoBtn" mat-button (click)="closeBanner()">
+        Okay that's fine 😊
+      </button>
     </mat-card>
 
     <!-- main area -->

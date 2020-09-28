@@ -9,6 +9,10 @@ export class AppPage {
     return element(by.css('#welcomeMsg')).getText() as Promise<string>
   }
 
+  getLocalStorageInfo() {
+    return element(by.css('#bannerCard'))
+  }
+
   getLocalStorageInfoText() {
     return element(by.css('#bannerCard')).getText() as Promise<string>
   }
@@ -24,6 +28,10 @@ export class AppPage {
   // ----------
   // buttons
   // ----------
+
+  getCloseLocalStorageInfoBtn() {
+    return element(by.css('#closeLocalStorageInfoBtn'))
+  }
 
   getAddRealmBtn() {
     return element(by.css('#addRealmBtn'))

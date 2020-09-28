@@ -21,6 +21,14 @@ describe('workspace-project App', () => {
     )
   })
 
+  it('💾 should close LocalStorage info', () => {
+    expect(page.getLocalStorageInfo().isPresent()).toBe(true)
+    page.getCloseLocalStorageInfoBtn().click()
+    expect(page.getLocalStorageInfo().isPresent()).toBe(false)
+    page.navigateTo()
+    expect(page.getLocalStorageInfo().isPresent()).toBe(false)
+  })
+
   it('🪐 should add a Realm', () => {
     page.getAddRealmBtn().click()
     page.getRealmSelectionInitiatorBtn().click()
