@@ -35,6 +35,10 @@ export class AppPage {
     return element(by.css('#deckName')).getText() as Promise<string>
   }
 
+  getActiveRealmName() {
+    return element(by.css('#mat-select-value-1')).getText() as Promise<string>
+  }
+
   // ----------
   // buttons
   // ----------

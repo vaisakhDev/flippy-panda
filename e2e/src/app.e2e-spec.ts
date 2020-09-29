@@ -93,7 +93,7 @@ describe('workspace-project App', () => {
     expect(page.getMatRows().count()).toBe(1)
   })
 
-  it('🗃 should add a second Deck', () => {
+  it('🗃  should add a second Deck', () => {
     page.getAddDeckBtn().click()
     expect(page.getDeckFromPicklistBtns().count()).toBe(2)
     expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #2'])
@@ -102,7 +102,7 @@ describe('workspace-project App', () => {
     expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #2'])
   })
 
-  it('🗃 should rename the second Deck', () => {
+  it('🗃  should rename the second Deck', () => {
     page.getRenameDeckBtn().click()
     page.getNewNameInput().sendKeys('2\n')
     expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #22'])
@@ -136,6 +136,20 @@ describe('workspace-project App', () => {
     expect(page.getActiveDeckTitle()).toEqual('🗃 deck #1')
     page.navigateTo()
     expect(page.getActiveDeckTitle()).toEqual('🗃 deck #1')
+  })
+
+  it('🎴 should add a second Realm', () => {
+    page.getAddRealmBtn().click()
+    page.getRealmSelectionInitiatorBtn().click()
+    expect(page.getActiveRealmName()).toEqual('🪐 Realm #2')
+    expect(page.getRealmFromPicklistBtns().count()).toBe(2)
+    expect(page.getDeckNames()).toEqual([])
+
+    page.navigateTo()
+    page.getRealmSelectionInitiatorBtn().click()
+    expect(page.getActiveRealmName()).toEqual('🪐 Realm #2')
+    expect(page.getRealmFromPicklistBtns().count()).toBe(2)
+    expect(page.getDeckNames()).toEqual([])
   })
 
   afterEach(async () => {
