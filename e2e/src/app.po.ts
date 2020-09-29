@@ -67,6 +67,10 @@ export class AppPage {
     return element.all(by.css('.removeCardBtn'))
   }
 
+  getRenameDeckBtn() {
+    return element.all(by.css('#renameDeckBtn'))
+  }
+
   // ----------
   // inputs
   // ----------
@@ -77,5 +81,9 @@ export class AppPage {
 
   getRightInputFromDeckPage() {
     return element(by.css('#mat-input-1'))
+  }
+
+  getNewNameInput() {
+    return element(by.css('#newNameInput'))
   }
 }

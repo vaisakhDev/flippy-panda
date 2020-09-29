@@ -102,6 +102,14 @@ describe('workspace-project App', () => {
     expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #2'])
   })
 
+  it('🗃 should rename the second Deck', () => {
+    page.getRenameDeckBtn().click()
+    page.getNewNameInput().sendKeys('2\n')
+    expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #22'])
+    page.navigateTo()
+    expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #22'])
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)
