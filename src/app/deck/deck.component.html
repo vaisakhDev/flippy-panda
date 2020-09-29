@@ -5,7 +5,7 @@
     "
   >
     <mat-card id="deckInfoCard">
-      <mat-card-title *ngIf="dataService.getActiveDeck()">{{
+      <mat-card-title id="deckName" *ngIf="dataService.getActiveDeck()">{{
         dataService.getActiveDeck().name
       }}</mat-card-title>
       <fa-icon

@@ -31,6 +31,10 @@ export class AppPage {
       .getText() as Promise<string>
   }
 
+  getActiveDeckTitle() {
+    return element(by.css('#deckName')).getText() as Promise<string>
+  }
+
   // ----------
   // buttons
   // ----------
