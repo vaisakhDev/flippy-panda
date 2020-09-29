@@ -110,6 +110,27 @@ describe('workspace-project App', () => {
     expect(page.getDeckNames()).toEqual(['🗃 deck #1', '🗃 deck #22'])
   })
 
+  it('🎴 should add a Card to the second Deck', () => {
+    page.getLeftInputFromDeckPage().sendKeys('text on the left')
+    page.getRightInputFromDeckPage().sendKeys('text on the right')
+    page.getAddCardBtn().click()
+    expect(page.getMatRows().count()).toBe(1)
+    expect(page.getTextFromMatCells()).toEqual([
+      '🎴',
+      'text on the left',
+      'text on the right',
+      '',
+    ])
+    page.navigateTo()
+    expect(page.getMatRows().count()).toBe(1)
+    expect(page.getTextFromMatCells()).toEqual([
+      '🎴',
+      'text on the left',
+      'text on the right',
+      '',
+    ])
+  })
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)
