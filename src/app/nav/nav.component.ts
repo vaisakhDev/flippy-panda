@@ -55,5 +55,5 @@ export class NavComponent implements AfterViewInit {
     this.dialog.open(LoginComponent)
   }
 
-  closeBanner = () => this.dataService.updatedata({ banner: false })
+  closeBanner = () => this.dataService.setData({ banner: false })
 }

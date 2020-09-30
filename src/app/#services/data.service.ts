@@ -5,6 +5,8 @@ import { CardSide } from '../enums'
 import { Observable } from 'rxjs'
 import { User, Realm } from '../interfaces'
 
+const LS_ITEM_NAME = 'flippyPanda' // name of the localStorage item
+
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +34,15 @@ export class DataService {
     }
   }
 
+  createUniqueId = (): string => Guid.create().toString()
+
+  getData = () => this.data
+
+  setData(update: object) {
+    this.data = Object.assign(this.data, update)
+    localStorage.setItem(LS_ITEM_NAME, JSON.stringify(this.getData()))
+  }
+
   // ----------
   // REALMS 🪐
   // ----------
@@ -39,24 +50,23 @@ export class DataService {
   /**
    * Adds a new realm and returns it, together with a new list of realms.
    *
-   * @param realms - A list of realms
    * @returns The new realm and a updated list of realms
    */
-  addRealm(realms: Realm[] = this.data.realms): [Realm, Realm[]] {
-    const newId = this.createUniqueId()
-    const newRealm = {
-      id: newId,
-      name: `🪐 Realm #${realms.length + 1}`,
-      decks: [],
-      activeDeckId: undefined,
-    }
-    realms = [...realms, newRealm]
-    this.updatedata({
-      realms,
-      activeRealmId: newId,
+  addRealm(): [Realm, Realm[]] {
+    const realmId = this.createUniqueId()
+    this.setData({
+      realms: [
+        ...this.getRealms(),
+        {
+          id: realmId,
+          name: `🪐 Realm #${this.getRealms().length + 1}`,
+          decks: [],
+          activeDeckId: undefined,
+        },
+      ],
+      activeRealmId: realmId,
     })
-    this.updateLocalStorage()
-    return [newRealm, realms]
+    return [this.getRealm(realmId), this.getRealms()]
   }
 
   // todo: implement
@@ -79,11 +89,9 @@ export class DataService {
       realms: leftRealms,
     }
     const realmsCnt = leftRealms.length
-    this.data = {
-      ...this.data,
+    this.setData({
       activeRealmId: realmsCnt > 0 ? leftRealms[realmsCnt - 1].id : null,
-    }
-    this.updateLocalStorage()
+    })
     return leftRealms
   }
 
@@ -104,8 +112,13 @@ export class DataService {
   }
 
   changeRealm(activeRealmId: string) {
-    this.updatedata({ activeRealmId })
+    this.setData({ activeRealmId })
   }
+
+  getRealm = (id: String): Realm =>
+    this.data.realms.filter((realm) => realm.id === id)[0]
+
+  getRealms = (): Realm[] => this.data.realms
 
   // ----------
   // DECKS 🗃
@@ -133,7 +146,7 @@ export class DataService {
       (actRealm) => actRealm !== realm
     )
 
-    this.updatedata({
+    this.setData({
       realms: [
         ...otherRealms,
         {
@@ -150,7 +163,7 @@ export class DataService {
   updateActiveDeck(update: object, updateLocalStorage = true) {
     Object.assign(this.getActiveDeck(), update)
     if (updateLocalStorage) {
-      this.updateLocalStorage()
+      localStorage.setItem(LS_ITEM_NAME, JSON.stringify(this.getData()))
     }
   }
 
@@ -165,7 +178,7 @@ export class DataService {
     const activeDeckIdx = decks.findIndex((deck) => deck.id === activeDeckId)
     const leftDecks = decks.filter((deck) => deck.id !== activeDeckId)
 
-    this.updatedata({
+    this.setData({
       realms: realms.map((realm) => {
         if (realm.id === activeRealm.id) {
           if (decks.length === 1) {
@@ -193,7 +206,28 @@ export class DataService {
     return leftDecks
   }
 
-  getDeck = (id: String) =>
+  /**
+   * Removes a realm and returns the other realms.
+   *
+   * @param targetDeckId - The ID from the Deck you want to switch to
+   * @param realms - The ID from the Deck you want to switch to
+   * @returns A new list of realms without the passed realm
+   */
+  changeActiveDeck = (
+    targetDeckId: string,
+    realms: Realm[] = this.data.realms,
+    activeRealm: Realm = this.getActiveRealm()
+  ) => {
+    this.setData({
+      realms: realms.map((realm) => {
+        if (realm.id === activeRealm.id) {
+          return { ...realm, activeDeckId: targetDeckId }
+        } else return { ...realm }
+      }),
+    })
+  }
+
+  getDeck = (id: String): Deck =>
     this.data.realms
       .map((realm) => realm.decks.filter((deck) => deck.id === id))
       .map((arr) => (arr.length > 0 ? arr[0] : null))
@@ -223,39 +257,4 @@ export class DataService {
     const leftCards = activeDeck.cards.filter((e) => e.id !== id)
     this.updateActiveDeck({ cards: [...leftCards] })
   }
-
-  // ----------
-  // HELPERS 👷‍♂️
-  // ----------
-
-  /**
-   * Removes a realm and returns the other realms.
-   *
-   * @param targetDeckId - The ID from the Deck you want to switch to
-   * @param realms - The ID from the Deck you want to switch to
-   * @returns A new list of realms without the passed realm
-   */
-  changeActiveDeck = (
-    targetDeckId: string,
-    realms: Realm[] = this.data.realms,
-    activeRealm: Realm = this.getActiveRealm()
-  ) => {
-    this.updatedata({
-      realms: realms.map((realm) => {
-        if (realm.id === activeRealm.id) {
-          return { ...realm, activeDeckId: targetDeckId }
-        } else return { ...realm }
-      }),
-    })
-  }
-
-  updatedata(update: object) {
-    this.data = Object.assign(this.data, update)
-    this.updateLocalStorage()
-  }
-
-  updateLocalStorage = () =>
-    localStorage.setItem('flippyPanda', JSON.stringify(this.data))
-
-  createUniqueId = (): string => Guid.create().toString()
 }

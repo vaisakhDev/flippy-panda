@@ -27,7 +27,7 @@ export class RenameDeckDialogComponent {
     const newDecks = this.dataService
       .getActiveRealm()
       .decks.sort((a: Deck, b: Deck) => (a.name > b.name ? 1 : -1))
-    this.dataService.updatedata({
+    this.dataService.setData({
       ...this.dataService.data,
       realms: [
         ...otherRealms,
