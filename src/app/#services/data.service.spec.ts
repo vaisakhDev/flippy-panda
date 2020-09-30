@@ -9,7 +9,21 @@ describe('DataService', () => {
     })
   })
 
-  it('should be created', inject([DataService], (service: DataService) => {
-    expect(service).toBeTruthy()
+  it('🪐 should add a Realm', inject([DataService], (service: DataService) => {
+    let [realm, realms] = service.addRealm()
+    expect(realm).toEqual({
+      id: realm.id,
+      name: `🪐 Realm #1`,
+      decks: [],
+      activeDeckId: undefined,
+    })
+    expect(realms).toEqual([
+      {
+        id: realm.id,
+        name: `🪐 Realm #1`,
+        decks: [],
+        activeDeckId: undefined,
+      },
+    ])
   }))
 })
