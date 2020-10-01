@@ -50,16 +50,18 @@ export class DataService {
   /**
    * Adds a new realm and returns it, together with a new list of realms.
    *
+   * @param data - A Data object as template
    * @returns The new realm and a updated list of realms
    */
-  addRealm(): [Realm, Realm[]] {
+  addRealm(data: Data = this.data): [Realm, Realm[]] {
     const realmId = this.createUniqueId()
     this.setData({
+      ...data,
       realms: [
-        ...this.getRealms(),
+        ...this.data.realms,
         {
           id: realmId,
-          name: `🪐 Realm #${this.getRealms().length + 1}`,
+          name: `🪐 Realm #${data.realms.length + 1}`,
           decks: [],
           activeDeckId: undefined,
         },

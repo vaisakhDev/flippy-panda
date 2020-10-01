@@ -10,7 +10,11 @@ describe('DataService', () => {
   })
 
   it('🪐 should add a Realm', inject([DataService], (service: DataService) => {
-    let [realm, realms] = service.addRealm()
+    let [realm, realms] = service.addRealm({
+      realms: [],
+      activeRealmId: undefined,
+      banner: false,
+    })
     expect(realm).toEqual({
       id: realm.id,
       name: `🪐 Realm #1`,
