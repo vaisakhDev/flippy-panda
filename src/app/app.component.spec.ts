@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AppComponent } from './app.component'
-import { NavComponent } from './nav/nav.component'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import material from './app.material'
+
+import { AppComponent } from './app.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { NavComponent } from './nav/nav.component'
 
 describe('AppComponent', () => {
   let component: AppComponent
@@ -12,7 +14,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, NavComponent],
-      imports: [BrowserAnimationsModule, ...material],
+      imports: [BrowserAnimationsModule, FontAwesomeModule, ...material],
     }).compileComponents()
   }))
 
