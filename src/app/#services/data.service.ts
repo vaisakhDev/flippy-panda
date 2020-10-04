@@ -82,19 +82,17 @@ export class DataService {
    * @returns A new list of realms without the passed realm
    */
   removeRealm(
-    realm: Realm = this.getActiveRealm(),
-    realms: Realm[] = this.data.realms
+    id: String = this.getActiveRealm().id,
+    data: Data = this.data
   ): Realm[] {
-    const leftRealms = realms.filter((e) => e.id !== realm.id)
-    this.data = {
-      ...this.data,
-      realms: leftRealms,
-    }
+    const leftRealms = data.realms.filter((realm) => realm.id !== id)
     const realmsCnt = leftRealms.length
     this.setData({
+      ...data,
+      realms: leftRealms,
       activeRealmId: realmsCnt > 0 ? leftRealms[realmsCnt - 1].id : null,
     })
-    return leftRealms
+    return this.getData().realms
   }
 
   getActiveRealm(
@@ -117,8 +115,8 @@ export class DataService {
     this.setData({ activeRealmId })
   }
 
-  getRealm = (id: String): Realm =>
-    this.data.realms.filter((realm) => realm.id === id)[0]
+  getRealm = (id: String, data: Data = this.data): Realm =>
+    data.realms.filter((realm) => realm.id === id)[0]
 
   getRealms = (): Realm[] => this.data.realms
 
