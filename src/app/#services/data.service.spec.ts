@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing'
-
 import { DataService } from './data.service'
+import { Realm } from '../interfaces'
 
 describe('DataService', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('DataService', () => {
   }
 
   it('🪐 should add a Realm', inject([DataService], (service: DataService) => {
-    let [realm, realms] = service.addRealm(data_1)
+    let [realm, realms]: [Realm, Realm[]] = service.addRealm(data_1)
     expect(realm).toEqual({
       id: realm.id,
       name: `🪐 Realm #1`,
@@ -42,13 +42,13 @@ describe('DataService', () => {
   it('🪐 should remove a Realm', inject(
     [DataService],
     (service: DataService) => {
-      let realms = service.removeRealm('id', data_2)
+      let realms: Realm[] = service.removeRealm('id', data_2)
       expect(realms).toEqual([])
     }
   ))
 
   it('🪐 should get a Realm', inject([DataService], (service: DataService) => {
-    let realm = service.getRealm('id', data_2)
+    let realm: Realm = service.getRealm('id', data_2)
     expect(realm.id).toEqual('id')
   }))
 })
