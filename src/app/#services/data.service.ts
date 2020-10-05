@@ -44,7 +44,7 @@ export class DataService {
   }
 
   // ----------
-  // REALMS 🪐
+  // REALMS 🌌
   // ----------
 
   /**
@@ -61,7 +61,7 @@ export class DataService {
         ...this.data.realms,
         {
           id: realmId,
-          name: `🪐 Realm #${data.realms.length + 1}`,
+          name: `🌌 Realm #${data.realms.length + 1}`,
           decks: [],
           activeDeckId: undefined,
         },

@@ -11,7 +11,7 @@ describe('workspace-project App', () => {
   it('🤗 should display welcome message', () => {
     page.navigateTo()
     expect(page.getTitleText()).toEqual(
-      `Create a Realm 🪐\nThen a Deck 🗃\nThen Cards 🎴🎴🎴`
+      `Create a Realm 🌌\nThen a Deck 🗃\nThen Cards 🎴🎴🎴`
     )
   })
 
@@ -29,7 +29,7 @@ describe('workspace-project App', () => {
     expect(page.getLocalStorageInfo().isPresent()).toBe(false)
   })
 
-  it('🪐 should add a Realm', () => {
+  it('🌌 should add a Realm', () => {
     page.getAddRealmBtn().click()
     page.getRealmSelectionInitiatorBtn().click()
     expect(page.getRealmFromPicklistBtns().count()).toBe(1)
@@ -141,13 +141,13 @@ describe('workspace-project App', () => {
   it('🎴 should add a second Realm', () => {
     page.getAddRealmBtn().click()
     page.getRealmSelectionInitiatorBtn().click()
-    expect(page.getActiveRealmName()).toEqual('🪐 Realm #2')
+    expect(page.getActiveRealmName()).toEqual('🌌 Realm #2')
     expect(page.getRealmFromPicklistBtns().count()).toBe(2)
     expect(page.getDeckNames()).toEqual([])
 
     page.navigateTo()
     page.getRealmSelectionInitiatorBtn().click()
-    expect(page.getActiveRealmName()).toEqual('🪐 Realm #2')
+    expect(page.getActiveRealmName()).toEqual('🌌 Realm #2')
     expect(page.getRealmFromPicklistBtns().count()).toBe(2)
     expect(page.getDeckNames()).toEqual([])
   })
