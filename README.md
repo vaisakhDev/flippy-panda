@@ -31,12 +31,17 @@ Node.js and dependencies from [package.json](package.json).
 
 ### Setting up Dev
 
-After clicking on *fork* from the top right corner of this repository:
+First clone it and install dependencies:
 
 ```shell
 git clone git@github.com:TGotwig/flippy-panda.git
 cd flippy-panda
 npm i
+```
+
+Also click on _fork_ from the top right corner of this repository and run:
+
+```shell
 git remote add <your-github-name> git@github.com:<your-github-name>/flippy-panda.git
 ```
 
