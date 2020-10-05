@@ -95,10 +95,8 @@ export class DataService {
     return this.getData().realms
   }
 
-  getActiveRealm(
-    id: string = this.data.activeRealmId,
-    data: Data = this.data
-  ): Realm {
+  getActiveRealm(data: Data = this.getData()): Realm {
+    const id: string = data.activeRealmId
     if (data.realms.length > 0) {
       return data.realms.filter((realm) => realm.id === id)[0]
     } else {
