@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing'
 import { DataService } from './data.service'
-import { Realm } from '../interfaces'
+import { Realm, Deck } from '../interfaces'
 
 describe('DataService', () => {
   beforeEach(() => {
@@ -65,4 +65,32 @@ describe('DataService', () => {
       expect(realm.id).toEqual('id')
     }
   ))
+
+  it('🗃 should add a Deck', inject([DataService], (service: DataService) => {
+    let [newDeck, decks]: [Deck, Deck[]] = service.addDeck(data_3)
+    expect(newDeck).toEqual({
+      id: newDeck.id,
+      name: `🗃 deck #1`,
+      cards: [],
+    })
+    expect(decks).toEqual([
+      {
+        id: newDeck.id,
+        name: `🗃 deck #1`,
+        cards: [],
+      },
+    ])
+    expect(service.getData()).toEqual({
+      realms: [
+        { id: 'id', name: 'name', decks: [newDeck], activeDeckId: newDeck.id },
+      ],
+      activeRealmId: 'id',
+      banner: false,
+    })
+    expect(service.getData()).toEqual({
+      realms: [{ id: 'id', name: 'name', decks, activeDeckId: newDeck.id }],
+      activeRealmId: 'id',
+      banner: false,
+    })
+  }))
 })
