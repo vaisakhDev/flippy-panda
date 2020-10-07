@@ -58,7 +58,7 @@ export class DataService {
     this.setData({
       ...data,
       realms: [
-        ...this.data.realms,
+        ...data.realms,
         {
           id: realmId,
           name: `🌌 Realm #${data.realms.length + 1}`,
