@@ -52,6 +52,7 @@ export class PlayDialogComponent {
 
   flip = () => {
     gsap.from('#question', { rotationY: -180 })
+    gsap.from('.cardActionBtn', { pointerEvents: 'none', opacity: 0.5 })
     switch (this.cardSide) {
       case CardSide.top:
         this.cardSide = CardSide.bottom
