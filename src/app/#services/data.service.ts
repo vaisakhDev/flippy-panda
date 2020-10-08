@@ -153,11 +153,9 @@ export class DataService {
     return [newDeck, newDecks]
   }
 
-  updateActiveDeck(update: object, updateLocalStorage = true) {
-    Object.assign(this.getActiveDeck(), update)
-    if (updateLocalStorage) {
-      localStorage.setItem(LS_ITEM_NAME, JSON.stringify(this.getData()))
-    }
+  updateActiveDeck(update: Deck, data: Data = this.getData()) {
+    Object.assign(this.getActiveDeck(data), update)
+    localStorage.setItem(LS_ITEM_NAME, JSON.stringify(data))
   }
 
   removeDeck(
@@ -236,8 +234,9 @@ export class DataService {
   // CARDS 🎴
   // ----------
 
-  addCard(leftText: string, rightText: string) {
+  addCard(leftText: string, rightText: string, data: Data = this.getData()) {
     this.updateActiveDeck({
+      ...this.getActiveDeck(data),
       cards: [
         ...this.getActiveDeck().cards,
         {
@@ -249,9 +248,9 @@ export class DataService {
     })
   }
 
-  removeCard(id: string) {
-    const activeDeck = this.getActiveDeck()
+  removeCard(id: string, data: Data = this.getData()) {
+    const activeDeck = this.getActiveDeck(data)
     const leftCards = activeDeck.cards.filter((e) => e.id !== id)
-    this.updateActiveDeck({ cards: [...leftCards] })
+    this.updateActiveDeck({ ...activeDeck, cards: [...leftCards] })
   }
 }

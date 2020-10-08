@@ -17,7 +17,10 @@ export class RenameDeckDialogComponent {
       'newNameInput'
     ) as HTMLInputElement).value
 
-    this.dataService.updateActiveDeck({ name: newName })
+    this.dataService.updateActiveDeck({
+      ...this.dataService.getActiveDeck(),
+      name: newName,
+    })
 
     // sort decks
     const realm = this.dataService.getActiveRealm()
