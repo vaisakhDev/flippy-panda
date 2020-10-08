@@ -161,17 +161,20 @@ export class DataService {
   }
 
   removeDeck(
-    activeRealm: Realm = this.getActiveRealm(),
-    realms: Realm[] = this.data.realms
+    id: string = this.getActiveDeck(this.getData()).id,
+    data: Data = this.getData()
   ): Deck[] {
+    let activeRealm: Realm = this.getActiveRealm(data)
+    let realms: Realm[] = data.realms
+
     if (!activeRealm.decks.length) return []
 
-    const activeDeckId = activeRealm.activeDeckId
     const decks = activeRealm.decks
-    const activeDeckIdx = decks.findIndex((deck) => deck.id === activeDeckId)
-    const leftDecks = decks.filter((deck) => deck.id !== activeDeckId)
+    const activeDeckIdx = decks.findIndex((deck) => deck.id === id)
+    const leftDecks = decks.filter((deck) => deck.id !== id)
 
     this.setData({
+      ...data,
       realms: realms.map((realm) => {
         if (realm.id === activeRealm.id) {
           if (decks.length === 1) {

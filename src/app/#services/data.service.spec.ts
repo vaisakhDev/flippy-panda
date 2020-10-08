@@ -119,4 +119,9 @@ describe('DataService', () => {
       expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
     }
   ))
+
+  it('🗃 should remove a Deck', inject([DataService], (service: DataService) => {
+    let leftDecks: Deck[] = service.removeDeck('id', data_4)
+    expect(leftDecks.length).toEqual(0)
+  }))
 })
