@@ -220,8 +220,8 @@ export class DataService {
     })
   }
 
-  getDeck = (id: String): Deck =>
-    this.data.realms
+  getDeck = (id: String, data: Data = this.getData()): Deck =>
+    data.realms
       .map((realm) => realm.decks.filter((deck) => deck.id === id))
       .map((arr) => (arr.length > 0 ? arr[0] : null))
       .filter(Boolean)[0]

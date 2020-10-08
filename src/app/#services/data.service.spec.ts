@@ -27,6 +27,19 @@ describe('DataService', () => {
     banner: false,
   }
 
+  const data_4 = {
+    realms: [
+      {
+        id: 'id',
+        name: 'name',
+        decks: [{ id: 'id', name: 'name', cards: [] }],
+        activeDeckId: 'id',
+      },
+    ],
+    activeRealmId: 'id',
+    banner: false,
+  }
+
   it('🌌 should add a Realm', inject([DataService], (service: DataService) => {
     let [realm, realms]: [Realm, Realm[]] = service.addRealm(data_1)
     expect(realm).toEqual({
@@ -92,5 +105,10 @@ describe('DataService', () => {
       activeRealmId: 'id',
       banner: false,
     })
+  }))
+
+  it('🗃 should get a Deck', inject([DataService], (service: DataService) => {
+    let deck: Deck = service.getDeck('id', data_4)
+    expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
   }))
 })
