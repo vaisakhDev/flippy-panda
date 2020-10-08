@@ -226,7 +226,8 @@ export class DataService {
       .map((arr) => (arr.length > 0 ? arr[0] : null))
       .filter(Boolean)[0]
 
-  getActiveDeck = (): Deck => this.getDeck(this.getActiveRealm().activeDeckId)
+  getActiveDeck = (data: Data = this.getData()): Deck =>
+    this.getDeck(this.getActiveRealm(data).activeDeckId, data)
 
   // ----------
   // CARDS 🎴

@@ -111,4 +111,12 @@ describe('DataService', () => {
     let deck: Deck = service.getDeck('id', data_4)
     expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
   }))
+
+  it('🗃 should get active Deck', inject(
+    [DataService],
+    (service: DataService) => {
+      let deck: Deck = service.getActiveDeck(data_4)
+      expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
+    }
+  ))
 })
