@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Guid } from 'guid-typescript'
-import { Data, Deck } from '../interfaces'
+import { Data, Deck, Card } from '../interfaces'
 import { CardSide } from '../enums'
 import { Observable } from 'rxjs'
 import { User, Realm } from '../interfaces'
@@ -235,18 +235,34 @@ export class DataService {
   // CARDS 🎴
   // ----------
 
-  addCard(leftText: string, rightText: string, data: Data = this.getData()) {
-    this.updateActiveDeck({
-      ...this.getActiveDeck(data),
-      cards: [
-        ...this.getActiveDeck().cards,
-        {
-          id: this.createUniqueId(),
-          left: leftText,
-          right: rightText,
-        },
-      ],
+  addCard(
+    leftText: string,
+    rightText: string,
+    data: Data = this.getData()
+  ): Card {
+    const card = {
+      id: this.createUniqueId(),
+      left: leftText,
+      right: rightText,
+    }
+
+    this.setData({
+      ...data,
+      realms: data.realms.map((realm) => {
+        if (realm.id === this.getActiveRealm(data).id) {
+          return {
+            ...realm,
+            decks: realm.decks.map((deck) => {
+              if (deck.id === this.getActiveDeck(data).id) {
+                return { ...deck, cards: [...deck.cards, card] }
+              } else return deck
+            }),
+          }
+        } else return realm
+      }),
     })
+
+    return card
   }
 
   removeCard(id: string, data: Data = this.getData()) {
