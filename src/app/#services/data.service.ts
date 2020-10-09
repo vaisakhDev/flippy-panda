@@ -162,8 +162,8 @@ export class DataService {
     id: string = this.getActiveDeck(this.getData()).id,
     data: Data = this.getData()
   ): Deck[] {
-    let activeRealm: Realm = this.getActiveRealm(data)
-    let realms: Realm[] = data.realms
+    const activeRealm: Realm = this.getActiveRealm(data)
+    const realms: Realm[] = data.realms
 
     if (!activeRealm.decks.length) return []
 

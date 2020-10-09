@@ -41,7 +41,7 @@ describe('DataService', () => {
   }
 
   it('🌌 should add a Realm', inject([DataService], (service: DataService) => {
-    let [realm, realms]: [Realm, Realm[]] = service.addRealm(data_1)
+    const [realm, realms]: [Realm, Realm[]] = service.addRealm(data_1)
     expect(realm).toEqual({
       id: realm.id,
       name: `🌌 Realm #1`,
@@ -61,26 +61,26 @@ describe('DataService', () => {
   it('🌌 should remove a Realm', inject(
     [DataService],
     (service: DataService) => {
-      let realms: Realm[] = service.removeRealm('id', data_2)
+      const realms: Realm[] = service.removeRealm('id', data_2)
       expect(realms).toEqual([])
     }
   ))
 
   it('🌌 should get a Realm', inject([DataService], (service: DataService) => {
-    let realm: Realm = service.getRealm('id', data_2)
+    const realm: Realm = service.getRealm('id', data_2)
     expect(realm.id).toEqual('id')
   }))
 
   it('🌌 should get active Realm', inject(
     [DataService],
     (service: DataService) => {
-      let realm: Realm = service.getActiveRealm(data_3)
+      const realm: Realm = service.getActiveRealm(data_3)
       expect(realm.id).toEqual('id')
     }
   ))
 
   it('🗃 should add a Deck', inject([DataService], (service: DataService) => {
-    let [newDeck, decks]: [Deck, Deck[]] = service.addDeck(data_3)
+    const [newDeck, decks]: [Deck, Deck[]] = service.addDeck(data_3)
     expect(newDeck).toEqual({
       id: newDeck.id,
       name: `🗃 deck #1`,
@@ -108,20 +108,20 @@ describe('DataService', () => {
   }))
 
   it('🗃 should get a Deck', inject([DataService], (service: DataService) => {
-    let deck: Deck = service.getDeck('id', data_4)
+    const deck: Deck = service.getDeck('id', data_4)
     expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
   }))
 
   it('🗃 should get active Deck', inject(
     [DataService],
     (service: DataService) => {
-      let deck: Deck = service.getActiveDeck(data_4)
+      const deck: Deck = service.getActiveDeck(data_4)
       expect(deck).toEqual({ id: 'id', name: 'name', cards: [] })
     }
   ))
 
   it('🗃 should remove a Deck', inject([DataService], (service: DataService) => {
-    let leftDecks: Deck[] = service.removeDeck('id', data_4)
+    const leftDecks: Deck[] = service.removeDeck('id', data_4)
     expect(leftDecks.length).toEqual(0)
   }))
 
