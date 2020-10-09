@@ -38,8 +38,8 @@ export class DataService {
 
   getData = () => this.data
 
-  setData(update: object) {
-    this.data = Object.assign(this.data, update)
+  setData(data: Data) {
+    this.data = Object.assign(this.data, data)
     localStorage.setItem(LS_ITEM_NAME, JSON.stringify(this.getData()))
   }
 
@@ -110,7 +110,7 @@ export class DataService {
   }
 
   changeRealm(activeRealmId: string) {
-    this.setData({ activeRealmId })
+    this.setData({ ...this.getData(), activeRealmId })
   }
 
   getRealm = (id: String, data: Data = this.data): Realm =>
@@ -213,6 +213,7 @@ export class DataService {
     activeRealm: Realm = this.getActiveRealm()
   ) => {
     this.setData({
+      ...this.getData(),
       realms: realms.map((realm) => {
         if (realm.id === activeRealm.id) {
           return { ...realm, activeDeckId: targetDeckId }
