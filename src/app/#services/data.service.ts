@@ -265,9 +265,27 @@ export class DataService {
     return card
   }
 
-  removeCard(id: string, data: Data = this.getData()) {
+  removeCard(id: string, data: Data = this.getData()): Card[] {
+    const activeRealm = this.getActiveRealm(data)
     const activeDeck = this.getActiveDeck(data)
     const leftCards = activeDeck.cards.filter((e) => e.id !== id)
-    this.updateActiveDeck({ ...activeDeck, cards: [...leftCards] })
+
+    this.setData({
+      ...data,
+      realms: data.realms.map((realm) => {
+        if (realm.id === activeRealm.id) {
+          return {
+            ...realm,
+            decks: realm.decks.map((deck) => {
+              if (deck.id === activeDeck.id) {
+                return { ...deck, cards: leftCards }
+              } else return deck
+            }),
+          }
+        } else return realm
+      }),
+    })
+
+    return leftCards
   }
 }
