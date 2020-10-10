@@ -1,7 +1,6 @@
 export interface Data {
   readonly realms: Realm[]
   readonly activeRealmId: string
-  readonly banner: boolean
 }
 export interface Realm {
   readonly id: string

@@ -1,13 +1,11 @@
 export const dataWithNoRealms = {
   realms: [],
   activeRealmId: undefined,
-  banner: false,
 }
 
 export const dataWithOneRealm = {
   realms: [{ id: 'id', name: 'name', decks: [], activeDeckId: undefined }],
   activeRealmId: 'id',
-  banner: false,
 }
 
 export const dataWithNoCards = {
@@ -20,7 +18,6 @@ export const dataWithNoCards = {
     },
   ],
   activeRealmId: 'id',
-  banner: false,
 }
 
 export const dataWithOneCard = {
@@ -45,5 +42,4 @@ export const dataWithOneCard = {
     },
   ],
   activeRealmId: 'id',
-  banner: false,
 }

@@ -14,7 +14,6 @@ export class DataService {
   data: Data = {
     realms: [],
     activeRealmId: undefined,
-    banner: true,
   }
   chosenCardSide = CardSide.top
   user$: Observable<User>
@@ -29,7 +28,6 @@ export class DataService {
         ...lStorage,
         realms: [],
         activeRealmId: realmId,
-        banner: true,
       }
     }
   }

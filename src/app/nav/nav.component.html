@@ -110,7 +110,7 @@
         <!-- <div *ngIf="dataService.user$ | async; then loggedIn else login"></div> -->
       </div>
     </mat-toolbar>
-    <mat-card id="bannerCard" *ngIf="data.banner">
+    <mat-card id="bannerCard" *ngIf="!readLocalStorageValue()">
       <p>This app uses Local Storage to persist data 💾</p>
       <button id="closeLocalStorageInfoBtn" mat-button (click)="closeBanner()">
         Okay that's fine 😊

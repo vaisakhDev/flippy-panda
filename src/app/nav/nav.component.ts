@@ -55,5 +55,10 @@ export class NavComponent implements AfterViewInit {
     this.dialog.open(LoginComponent)
   }
 
-  closeBanner = () => this.dataService.setData({ ...this.dataService.getData(), banner: false })
+  readLocalStorageValue() {
+    return localStorage.getItem('flippyPanda')
+  }
+
+  closeBanner = () =>
+    this.dataService.setData({ ...this.dataService.getData() })
 }
