@@ -69,18 +69,13 @@ describe('DataService', () => {
         cards: [],
       },
     ])
-    expect(service.getData()).toEqual({
-      realms: [
-        { id: 'id', name: 'name', decks: [newDeck], activeDeckId: newDeck.id },
-      ],
-      activeRealmId: 'id',
-      banner: false,
-    })
-    expect(service.getData()).toEqual({
-      realms: [{ id: 'id', name: 'name', decks, activeDeckId: newDeck.id }],
-      activeRealmId: 'id',
-      banner: false,
-    })
+    expect(service.getData().realms[0].decks).toEqual([
+      {
+        id: newDeck.id,
+        name: `🗃 deck #1`,
+        cards: [],
+      },
+    ])
   }))
 
   it('🗃 should get a Deck', inject([DataService], (service: DataService) => {

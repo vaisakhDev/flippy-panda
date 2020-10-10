@@ -125,29 +125,28 @@ export class DataService {
   addDeck(data: Data = this.getData()): [newDeck: Deck, newDecks: Deck[]] {
     const actRealm: Realm = this.getActiveRealm(data)
     const decks: Deck[] = actRealm.decks
-    const newId = this.createUniqueId()
+    const id = this.createUniqueId()
+
     const newDeck = {
-      id: newId,
+      id: id,
       name: `🗃 deck #${decks.length + 1}`,
       cards: [],
     }
-
     const newDecks = [...decks, newDeck].sort((a: Deck, b: Deck) =>
       a.name > b.name ? 1 : -1
     )
 
-    const otherRealms = data.realms.filter((realm) => realm !== actRealm)
-
     this.setData({
       ...data,
-      realms: [
-        ...otherRealms,
-        {
-          ...actRealm,
-          decks: newDecks,
-          activeDeckId: newId,
-        },
-      ],
+      realms: data.realms.map((realm) => {
+        if (realm.id === actRealm.id) {
+          return {
+            ...realm,
+            decks: newDecks,
+            activeDeckId: id,
+          }
+        } else return realm
+      }),
     })
 
     return [newDeck, newDecks]
@@ -220,6 +219,10 @@ export class DataService {
         } else return { ...realm }
       }),
     })
+  }
+
+  getDecks(data: Data = this.getData()) {
+    return this.getActiveRealm(data).decks
   }
 
   getDeck = (id: String, data: Data = this.getData()): Deck =>
