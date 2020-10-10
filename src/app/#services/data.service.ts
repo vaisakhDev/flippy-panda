@@ -75,8 +75,8 @@ export class DataService {
   /**
    * Removes a realm and returns the other realms.
    *
-   * @param realm - The realm which should be removed
-   * @param realms - The list from which the realm should be removed
+   * @param id - The id of the realm which should be removed
+   * @param data - A Data object as template
    * @returns A new list of realms without the passed realm
    */
   removeRealm(
