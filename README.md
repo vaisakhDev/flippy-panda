@@ -55,6 +55,10 @@ We use [SemVer](http://semver.org) for versioning after finishing and tagging 1.
 
 There are some Jasmine and Protractor tests, which you can run by `make test` and `make run n2n`.
 
+## 🌟 Style guide
+
+This project uses [prettier](https://prettier.io/) together with [.prettierrc](.prettierrc) and an [Action](.github/workflows/prettier.yml) which automatically pushes a fix-commit when a previous push had issues with that. 🕵️‍♂️
+
 ## 📜 Licensing
 
 [MIT License with “Commons Clause”](LICENSE).
