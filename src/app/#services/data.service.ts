@@ -236,15 +236,23 @@ export class DataService {
   // CARDS 🎴
   // ----------
 
+  /**
+   * Adds a new card and returns it, together with a new list of cards.
+   *
+   * @param topSideText - The top-side-text of the new card
+   * @param bottomSideText - The bottom-side-text of the new card
+   * @param data - A Data object as template
+   * @returns The new card and a updated list of cards
+   */
   addCard(
-    leftText: string,
-    rightText: string,
+    topSideText: string,
+    bottomSideText: string,
     data: Data = this.getData()
   ): Card {
     const card = {
       id: this.createUniqueId(),
-      left: leftText,
-      right: rightText,
+      left: topSideText,
+      right: bottomSideText,
     }
 
     this.setData({
@@ -266,6 +274,13 @@ export class DataService {
     return card
   }
 
+  /**
+   * Removes a card and returns the other cards.
+   *
+   * @param id - The id of the card which should be removed
+   * @param data - A Data object as template
+   * @returns A new list of cards without the removed one
+   */
   removeCard(id: string, data: Data = this.getData()): Card[] {
     const activeRealm = this.getActiveRealm(data)
     const activeDeck = this.getActiveDeck(data)
