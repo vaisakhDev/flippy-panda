@@ -106,8 +106,6 @@
             </span>
           </a>
         </div>
-        <!-- todo: uncomment this later on -->
-        <!-- <div *ngIf="dataService.user$ | async; then loggedIn else login"></div> -->
       </div>
     </mat-toolbar>
     <mat-card id="bannerCard" *ngIf="!readLocalStorageValue()">
@@ -121,15 +119,3 @@
     <app-deck></app-deck>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!-- <ng-template #login>
-  <button id="signInBtn" mat-button (click)="openPlayOrderDialog()">Login <i class="fa fa-sign-in"></i></button>
-</ng-template>
-
-<ng-template #loggedIn>
-  <div *ngIf="dataService.user$ | async as user">
-    <button id="signOutBtn" mat-button (click)="openPlayOrderDialog()">{{user.displayName}}
-      <img ngxGravatar fallback='robohash' [email]="user.email" size="50" alt="🖼" mat-card-avatar>
-    </button>
-  </div>
-</ng-template> -->

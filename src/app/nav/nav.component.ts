@@ -3,18 +3,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { Observable } from 'rxjs'
 import { map, shareReplay } from 'rxjs/operators'
 import { DataService } from '../#services/data.service'
-// import { FirebaseService } from "../#services/firebase.service"
 import { Data } from '../interfaces'
-import { MatDialog } from '@angular/material/dialog'
-import { LoginComponent } from '../login/login.component'
 import {
   faCat,
   faPlus,
   faEdit,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
-import gsap from 'gsap'
-import { Realm } from '../interfaces'
 
 @Component({
   selector: 'app-nav',
@@ -24,8 +19,7 @@ import { Realm } from '../interfaces'
 export class NavComponent implements AfterViewInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public dataService: DataService,
-    public dialog: MatDialog // public fbService: FirebaseService
+    public dataService: DataService
   ) {
     this.data = dataService.data
   }
@@ -49,10 +43,6 @@ export class NavComponent implements AfterViewInit {
     //   })
     //   subscriber.unsubscribe()
     // })
-  }
-
-  openPlayOrderDialog = () => {
-    this.dialog.open(LoginComponent)
   }
 
   readLocalStorageValue() {
