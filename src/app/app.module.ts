@@ -1,34 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
-
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserModule } from '@angular/platform-browser'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { LayoutModule } from '@angular/cdk/layout'
+import { NgModule } from '@angular/core'
 
-import material from './app.material'
-
+import { DeckComponent } from './deck/deck.component'
 import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
-import { DeckComponent } from './deck/deck.component'
 import { RenameDeckDialogComponent } from './rename-deck-dialog/rename-deck-dialog.component'
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import material from './app.material'
 
 @NgModule({
   declarations: [
     AppComponent,
+    DeckComponent,
     NavComponent,
     PlayDialogComponent,
-    DeckComponent,
     RenameDeckDialogComponent,
   ],
   entryComponents: [PlayDialogComponent],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    FontAwesomeModule,
     LayoutModule,
     ...material,
-    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
