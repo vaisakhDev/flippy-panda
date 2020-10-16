@@ -16,7 +16,7 @@ import {
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
-export class NavComponent implements AfterViewInit {
+export class NavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public dataService: DataService
@@ -34,16 +34,6 @@ export class NavComponent implements AfterViewInit {
   faPlus = faPlus
   faEdit = faEdit
   faTimes = faTimes
-
-  ngAfterViewInit() {
-    // overlay animation
-    // const subscriber = this.dataService.user$.subscribe(() => {
-    //   gsap.to('#overlay', { opacity: 0, delay: 0.3 }).then(() => {
-    //     document.getElementById('overlay').remove()
-    //   })
-    //   subscriber.unsubscribe()
-    // })
-  }
 
   readLocalStorageValue() {
     return localStorage.getItem('flippyPanda')
