@@ -10,7 +10,9 @@ import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
 import { RenameDeckDialogComponent } from './rename-deck-dialog/rename-deck-dialog.component'
 
-import material from './app.material'
+import material from './app.material';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import material from './app.material'
     FontAwesomeModule,
     LayoutModule,
     ...material,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
