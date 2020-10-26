@@ -3,11 +3,11 @@ import { DataService } from '../#services/data.service'
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
-  selector: 'app-rename-deck-dialog',
-  templateUrl: './rename-deck-dialog.component.html',
-  styleUrls: ['./rename-deck-dialog.component.scss'],
+  selector: 'app-rename-dialog',
+  templateUrl: './rename-dialog.component.html',
+  styleUrls: ['./rename-dialog.component.scss'],
 })
-export class RenameDeckDialogComponent {
+export class RenameDialogComponent {
   constructor(
     public dataService: DataService,
     public dialog: MatDialog,

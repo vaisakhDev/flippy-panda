@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { RenameDeckDialogComponent } from './rename-deck-dialog.component'
+import { RenameDialogComponent } from './rename-dialog.component'
 
 describe('RenameDeckDialogComponent', () => {
-  let component: RenameDeckDialogComponent
-  let fixture: ComponentFixture<RenameDeckDialogComponent>
+  let component: RenameDialogComponent
+  let fixture: ComponentFixture<RenameDialogComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RenameDeckDialogComponent],
+      declarations: [RenameDialogComponent],
     }).compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RenameDeckDialogComponent)
+    fixture = TestBed.createComponent(RenameDialogComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

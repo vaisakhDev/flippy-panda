@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Data, Card } from '../interfaces'
 import { PlayDialogComponent } from '../play-dialog/play-dialog.component'
-import { RenameDeckDialogComponent } from '../rename-deck-dialog/rename-deck-dialog.component'
+import { RenameDialogComponent } from '../rename-dialog/rename-dialog.component'
 import { faPlayCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -57,7 +57,7 @@ export class DeckComponent {
   }
 
   openRenameDeckDialog = () =>
-    this.dialog.open(RenameDeckDialogComponent, {
+    this.dialog.open(RenameDialogComponent, {
       id: 'rename-deck-dialog',
       data: {
         placeholder: 'New deck-name ✍️',

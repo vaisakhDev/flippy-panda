@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core'
 import { DeckComponent } from './deck/deck.component'
 import { NavComponent } from './nav/nav.component'
 import { PlayDialogComponent } from './play-dialog/play-dialog.component'
-import { RenameDeckDialogComponent } from './rename-deck-dialog/rename-deck-dialog.component'
+import { RenameDialogComponent } from './rename-dialog/rename-dialog.component'
 
 import material from './app.material'
 import { ServiceWorkerModule } from '@angular/service-worker'
@@ -20,7 +20,7 @@ import { environment } from '../environments/environment'
     DeckComponent,
     NavComponent,
     PlayDialogComponent,
-    RenameDeckDialogComponent,
+    RenameDialogComponent,
   ],
   entryComponents: [PlayDialogComponent],
   imports: [
