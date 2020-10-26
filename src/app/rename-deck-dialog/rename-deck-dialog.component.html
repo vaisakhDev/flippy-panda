@@ -1,11 +1,11 @@
 <mat-dialog-actions align="end">
-  <form (submit)="renameDeck($event)">
+  <form (submit)="rename($event)">
     <mat-form-field class="example-full-width">
       <input
-        id="newNameInput"
+        id="newValue"
         matInput
-        placeholder="New name ✍️"
-        [value]="dataService.getActiveDeck().name"
+        [placeholder]="data.placeholder"
+        [value]="data.value"
         cdkFocusInitial
       />
     </mat-form-field>

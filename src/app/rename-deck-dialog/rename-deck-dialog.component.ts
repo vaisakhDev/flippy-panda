@@ -1,7 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { DataService } from '../#services/data.service'
-import { Deck } from '../interfaces'
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-rename-deck-dialog',
@@ -9,37 +8,21 @@ import { MatDialog } from '@angular/material/dialog'
   styleUrls: ['./rename-deck-dialog.component.scss'],
 })
 export class RenameDeckDialogComponent {
-  constructor(public dataService: DataService, public dialog: MatDialog) {}
+  constructor(
+    public dataService: DataService,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data
+  ) {}
 
-  renameDeck(event: Event) {
+  rename(event: Event) {
     event.preventDefault()
-    const newName = (document.getElementById(
-      'newNameInput'
-    ) as HTMLInputElement).value
 
-    this.dataService.updateActiveDeck({
-      ...this.dataService.getActiveDeck(),
-      name: newName,
-    })
+    const newName = (document.getElementById('newValue') as HTMLInputElement)
+      .value
 
-    // sort decks
-    const realm = this.dataService.getActiveRealm()
-    const otherRealms = this.dataService.data.realms.filter(
-      (actRealm) => actRealm !== realm
+    eval(
+      `this.dataService.${this.data.fun.name}(${Object.keys({ newName })[0]})`
     )
-    const newDecks = this.dataService
-      .getActiveRealm()
-      .decks.sort((a: Deck, b: Deck) => (a.name > b.name ? 1 : -1))
-    this.dataService.setData({
-      ...this.dataService.data,
-      realms: [
-        ...otherRealms,
-        {
-          ...realm,
-          decks: newDecks,
-        },
-      ],
-    })
 
     this.dialog.getDialogById('rename-deck-dialog').close([])
   }

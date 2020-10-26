@@ -91,7 +91,7 @@ export class AppPage {
     return element(by.css('#mat-input-1'))
   }
 
-  getNewNameInput() {
-    return element(by.css('#newNameInput'))
+  getNewValue() {
+    return element(by.css('#newValue'))
   }
 }

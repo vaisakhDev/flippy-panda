@@ -57,7 +57,14 @@ export class DeckComponent {
   }
 
   openRenameDeckDialog = () =>
-    this.dialog.open(RenameDeckDialogComponent, { id: 'rename-deck-dialog' })
+    this.dialog.open(RenameDeckDialogComponent, {
+      id: 'rename-deck-dialog',
+      data: {
+        placeholder: 'New deck-name ✍️',
+        value: this.dataService.getActiveDeck().name,
+        fun: this.dataService.renameDeck,
+      },
+    })
 
   removeDeck = () => this.dataService.removeDeck()
 
