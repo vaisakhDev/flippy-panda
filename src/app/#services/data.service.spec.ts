@@ -96,6 +96,13 @@ describe('DataService', () => {
     expect(leftDecks.length).toEqual(0)
   }))
 
+  it('🗃 should rename a Deck', inject([DataService], (service: DataService) => {
+    expect(service.getActiveDeck(dataWithNoCards).name).toEqual('name')
+    expect(service.renameDeck('na', dataWithNoCards).name).toEqual('na')
+
+    expect(service.getActiveDeck().name).toEqual('na')
+  }))
+
   it('🎴 should add a Card', inject([DataService], (service: DataService) => {
     const card: Card = service.addCard('left', 'right', dataWithNoCards)
     expect(card).toEqual({

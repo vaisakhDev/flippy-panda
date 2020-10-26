@@ -192,7 +192,6 @@ export class DataService {
     return leftDecks
   }
 
-  // todo: write a test
   renameDeck(newName: string, data: Data = this.getData()): Deck {
     const lastName = this.getActiveDeck(data).name
     const newDeck: Deck = {
