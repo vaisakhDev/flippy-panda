@@ -192,36 +192,33 @@ export class DataService {
     return leftDecks
   }
 
-  // todo: refactor and write a test
-  renameDeck(newName) {
-    this.updateActiveDeck({
-      ...this.getActiveDeck(),
+  // todo: write a test
+  renameDeck(newName: string, data: Data = this.getData()): Deck {
+    const lastName = this.getActiveDeck(data).name
+    const newDeck: Deck = {
+      ...this.getActiveDeck(data),
       name: newName,
-    })
+    }
 
-    // sort decks
-    const realm = this.getActiveRealm()
-    const otherRealms = this.data.realms.filter(
-      (actRealm) => actRealm !== realm
-    )
-    const newDecks = this.getActiveRealm().decks.sort((a: Deck, b: Deck) =>
-      a.name > b.name ? 1 : -1
-    )
     this.setData({
-      ...this.data,
+      ...data,
       realms: [
-        ...otherRealms,
+        ...data.realms.filter(
+          (actRealm) => actRealm !== this.getActiveRealm(data)
+        ),
         {
-          ...realm,
-          decks: newDecks,
+          ...this.getActiveRealm(data),
+          decks: [
+            ...this.getActiveRealm(data).decks.filter(
+              (deck) => deck.name !== lastName
+            ),
+            newDeck,
+          ].sort((a: Deck, b: Deck) => (a.name > b.name ? 1 : -1)),
         },
       ],
     })
-  }
 
-  updateActiveDeck(update: Deck, data: Data = this.getData()) {
-    Object.assign(this.getActiveDeck(data), update)
-    localStorage.setItem(LS_ITEM_NAME, JSON.stringify(data))
+    return newDeck
   }
 
   /**
