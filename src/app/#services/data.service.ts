@@ -93,7 +93,7 @@ export class DataService {
     return this.getData().realms
   }
 
-  getActiveRealm(data: Data = this.getData()): Realm {
+  getActiveRealm(data: Data = this.data): Realm {
     const id: string = data.activeRealmId
     if (data.realms.length > 0) {
       return data.realms.filter((realm) => realm.id === id)[0]
@@ -120,7 +120,7 @@ export class DataService {
   // DECKS 🗃
   // ----------
 
-  addDeck(data: Data = this.getData()): [newDeck: Deck, newDecks: Deck[]] {
+  addDeck(data: Data = this.data): [newDeck: Deck, newDecks: Deck[]] {
     const actRealm: Realm = this.getActiveRealm(data)
     const decks: Deck[] = actRealm.decks
     const id = this.createUniqueId()
@@ -152,7 +152,7 @@ export class DataService {
 
   removeDeck(
     id: string = this.getActiveDeck(this.getData()).id,
-    data: Data = this.getData()
+    data: Data = this.data
   ): Deck[] {
     const activeRealm: Realm = this.getActiveRealm(data)
     const realms: Realm[] = data.realms
@@ -192,7 +192,7 @@ export class DataService {
     return leftDecks
   }
 
-  renameDeck(newName: string, data: Data = this.getData()): Deck {
+  renameDeck(newName: string, data: Data = this.data): Deck {
     const lastName = this.getActiveDeck(data).name
     const newDeck: Deck = {
       ...this.getActiveDeck(data),
@@ -242,11 +242,11 @@ export class DataService {
     })
   }
 
-  getDecks(data: Data = this.getData()) {
+  getDecks(data: Data = this.data) {
     return this.getActiveRealm(data).decks
   }
 
-  getDeck = (id: String, data: Data = this.getData()): Deck =>
+  getDeck = (id: String, data: Data = this.data): Deck =>
     data.realms
       .map((realm) => realm.decks.filter((deck) => deck.id === id))
       .map((arr) => (arr.length > 0 ? arr[0] : null))
@@ -270,7 +270,7 @@ export class DataService {
   addCard(
     topSideText: string,
     bottomSideText: string,
-    data: Data = this.getData()
+    data: Data = this.data
   ): Card {
     const card = {
       id: this.createUniqueId(),
@@ -304,7 +304,7 @@ export class DataService {
    * @param data - A Data object as template
    * @returns A new list of cards without the removed one
    */
-  removeCard(id: string, data: Data = this.getData()): Card[] {
+  removeCard(id: string, data: Data = this.data): Card[] {
     const activeRealm = this.getActiveRealm(data)
     const activeDeck = this.getActiveDeck(data)
     const leftCards = activeDeck.cards.filter((e) => e.id !== id)
