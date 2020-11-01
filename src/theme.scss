@@ -92,6 +92,10 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   #logo2 {
     color: #f7412d;
   }
+
+  #faCat:hover {
+    color: #f7412d;
+  }
 }
 
 @include mix-app-theme($app-theme);
