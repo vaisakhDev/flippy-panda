@@ -38,7 +38,9 @@ export class DeckComponent {
 
   openPlayDialog = () => {
     if (this.dataService.getActiveDeck().cards.length > 0) {
-      this.dialog.open(PlayDialogComponent)
+      this.dialog.open(PlayDialogComponent, {
+        backdropClass: 'backdrop',
+      })
     }
   }
 
