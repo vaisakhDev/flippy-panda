@@ -9,19 +9,20 @@
 </ng-template>
 
 <ng-template #play>
-  <div>
+  <div id="questionWrapper">
     <mat-card id="question" *ngIf="!finished">
-      {{actWord}}</mat-card>
+      {{actWord}}
+    </mat-card>
 
     <div *ngIf="finished">
-      <p>Positives: {{positives}} 😊</p>
-      <p>Negatives: {{negatives}} 😖</p>
+      <p>😊 Positives: {{positives}}</p>
+      <p>😖 Negatives: {{negatives}}</p>
     </div>
 
     <mat-dialog-actions align="end" *ngIf="!finished">
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(false)">Didn't know 😖</button>
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" cdkFocusInitial (click)="flip()">Flip 🎴</button>
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(true)">Knew it 😊</button>
+      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(false)">😖</button>
+      <button mat-button mat-raised-button color="accent" class="cardActionBtn" cdkFocusInitial (click)="flip()">💫</button>
+      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(true)">😊</button>
     </mat-dialog-actions>
   </div>
 </ng-template>

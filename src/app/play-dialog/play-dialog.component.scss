@@ -1,12 +1,42 @@
-#question {
-  width: 10rem;
-  height: 14rem;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-
 #cardSideBtns {
   display: flex;
   justify-content: space-evenly;
+}
+
+#questionWrapper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#question {
+  word-wrap: break-word;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  height: 70%;
+  font-size: clamp(12px, 5vw, 43px);
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  font-size: clamp(12px, 5vw, 43px);
+  height: 5rem;
+  width: 30%;
+}
+
+p {
+  text-align: center;
+  font-size: clamp(12px, 5vw, 43px);
+}
+
+@media only screen and (min-width: 800px) {
+  #questionWrapper {
+    width: 20rem;
+  }
 }
