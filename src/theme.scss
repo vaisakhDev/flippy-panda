@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 $app-primary: mat-palette($mat-yellow);
@@ -14,8 +15,9 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
     background-color: transparent;
     color: mat-color($primary, default-contrast);
   }
+
   .mat-button-toggle-checked {
-    background-color: mat-color($primary, A200);
+    background-color: mat-color($primary, 'A200');
   }
 
   .mat-card,
@@ -46,12 +48,18 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   }
 
   #question {
-    background-color: mat-color($primary, A200);
+    background: linear-gradient(
+      0deg,
+      rgb(249, 66, 6),
+      rgb(250, 134, 22),
+      rgb(251, 202, 37)
+    );
   }
 
   .mat-focused .mat-form-field-label {
     color: mat-color($primary, 900) !important;
   }
+
   .mat-form-field-ripple {
     background-color: mat-color($primary, 900) !important;
   }
@@ -74,21 +82,13 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
   }
 
   .fa-plus {
-    color: #ffff00;
-  }
-
-  #question {
-    background: linear-gradient(
-      0deg,
-      rgb(249, 66, 6),
-      rgb(250, 134, 22),
-      rgb(251, 202, 37)
-    );
+    color: #ff0;
   }
 
   #logo1 {
-    color: #ffff00;
+    color: #ff0;
   }
+
   #logo2 {
     color: #f7412d;
   }
