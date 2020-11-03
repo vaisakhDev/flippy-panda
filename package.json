@@ -7,6 +7,7 @@
     "build": "ng build",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
+    "lint:scss": "npx stylelint '**/*.scss'",
     "e2e": "ng e2e --port 4000",
     "deploy": "ng build --prod && npx firebase-tools deploy",
     "test:all": "npm test && npm run e2e"
