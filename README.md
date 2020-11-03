@@ -57,7 +57,8 @@ There are some Jasmine and Protractor tests, which you can run by `make test` an
 
 ## 🌟 Style guide
 
-This project uses [prettier](https://prettier.io/) together with [.prettierrc](.prettierrc) and an [Action](.github/workflows/prettier.yml) which automatically pushes a fix-commit when a previous push had issues with that. 🕵️‍♂️
+- [Prettier](https://prettier.io) 👉 [.prettierrc](.prettierrc)
+- [Stylelint](https://stylelint.io) 👉 [.stylelintrc.json](.stylelintrc.json)
 
 ## 📜 Licensing
 
