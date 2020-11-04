@@ -19,9 +19,6 @@ export class PlayDialogComponent {
   cardSides = CardSide
   finished = false
 
-  positives = 0
-  negatives = 0
-
   constructor(public dataService: DataService) {
     this.data = JSON.parse(
       JSON.stringify(this.dataService.getActiveDeck().cards)
@@ -65,11 +62,6 @@ export class PlayDialogComponent {
   }
 
   nextCard = (trueAnswer: boolean) => {
-    if (trueAnswer) {
-      this.positives++
-    } else {
-      this.negatives++
-    }
     if (this.chosenCardSide === CardSide.top) {
       this.cardSide = CardSide.top
     } else {
