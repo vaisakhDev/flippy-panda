@@ -66,6 +66,7 @@ export class PlayDialogComponent {
   }
 
   nextCard = (trueAnswer: boolean) => {
+    if (!trueAnswer) this.data = [this.actCard, ...this.data]
     if (this.chosenCardSide === CardSide.top) {
       this.cardSide = CardSide.top
     } else {
