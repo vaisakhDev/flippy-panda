@@ -24,6 +24,10 @@ export class PlayDialogComponent {
     public dataService: DataService,
     private dialogRef: MatDialogRef<PlayDialogComponent>
   ) {
+    this.init()
+  }
+
+  init() {
     this.data = JSON.parse(
       JSON.stringify(this.dataService.getActiveDeck().cards)
     )
@@ -84,6 +88,15 @@ export class PlayDialogComponent {
     } else {
       this.finished = true
     }
+  }
+
+  // ────────────────────────────
+
+  redo() {
+    this.init()
+
+    this.finished = false
+    this.cardSide = null
   }
 
   closeDialog = () => this.dialogRef.close()
