@@ -9,8 +9,8 @@
 </ng-template>
 
 <ng-template #play>
-  <div id="questionWrapper">
-    <mat-card id="question" *ngIf="!finished">
+  <div id="questionWrapper" *ngIf="!finished">
+    <mat-card id="question">
       {{actWord}}
     </mat-card>
 
@@ -19,5 +19,13 @@
       <button mat-button mat-raised-button color="accent" class="cardActionBtn" cdkFocusInitial (click)="flip()">💫</button>
       <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(true)">😊</button>
     </mat-dialog-actions>
+  </div>
+
+  <div id="endView" *ngIf="finished">
+    <img src="https://adventuresofclumsyrella.files.wordpress.com/2018/04/anime-thumbs-up-gif-25.gif?w=367" alt="thumbs up">
+
+    <div id="endViewBtns">
+      <button mat-raised-button color="accent" (click)="closeDialog()">❌ close</button>
+    </div>
   </div>
 </ng-template>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { Card } from '../interfaces'
 import { CardSide } from '../enums'
 import { DataService } from '../#services/data.service'
+import { MatDialogRef } from '@angular/material/dialog'
 import gsap from 'gsap'
 
 @Component({
@@ -19,7 +20,10 @@ export class PlayDialogComponent {
   cardSides = CardSide
   finished = false
 
-  constructor(public dataService: DataService) {
+  constructor(
+    public dataService: DataService,
+    private dialogRef: MatDialogRef<PlayDialogComponent>
+  ) {
     this.data = JSON.parse(
       JSON.stringify(this.dataService.getActiveDeck().cards)
     )
@@ -80,4 +84,6 @@ export class PlayDialogComponent {
       this.finished = true
     }
   }
+
+  closeDialog = () => this.dialogRef.close()
 }
