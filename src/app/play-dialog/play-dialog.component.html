@@ -1,32 +1,74 @@
-<div *ngIf="cardSide then play else columnSelection"></div>
+<div *ngIf="cardSide; then play; else columnSelection"></div>
 
 <ng-template #columnSelection>
   <p>In which order do you want to start with? 😃</p>
   <div id="cardSideBtns">
-    <button mat-raised-button color="accent" (click)="chooseSide(cardSides.top)">Top</button>
-    <button mat-raised-button color="accent" (click)="chooseSide(cardSides.bottom)">Bottom</button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="chooseSide(cardSides.top)"
+    >
+      Top
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="chooseSide(cardSides.bottom)"
+    >
+      Bottom
+    </button>
   </div>
 </ng-template>
 
 <ng-template #play>
   <div id="questionWrapper" *ngIf="!finished">
     <mat-card id="question">
-      {{actWord}}
+      {{ actWord }}
     </mat-card>
 
     <mat-dialog-actions align="end" *ngIf="!finished">
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(false)">😖</button>
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" cdkFocusInitial (click)="flip()">💫</button>
-      <button mat-button mat-raised-button color="accent" class="cardActionBtn" (click)="nextCard(true)">😊</button>
+      <button
+        mat-button
+        mat-raised-button
+        color="accent"
+        class="cardActionBtn"
+        (click)="nextCard(false)"
+      >
+        😖
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        color="accent"
+        class="cardActionBtn"
+        cdkFocusInitial
+        (click)="flip()"
+      >
+        💫
+      </button>
+      <button
+        mat-button
+        mat-raised-button
+        color="accent"
+        class="cardActionBtn"
+        (click)="nextCard(true)"
+      >
+        😊
+      </button>
     </mat-dialog-actions>
   </div>
 
   <div id="endView" *ngIf="finished">
-    <img src="https://adventuresofclumsyrella.files.wordpress.com/2018/04/anime-thumbs-up-gif-25.gif?w=367" alt="thumbs up">
+    <img
+      src="https://adventuresofclumsyrella.files.wordpress.com/2018/04/anime-thumbs-up-gif-25.gif?w=367"
+      alt="thumbs up"
+    />
 
     <div id="endViewBtns">
       <button mat-raised-button color="accent" (click)="redo()">💫 redo</button>
-      <button mat-raised-button color="accent" (click)="closeDialog()">❌ close</button>
+      <button mat-raised-button color="accent" (click)="closeDialog()">
+        ❌ close
+      </button>
     </div>
   </div>
 </ng-template>
