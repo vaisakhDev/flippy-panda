@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/nastyox/Rando.js#nastyox"><img src="img/panda.gif" alt="fusion gif" height="128"/></a></p>
+<p align="center"><a><img src="https://i.pinimg.com/originals/48/58/3e/48583e15356ec924d2d3c621e03d1e09.gif" alt="fusion gif" height="256"/></a></p>
 
 <h1 align="center">Flippy-Panda</h1>
 <p align="center">Angular based flashcards app.</p>
