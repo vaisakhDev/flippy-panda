@@ -1,4 +1,4 @@
-name: 🧪 Run stylelint, unit-tests & e2e-tests
+name: 🧪 Run unit-tests & e2e-tests
 
 on:
   push:
@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: 👕 Check scss files
-        run: npm i stylelint-config-standard && npm run lint:scss
       - name: ⬇️ Install npm dependencies
         run: npm i
       - name: 🧪 Run npm tests

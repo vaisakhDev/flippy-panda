@@ -1,4 +1,4 @@
-name: 🌟 Prettify
+name: 👕 Check linting of scss, js, ts, md files
 
 on:
   push:
@@ -12,7 +12,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: 👕 Prettify js, ts, md files
+      - name: 🟢 Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: 👕 Check scss files
+        run: npm i stylelint-config-standard && npm run lint:scss
+      - name: 👕 Check js, ts, md files
         uses: creyD/prettier_action@v2.2
         with:
           prettier_options: --write **/*.{js,ts,md}
