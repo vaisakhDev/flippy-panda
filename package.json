@@ -5,13 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:units": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "npm run lint:prettier && npm run lint:scss",
     "lint:prettier": "npx prettier --write '**/*.{html,ts}'",
     "lint:scss": "npx stylelint '**/*.scss'",
     "e2e": "ng e2e --port 4000",
     "deploy": "ng build --prod && npx firebase-tools deploy",
-    "test:all": "npm test && npm run e2e"
+    "test": "npm run test:units && npm run e2e"
   },
   "private": true,
   "dependencies": {
