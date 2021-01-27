@@ -6,11 +6,13 @@ describe('PlayDialogComponent', () => {
   let component: PlayDialogComponent
   let fixture: ComponentFixture<PlayDialogComponent>
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [PlayDialogComponent],
-    }).compileComponents()
-  }))
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [PlayDialogComponent],
+      }).compileComponents()
+    })
+  )
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlayDialogComponent)
