@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core'
 import { Guid } from 'guid-typescript'
 import { Data, Deck, Card } from '../interfaces'
 import { CardSide } from '../enums'
-import { Observable } from 'rxjs'
-import { User, Realm } from '../interfaces'
+import { Realm } from '../interfaces'
 
 const LS_ITEM_NAME = 'flippyPanda' // name of the localStorage item
 
@@ -16,7 +15,6 @@ export class DataService {
     activeRealmId: undefined,
   }
   chosenCardSide = CardSide.top
-  user$: Observable<User>
 
   constructor() {
     const lStorage = JSON.parse(localStorage.getItem('flippyPanda'))
