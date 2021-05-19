@@ -10,7 +10,8 @@
     "lint:prettier": "npx prettier --write '**/*.{html,ts}'",
     "lint:scss": "npx stylelint '**/*.scss'",
     "e2e": "ng e2e --port 4000",
-    "deploy": "ng build --prod && npx firebase-tools deploy",
+    "echoVsn": "node -pe \"require('./package.json').version\"",
+    "deploy": "ng deploy --base-href=/flippy-panda/ --message=\"🎉 $(npm run echoVsn --silent)\"",
     "test": "npm run test:units && npm run e2e"
   },
   "private": true,
@@ -44,6 +45,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.62",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
