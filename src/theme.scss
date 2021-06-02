@@ -79,11 +79,13 @@ $app-theme: mat.define-light-theme($app-primary, $app-accent);
 
   .mat-option {
     background: mat.get-color-from-palette($accent, 400);
+
     &:hover:not(.mat-option-disabled) {
       background: mat.get-color-from-palette($accent, hover);
     }
+
     &.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled) {
-      background: mat.get-color-from-palette($primary, A200);
+      background: mat.get-color-from-palette($primary, 'A200');
     }
   }
 
